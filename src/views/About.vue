@@ -1,5 +1,21 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+
+        <List />
+
+        <HelloWorld msg="Welcome to about page" />
+
   </div>
 </template>
+
+<script>
+import List from '@/components/List.vue';
+import HelloWorld from "@/components/HelloWorld.vue";
+
+export default {
+  components: {
+    List,
+    HelloWorld
+  }
+}
+</script>

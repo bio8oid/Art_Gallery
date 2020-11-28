@@ -1,4 +1,4 @@
-# dtt
+# vue/typescript-task
 
 ## Project setup
 ```
