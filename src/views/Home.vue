@@ -60,6 +60,7 @@ export default {
       loading: false,
       post: null,
       error: '',
+      key: 'iOQQBTgH'
     }
   },
 
@@ -67,7 +68,7 @@ export default {
     this.loading = true
     axios
       .get(
-        'https://www.rijksmuseum.nl/api/nl/collection?key=iOQQBTgH&ps=10&involvedMaker=Johannes%20Vermeer'
+        `https://www.rijksmuseum.nl/api/nl/collection?key=${this.key}&ps=10&involvedMaker=Johannes%20Vermeer`
       )
       .then((res) => {
         this.loading = false
