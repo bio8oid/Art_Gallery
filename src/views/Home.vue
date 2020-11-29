@@ -1,10 +1,13 @@
 <template>
   <div class="home">
+    <button @click="changeLanguage()">
+      {{ this.language === 'nl' ? 'EN' : 'NL' }}
+    </button>
+
     <img alt="Vue logo" src="../assets/logo.png" />
     <div id="app">
       <p v-if="loading">Loading...</p>
 
-      <!-- <p v-else>{{ post.artObjects }}</p> -->
       <div
         v-else
         style="display: flex; flex-direction: column; align-items: center"
@@ -25,14 +28,11 @@
             <h2>{{ item.principalOrFirstMaker }}</h2>
             <p>{{ item.title }}</p>
 
-            <!-- <a href="">details</a> -->
-            <!-- <router-link to="/details/:id">Details</router-link> -->
-
-            <router-link :to="{ name: 'Details', params: { id: item.objectNumber } }">
+            <router-link
+              :to="{ name: 'Details', params: { id: item.objectNumber } }"
+            >
               Details
             </router-link>
-
-            <!-- <p style="font-size: 12px">{{ item.id }}</p> -->
           </div>
 
           <img
@@ -60,15 +60,23 @@ export default {
       loading: false,
       post: null,
       error: '',
-      key: 'iOQQBTgH'
+      language: 'nl',
+      key: 'iOQQBTgH',
+      prefix: "https://cors-anywhere.herokuapp.com/"
     }
   },
 
-  created: function () {
-    this.loading = true
+  methods: {
+    changeLanguage() {
+      this.language === 'nl' ? (this.language = 'en') : (this.language = 'nl')
+      this.fetch()
+    },
+
+        fetch() {
+      this.loading = true
     axios
       .get(
-        `https://www.rijksmuseum.nl/api/nl/collection?key=${this.key}&ps=10&involvedMaker=Johannes%20Vermeer`
+       this.prefix + `https://www.rijksmuseum.nl/api/${this.language}/collection?key=${this.key}&ps=10&involvedMaker=Johannes%20Vermeer`
       )
       .then((res) => {
         this.loading = false
@@ -78,6 +86,12 @@ export default {
         this.loading = false
         this.error = err
       })
+    }
   },
-}
+
+  created: function () {
+          this.fetch()
+        }
+  }
+  
 </script>
