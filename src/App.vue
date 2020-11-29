@@ -17,13 +17,14 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 100px;
+  margin-top: 80px;
 }
 
 body {
   color: #c8c7e2;
   padding: 0;
   margin: 0;
+  background: #40474f;
   }
 
   *, *::before, *::after {
@@ -40,14 +41,25 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  background: #fff;
+  /* background: #fff; */
+  background: #202327;
+      /* color: #202327; */
+      box-shadow: 0 0 10px #000;
+
+      color: #96ffc2;
+  z-index: 3;
 
   a {
+      color: #96ffc2;
     font-weight: bold;
-    color: #2c3e50;
+    /* color: #2c3e50; */
+    text-decoration: none;
+    font-weight: 300;
+    padding: 0 10px;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #ffdc96;
+      /* color: #42b983; */
     }
   }
 }
