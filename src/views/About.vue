@@ -19,3 +19,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.about {
+  background: #fff;
+}
+</style>

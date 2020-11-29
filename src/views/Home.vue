@@ -2,9 +2,9 @@
   <div class="home">
     <img class="background" alt="Vue logo" src="../assets/background.jpg" />
 
-    <button class="language-button" @click="changeLanguage()">
+    <p class="language-button" @click="changeLanguage()">
       {{ this.language === 'nl' ? 'EN' : 'NL' }}
-    </button>
+    </p>
 
     <div id="app">
       <p v-if="loading">Loading...</p>
@@ -48,6 +48,7 @@ export default {
       language: 'nl',
       key: 'iOQQBTgH',
       prefix: 'https://cors-anywhere.herokuapp.com/',
+      relatedItems: [],
     }
   },
 
@@ -81,7 +82,6 @@ export default {
 </script>
 
 
-
 <style lang="scss">
 .background {
   width: 100%;
@@ -91,6 +91,14 @@ export default {
   position: fixed;
   top: 30px;
   right: 25px;
+  z-index: 3;
+  background: #2c3e50;
+  border-radius: 5px;
+  padding: 3px 5px;
+  margin: 0;
+  color: #ffdc96;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .records-container {
@@ -135,8 +143,10 @@ export default {
     }
   }
 
-  &:hover {
-    transform: scale(1.01);
+  @media not all and (hover: none) {
+    &:hover {
+      transform: scale(1.01);
+    }
   }
 
   .details-link {

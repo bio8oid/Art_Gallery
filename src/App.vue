@@ -4,11 +4,20 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/categories">Categories</router-link> |
-      <router-link to="/random">Random</router-link> 
+      <router-link to="/randomizer">Random</router-link>
     </div>
     <router-view />
+    <Footer />
   </div>
 </template>
+
+<script>
+import Footer from './components/Footer.vue'
+
+export default {
+  components: { Footer },
+}
+</script>
 
 <style lang="scss">
 #app {
@@ -25,15 +34,17 @@ body {
   padding: 0;
   margin: 0;
   background: #40474f;
-  }
+}
 
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-  
-    html {
-    box-sizing: border-box;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: border-box;
+}
 
 #nav {
   padding: 30px;
@@ -41,25 +52,20 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  /* background: #fff; */
-  background: #202327;
-      /* color: #202327; */
-      box-shadow: 0 0 10px #000;
-
-      color: #96ffc2;
-  z-index: 3;
+  background: #1a1a1e;
+  box-shadow: 0 0 10px #000;
+  color: #96ffc2;
+  z-index: 2;
 
   a {
-      color: #96ffc2;
+    color: #96ffc2;
     font-weight: bold;
-    /* color: #2c3e50; */
     text-decoration: none;
     font-weight: 300;
     padding: 0 10px;
 
     &.router-link-exact-active {
       color: #ffdc96;
-      /* color: #42b983; */
     }
   }
 }

@@ -1,33 +1,30 @@
 <template>
   <div class="details">
-    <!-- <h1>Welcome to Details - {{ $route.params.id }}</h1> -->
+    <p class="language-button" @click="changeLanguage()">
+      {{ this.language === 'nl' ? 'EN' : 'NL' }}
+    </p>
 
     <div id="app">
       <p v-if="loading">Loading...</p>
 
-      <div
-        v-else
-      >
+      <div v-else>
         <img
           style="width: 100%"
           v-bind:src="post.artObject.webImage.url"
           v-bind:alt="post.artObject.title"
         />
 
-        <h2>{{ post.artObject.title }}</h2>
-        <p>{{ post.dimentions }}</p>
-
-        <!-- <h3>{{ post.artObject.principalOrFirstMaker }}</h3> -->
-
-        <p>{{ post.artObject.label.makerLine }}</p>
-        <p>{{ post.artObject.subTitle }}</p>
-        <p>{{ post.artObject.label.description }}</p>
-
-        <button @click="changeLanguage()">
-          {{ this.language === 'nl' ? 'EN' : 'NL' }}
-        </button>
-
-        <!-- <p>{{ post }}</p> -->
+        <div class="record record-details">
+          <h2>{{ post.artObject.title }}</h2>
+          <h3 v-if="post.artObject.label.makerLine === null">
+            {{ post.artObject.principalOrFirstMaker }}
+          </h3>
+          <p>{{ post.artObject.label.makerLine }}</p>
+          <p>{{ post.artObject.subTitle }}</p>
+          <p class="record-description">
+            {{ post.artObject.label.description }}
+          </p>
+        </div>
 
         <p v-if="error">{{ error }}</p>
       </div>
@@ -37,7 +34,6 @@
 
 <script>
 import axios from 'axios'
-// import './Home'
 
 export default {
   data() {
@@ -80,6 +76,30 @@ export default {
 </script>
 
 <style lang="scss">
+.details {
+  min-height: 100vh;
+}
 
-/* https://www.rijksmuseum.nl/api/en/collection/$SK-A-2860?key=iOQQBTgH */
+.record-details {
+  width: 95%;
+  height: 100%;
+  padding: 50px;
+
+  h2 {
+    padding-bottom: 50px;
+  }
+
+  .record-description {
+    padding-top: 50px;
+    font-size: 17px;
+  }
+
+  @media not all and (hover: none) {
+    &:hover {
+      transform: scale(1);
+    }
+  }
+}
+
+/* https://www.rijksmuseum.nl/api/en/collection/SK-A-2860?key=iOQQBTgH */
 </style>
