@@ -1,5 +1,11 @@
 # vue/typescript-task
 
+[DEMO](https://a-r-t-gallery.netlify.app)
+
+
+
+
+
 ## Project setup
 ```
 yarn install
