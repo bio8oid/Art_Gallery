@@ -15,7 +15,7 @@
         />
 
         <span @click="getRandom()" class="random-button"
-          >GET RANDOM PAINTING</span
+          >GET RANDOM RECORD</span
         >
 
         <div class="record record-randomizer">

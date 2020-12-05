@@ -7,10 +7,23 @@
     </p>
 
     <div id="app">
+       <label for="categories"></label>
+    <select name="categories" id="categories" v-model="value" @change="sortByName(value)">
+      <optgroup label="Date">
+        <option value="oldest">from oldest</option>
+        <option value="newest">from newest</option>
+      </optgroup>
+      <optgroup label="Title">
+        <option value="a-z" >a-z</option>
+        <option value="z-a" >z-a</option>
+      </optgroup>
+    </select>
+
       <p v-if="loading">Loading...</p>
 
       <div v-else class="records-container">
-        <div class="record" v-for="item in post.artObjects" :key="item.id">
+
+        <div class="record" v-for="item in items" :key="item.id">
           <router-link
             class="details-link"
             :to="{ name: 'Details', params: { id: item.objectNumber } }"
@@ -48,6 +61,8 @@ export default {
       language: 'nl',
       key: 'iOQQBTgH',
       prefix: 'https://cors-anywhere.herokuapp.com/',
+      value: '',
+      items: [],
       relatedItems: [],
     }
   },
@@ -56,6 +71,20 @@ export default {
     changeLanguage() {
       this.language === 'nl' ? (this.language = 'en') : (this.language = 'nl')
       this.fetch()
+    },
+    sortByName(value) {
+      if (value === 'z-a') {
+        this.items = this.items.sort((a, b) => b.title.localeCompare(a.title))
+      }
+      if (value === 'a-z') {
+        this.items = this.items.sort((a, b) => a.title.localeCompare(b.title))
+      }
+      if (value === 'newest') {
+        this.items = this.items.sort((a, b) => b.longTitle.match(/\d{4}/) - a.longTitle.match(/\d{4}/) )
+      }
+      if (value === 'oldest') {
+        this.items = this.items.sort((a, b) => a.longTitle.match(/\d{4}/) - b.longTitle.match(/\d{4}/) )
+      }
     },
 
     fetch() {
@@ -67,6 +96,7 @@ export default {
         .then((res) => {
           this.loading = false
           this.post = res.data
+          this.items = this.post.artObjects
         })
         .catch((err) => {
           this.loading = false
