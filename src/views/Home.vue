@@ -7,23 +7,28 @@
     </p>
 
     <div id="app">
-       <label for="categories"></label>
-    <select name="categories" id="categories" v-model="value" @change="sortByName(value)">
-      <optgroup label="Date">
-        <option value="oldest">from oldest</option>
-        <option value="newest">from newest</option>
-      </optgroup>
-      <optgroup label="Title">
-        <option value="a-z" >a-z</option>
-        <option value="z-a" >z-a</option>
-      </optgroup>
-    </select>
+      <label for="categories"></label>
+      <select
+        name="categories"
+        id="categories"
+        v-model="value"
+        @change="sortByName(value)"
+      >
+        <option value="" disabled>sort by</option>
+        <optgroup label="Date">
+          <option value="oldest">from oldest</option>
+          <option value="newest">from newest</option>
+        </optgroup>
+        <optgroup label="Title">
+          <option value="a-z">a-z</option>
+          <option value="z-a">z-a</option>
+        </optgroup>
+      </select>
 
-      <p v-if="loading">Loading...</p>
+      <p v-if="this.loading">Loading...</p>
 
       <div v-else class="records-container">
-
-        <div class="record" v-for="item in items" :key="item.id">
+        <div class="record" v-for="item in this.items" :key="item.id">
           <router-link
             class="details-link"
             :to="{ name: 'Details', params: { id: item.objectNumber } }"
@@ -44,33 +49,59 @@
         </div>
       </div>
 
-      <p v-if="error">{{ error }}</p>
+      <p v-if="this.error">{{ error }}</p>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+// import store from '../store/index'
+// import axios from 'axios'
+
+// import {  mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   data() {
     return {
-      loading: false,
-      post: null,
-      error: '',
-      language: 'nl',
-      key: 'iOQQBTgH',
-      prefix: 'https://cors-anywhere.herokuapp.com/',
+      // loading: false,
+      post: this.$store.state.post,
+      // error: '',
+      loading: this.$store.state.loading,
+      // post: this.$store.state.post,
+      error: this.$store.state.error,
+      // language: 'nl',
+      language: this.$store.state.language,
+      // key: 'iOQQBTgH',
       value: '',
-      items: [],
-      relatedItems: [],
+      // items: [],
+      items: this.$store.state.items,
+      // getItems: this.$store.actions,
+      itemId: this.$store.state.itemId,
+      // itemsId : [],
+      // relatedItems: [],
     }
   },
 
+  // name: 'Home',
+  //   computed: {
+  //     ...mapGetters({
+  //       dataList: 'post',
+  //       loading: 'loading',
+  //       error: 'error'
+  //     })
+  //   },
+
   methods: {
+    ...mapActions({
+      fetchPost: 'fetchPost',
+    }),
+
     changeLanguage() {
       this.language === 'nl' ? (this.language = 'en') : (this.language = 'nl')
-      this.fetch()
+      // this.fetch()
+      this.fetchPost()
+      console.log('this.language:', this.language)
     },
     sortByName(value) {
       if (value === 'z-a') {
@@ -80,34 +111,72 @@ export default {
         this.items = this.items.sort((a, b) => a.title.localeCompare(b.title))
       }
       if (value === 'newest') {
-        this.items = this.items.sort((a, b) => b.longTitle.match(/\d{4}/) - a.longTitle.match(/\d{4}/) )
+        this.items = this.items.sort(
+          (a, b) => b.longTitle.match(/\d{4}/) - a.longTitle.match(/\d{4}/)
+        )
       }
       if (value === 'oldest') {
-        this.items = this.items.sort((a, b) => a.longTitle.match(/\d{4}/) - b.longTitle.match(/\d{4}/) )
+        this.items = this.items.sort(
+          (a, b) => a.longTitle.match(/\d{4}/) - b.longTitle.match(/\d{4}/)
+        )
       }
     },
 
-    fetch() {
-      this.loading = true
-      axios
-        .get(
-          `https://www.rijksmuseum.nl/api/${this.language}/collection?key=${this.key}&ps=10&involvedMaker=Johannes%20Vermeer`
-        )
-        .then((res) => {
-          this.loading = false
-          this.post = res.data
-          this.items = this.post.artObjects
-        })
-        .catch((err) => {
-          this.loading = false
-          this.error = err
-        })
-    },
+    // fetch() {
+    //   this.loading = true
+    //   axios
+    //     .get(
+    //       `https://www.rijksmuseum.nl/api/${this.language}/collection?key=${this.key}&ps=10&involvedMaker=Johannes%20Vermeer`
+    //     )
+    //     .then((res) => {
+    //       this.loading = false
+    //       this.post = res.data
+    //       this.items = this.post.artObjects
+    //       this.itemsId = this.items.map(x => x.objectNumber)
+    //     })
+    //     .catch((err) => {
+    //         this.loading = false
+    //       this.error = err
+    //       console.log(' this.error:',  this.error)
+    //     })
+    // },
   },
 
-  created: function () {
-    this.fetch()
+  created() {
+    this.fetchPost()
+    console.log('items:', this.$store.state.items)
   },
+  // updated() {
+  //   this.fetchPost()
+  //   console.log('items:', this.$store.state.items)
+  // },
+  // async created () {
+  //     try {
+  //       await this.fetchPost();
+  //       // success
+  //       console.log('success:')
+  //           console.log('items:', this.$store.state.items)
+
+  //     } catch (error) {
+  //       console.log('error:', error)
+  //       // error
+  //     }
+  // },
+
+  // created: function () {
+
+  // this.$store.fetchData();
+  // this.
+  // this.getItems
+  // this.$store.commit('fetch')
+  // store.dispatch('fetch')
+  // console.log('this.items:', this.$store.items)
+  // this.fetch()
+  // },
+
+  // computed: {
+
+  // }
 }
 </script>
 

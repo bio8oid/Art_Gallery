@@ -8,29 +8,7 @@
       <p v-if="loading">Loading...</p>
 
       <div v-else>
-        <img
-          style="width: 100%"
-          v-bind:src="post.artObjects[random].webImage.url"
-          v-bind:alt="post.artObjects[random].title"
-        />
-
-        <span @click="getRandom()" class="random-button"
-          >GET RANDOM RECORD</span
-        >
-
-        <div class="record record-randomizer">
-          <h2>{{ post.artObjects[random].title }}</h2>
-          <!-- <h3 v-if="post.artObjects[random].label.makerLine === null">
-            {{ post.artObjects[random].principalOrFirstMaker }}
-          </h3> -->
-          <!-- <p>{{ post.artObjects[random].label.makerLine }}</p> -->
-          <p>{{ post.artObjects[random].subTitle }}</p>
-          <p class="record-description">
-            <!-- {{ post.artObjects[random].label.description }} -->
-          </p>
-        </div>
-
-        <p v-if="error">{{ error }}</p>
+        
       </div>
     </div>
   </div>
@@ -42,13 +20,16 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      loading: false,
+       loading: false,
       post: null,
       error: '',
       language: 'nl',
       key: 'iOQQBTgH',
-      prefix: 'https://cors-anywhere.herokuapp.com/',
-      random: 0,
+      value: '',
+      // items: [],
+      // itemsId : [],
+      relatedItems: [],
+      random: 0, 
     }
   },
 
@@ -60,11 +41,15 @@ export default {
 
     getRandom() {
       this.random = Math.floor(Math.random() * (10 - 1) + 1)
+      console.log(this.items)
     },
 
     fetch() {
       this.loading = true
       axios
+        // .get(
+        //   `https://www.rijksmuseum.nl/api/${this.language}/collection/${this.itemsId[this.random]}?key=${this.key}`
+        // )
         .get(
           `https://www.rijksmuseum.nl/api/${this.language}/collection?key=${this.key}&ps=10&involvedMaker=Johannes%20Vermeer`
         )
