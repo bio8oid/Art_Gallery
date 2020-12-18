@@ -1,11 +1,12 @@
 <template>
   <div class="randomizer">
-    <p class="language-button" @click="changeLanguage()">
-      {{ this.language === 'nl' ? 'EN' : 'NL' }}
+    <p class="language-button" @click="this.changeLanguage()">
+      {{ this.$store.state.language === 'nl' ? 'EN' : 'NL' }}
+      <!-- {{ this.language === 'nl' ? 'EN' : 'NL' }} -->
     </p>
 
     <div id="app">
-      <p v-if="loading">Loading...</p>
+      <p v-if="this.$store.state.loading">Loading...</p>
 
       <div v-else>
         
@@ -15,58 +16,58 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   data() {
     return {
-       loading: false,
-      post: null,
-      error: '',
-      language: 'nl',
-      key: 'iOQQBTgH',
-      value: '',
+      //  loading: false,
+      // post: null,
+      // error: '',
+      // language: 'nl',
+      // key: 'iOQQBTgH',
+      // value: '',
       // items: [],
       // itemsId : [],
-      relatedItems: [],
+      // relatedItems: [],
       random: 0, 
     }
   },
 
   methods: {
-    changeLanguage() {
-      this.language === 'nl' ? (this.language = 'en') : (this.language = 'nl')
-      this.fetch()
-    },
+    // changeLanguage() {
+    //   this.language === 'nl' ? (this.language = 'en') : (this.language = 'nl')
+    //   this.fetch()
+    // },
 
     getRandom() {
       this.random = Math.floor(Math.random() * (10 - 1) + 1)
-      console.log(this.items)
+      // console.log(this.items)
     },
 
-    fetch() {
-      this.loading = true
-      axios
-        // .get(
-        //   `https://www.rijksmuseum.nl/api/${this.language}/collection/${this.itemsId[this.random]}?key=${this.key}`
-        // )
-        .get(
-          `https://www.rijksmuseum.nl/api/${this.language}/collection?key=${this.key}&ps=10&involvedMaker=Johannes%20Vermeer`
-        )
-        .then((res) => {
-          this.loading = false
-          this.post = res.data
-        })
-        .catch((err) => {
-          this.loading = false
-          this.error = err
-        })
-    },
+    // fetch() {
+    //   this.loading = true
+    //   axios
+    //     // .get(
+    //     //   `https://www.rijksmuseum.nl/api/${this.language}/collection/${this.itemsId[this.random]}?key=${this.key}`
+    //     // )
+    //     .get(
+    //       `https://www.rijksmuseum.nl/api/${this.language}/collection?key=${this.key}&ps=10&involvedMaker=Johannes%20Vermeer`
+    //     )
+    //     .then((res) => {
+    //       this.loading = false
+    //       this.post = res.data
+    //     })
+    //     .catch((err) => {
+    //       this.loading = false
+    //       this.error = err
+    //     })
+    // },
   },
 
   created: function () {
     this.getRandom()
-    this.fetch()
+    // this.fetch()
   },
 }
 </script>
