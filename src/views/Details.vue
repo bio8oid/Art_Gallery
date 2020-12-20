@@ -1,8 +1,10 @@
 <template>
   <div class="details">
-    <p class="language-button" @click="changeLanguage()">
+    <!-- <p class="language-button" @click="changeLanguage()">
       {{ this.$store.state.language === 'nl' ? 'EN' : 'NL' }}
-    </p>
+    </p> -->
+
+    <LanguageButton />
 
     <div id="app">
       <p v-if="this.$store.state.loading">Loading...</p>
@@ -18,11 +20,14 @@
 
 <script>
 import SingleItem from '@/components/SingleItem.vue'
+import LanguageButton from '@/components/LanguageButton.vue'
 import { mapActions } from 'vuex'
 
 export default {
+
   components: {
-    SingleItem
+    SingleItem,
+    LanguageButton
   },
 
   methods: {

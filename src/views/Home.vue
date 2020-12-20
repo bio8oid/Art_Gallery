@@ -2,9 +2,7 @@
   <div class="home">
     <img class="background" alt="Vue logo" src="../assets/background.jpg" />
 
-    <p class="language-button" @click="changeLanguage()">
-      {{ this.$store.state.language === 'nl' ? 'EN' : 'NL' }}
-    </p>
+    <LanguageButton />
 
     <div id="app">
       <label for="categories"></label>
@@ -64,7 +62,6 @@ import { mapActions } from 'vuex'
 export default {
   data() {
     return {
-      // url: `https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`,
       value: ''
     }
   },
@@ -74,11 +71,6 @@ export default {
     changeLanguage() {
       this.changeStoreLanguage()
       this.fetchContent(`https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`)
-      
-      // this.setItemsId()
-      // this.fetchContent(this.homeUrl)
-            // this.setItemsId()
-
     },
 
     sortByName(value) {
@@ -109,15 +101,8 @@ export default {
 
   async created() {
     try {
-      // const url = `https://www.rijksmuseum.nl/api/${this.state.language}/collection?key=${this.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`
-
-      // await this.fetchContent(this.homeUrl)
-
       await this.fetchContent(`https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`)
 
-      // this.setItems()
-      // this.setItemsId()
-            
     } catch (error) {
       console.log('error:', error)
     }
@@ -128,20 +113,6 @@ export default {
 <style lang="scss">
 .background {
   width: 100%;
-}
-
-.language-button {
-  position: fixed;
-  top: 30px;
-  right: 25px;
-  z-index: 3;
-  background: #2c3e50;
-  border-radius: 5px;
-  padding: 3px 5px;
-  margin: 0;
-  color: #ffdc96;
-  font-size: 16px;
-  cursor: pointer;
 }
 
 .records-container {
