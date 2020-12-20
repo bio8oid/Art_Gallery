@@ -74,7 +74,11 @@ export default {
     changeLanguage() {
       this.changeStoreLanguage()
       this.fetchContent(`https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`)
+      
+      // this.setItemsId()
       // this.fetchContent(this.homeUrl)
+            // this.setItemsId()
+
     },
 
     sortByName(value) {
@@ -100,7 +104,7 @@ export default {
       }
     },
 
-    ...mapActions(['fetchContent', 'changeStoreLanguage'])
+    ...mapActions(['fetchContent', 'changeStoreLanguage', 'setItemsId', 'setItems'])
   },
 
   async created() {
@@ -110,6 +114,9 @@ export default {
       // await this.fetchContent(this.homeUrl)
 
       await this.fetchContent(`https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`)
+
+      // this.setItems()
+      // this.setItemsId()
             
     } catch (error) {
       console.log('error:', error)

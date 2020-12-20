@@ -1,75 +1,79 @@
 <template>
-  <div class="randomizer">
-    <p class="language-button" @click="this.changeLanguage()">
+  <div class="details">
+
+    <p class="language-button" @click="changeLanguage()">
       {{ this.$store.state.language === 'nl' ? 'EN' : 'NL' }}
-      <!-- {{ this.language === 'nl' ? 'EN' : 'NL' }} -->
     </p>
 
     <div id="app">
+
       <p v-if="this.$store.state.loading">Loading...</p>
 
       <div v-else>
-        
+<SingleItem />
       </div>
+
+        <p v-if="this.$store.state.error">{{ error }}</p>
     </div>
+
   </div>
+
 </template>
 
 <script>
-// import axios from 'axios'
+import SingleItem from '@/components/SingleItem.vue'
+import { mapActions } from 'vuex'
+
 
 export default {
   data() {
     return {
-      //  loading: false,
-      // post: null,
-      // error: '',
-      // language: 'nl',
-      // key: 'iOQQBTgH',
-      // value: '',
-      // items: [],
-      // itemsId : [],
-      // relatedItems: [],
-      random: 0, 
+      random: JSON.parse(localStorage.getItem('random')) || 0
     }
   },
 
-  methods: {
-    // changeLanguage() {
-    //   this.language === 'nl' ? (this.language = 'en') : (this.language = 'nl')
-    //   this.fetch()
-    // },
+  components: {
+    SingleItem
+},
 
-    getRandom() {
+  methods: {
+
+    changeLanguage() {
+      // console.log('language:', this.$store.state.language)
+      this.changeStoreLanguage()
+      // console.log('this.url:', this.url)
+      this.fetchContent(`https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection/${this.$store.state.itemsId[this.random]}?key=${this.$store.state.key}`)
+      // this.fetchContent(this.url)
+    },
+
+        getRandom() {
       this.random = Math.floor(Math.random() * (10 - 1) + 1)
+      localStorage.setItem("random",JSON.stringify(this.random))
       // console.log(this.items)
     },
 
-    // fetch() {
-    //   this.loading = true
-    //   axios
-    //     // .get(
-    //     //   `https://www.rijksmuseum.nl/api/${this.language}/collection/${this.itemsId[this.random]}?key=${this.key}`
-    //     // )
-    //     .get(
-    //       `https://www.rijksmuseum.nl/api/${this.language}/collection?key=${this.key}&ps=10&involvedMaker=Johannes%20Vermeer`
-    //     )
-    //     .then((res) => {
-    //       this.loading = false
-    //       this.post = res.data
-    //     })
-    //     .catch((err) => {
-    //       this.loading = false
-    //       this.error = err
-    //     })
-    // },
-  },
+    ...mapActions(['fetchContent', 'changeStoreLanguage'])
+},
 
-  created: function () {
-    this.getRandom()
-    // this.fetch()
+async created() {
+
+    try {
+
+      await this.getRandom()
+  console.log('this.random:', this.random)
+  console.log('itemsIDs:', this.$store.state.itemsId)
+  console.log('this.randomID:', this.$store.state.itemsId[this.random])
+      // let url = `https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection/${this.$route.params.id}?key=${this.$store.state.key}`
+      // console.log('this.$route.params.id:', this.$route.params.id)
+
+      await this.fetchContent(`https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection/${this.$store.state.itemsId[this.random]}?key=${this.$store.state.key}`)
+
+    } catch (error) {
+      console.log('error:', error)
+    }
   },
 }
+
 </script>
 
 
@@ -94,6 +98,49 @@ export default {
   border-radius: 10px;
   cursor: pointer;
 }
-
 /* https://www.rijksmuseum.nl/api/en/collection?key=iOQQBTgH&ps=10&involvedMaker=Johannes%20Vermeer */
+
+/* <template>
+  <div class="randomizer">
+    <p class="language-button" @click="this.changeLanguage()">
+      {{ this.$store.state.language === 'nl' ? 'EN' : 'NL' }}
+    </p>
+
+    <div id="app">
+      <p v-if="this.$store.state.loading">Loading...</p>
+
+      <div v-else>
+        <SingleItem />
+      </div>
+      
+    </div>
+  </div>
+</template>
+
+<script>
+// import axios from 'axios'
+
+export default {
+  data() {
+    return {
+      random: 0, 
+    }
+  },
+
+  methods: {
+
+
+    getRandom() {
+      this.random = Math.floor(Math.random() * (10 - 1) + 1)
+      // console.log(this.items)
+    },
+  },
+
+  created: function () {
+    this.getRandom()
+    // this.fetch()
+  },
+}
+</script> */
+
 </style>
