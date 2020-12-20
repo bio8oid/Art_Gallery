@@ -28,7 +28,11 @@
       <p v-if="this.$store.state.loading">Loading...</p>
 
       <div v-else class="records-container">
-        <div class="record" v-for="item in this.$store.state.items" :key="item.id">
+        <div
+          class="record"
+          v-for="item in this.$store.state.items"
+          :key="item.id"
+        >
           <router-link
             class="details-link"
             :to="{ name: 'Details', params: { id: item.objectNumber } }"
@@ -50,67 +54,39 @@
       </div>
 
       <p v-if="this.$store.state.error">{{ error }}</p>
-      <!-- <p v-if="this.error">{{ error }}</p> -->
     </div>
   </div>
 </template>
 
 <script>
-// import store from '../store/index'
-// import axios from 'axios'
-
-// import {  mapActions, mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 
 export default {
   data() {
     return {
-      // post: this.$store.state.post,
-      // loading: this.$store.state.loading,
-      // error: this.$store.state.error,
-      // language: this.$store.state.language,
-      value: '',
-      // items: this.$store.state.items,
-      // itemId: this.$store.state.itemId,
+      // url: `https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`,
+      value: ''
     }
   },
-
-  computed: {
-    
-    // a computed getter
-    // reversedMessage: function () {
-    //   // `this` points to the vm instance
-    //   return this.message.split('').reverse().join('')
-    },
-
+  
   methods: {
+
     changeLanguage() {
-      // this.items = this.$store.state.items;
       this.changeStoreLanguage()
-
-      // this.$nextTick(  function() {
-      // this.changeStoreLanguage()
-      // })
-      // this.language === 'nl' ? (this.language = 'en') : (this.language = 'nl')
-      // this.fetch()
-      this.fetchPost()
-      // this.updateContent()
-      console.log('home.language:', this.$store.state.language)
+      this.fetchContent(`https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`)
+      // this.fetchContent(this.homeUrl)
     },
-
-    // async updateContent() {
-    //   // this.items = this.$store.state.items
-    //   await this.$nextTick(  function() {
-    //     this.items = this.$store.state.items
-    //   })
-    // },
 
     sortByName(value) {
       if (value === 'z-a') {
-        this.$store.state.items = this.$store.state.items.sort((a, b) => b.title.localeCompare(a.title))
+        this.$store.state.items = this.$store.state.items.sort((a, b) =>
+          b.title.localeCompare(a.title)
+        )
       }
       if (value === 'a-z') {
-        this.$store.state.items = this.$store.state.items.sort((a, b) => a.title.localeCompare(b.title))
+        this.$store.state.items = this.$store.state.items.sort((a, b) =>
+          a.title.localeCompare(b.title)
+        )
       }
       if (value === 'newest') {
         this.$store.state.items = this.$store.state.items.sort(
@@ -124,21 +100,23 @@ export default {
       }
     },
 
-    ...mapActions(['fetchPost','changeStoreLanguage']),
-
+    ...mapActions(['fetchContent', 'changeStoreLanguage'])
   },
 
-  async created () {
-      try {
-        await this.fetchPost();
-            console.log('items:', this.$store.state.items)
-      } catch (error) {
-        console.log('error:', error)
-      }
-  },
+  async created() {
+    try {
+      // const url = `https://www.rijksmuseum.nl/api/${this.state.language}/collection?key=${this.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`
+
+      // await this.fetchContent(this.homeUrl)
+
+      await this.fetchContent(`https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`)
+            
+    } catch (error) {
+      console.log('error:', error)
+    }
+  }
 }
 </script>
-
 
 <style lang="scss">
 .background {

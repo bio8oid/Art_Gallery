@@ -7,18 +7,28 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     loading: false,
-    post: JSON.parse(localStorage.getItem('post')) || null,
+    content:  null,
+    // content: JSON.parse(localStorage.getItem('content')) || null,
     error: '',
-    items: JSON.parse(localStorage.getItem('items')) || [],
-    itemsId: JSON.parse(localStorage.getItem('itemsId')) || [],
-    language: JSON.parse(localStorage.getItem('language')) || 'nl',
+    // items: JSON.parse(localStorage.getItem('items')) || [],
+    items: [],
+    itemsId: [],
+    // itemsId: JSON.parse(localStorage.getItem('itemsId')) || [],
+    language: 'nl',
+    // language: JSON.parse(localStorage.getItem('language')) || 'nl',
     key: 'iOQQBTgH',
-    prefix: 'https://cors-anywhere.herokuapp.com/'
+    // prefix: 'https://cors-anywhere.herokuapp.com/',
+    // url: `https://www.rijksmuseum.nl/`,
+
+    // homeUrl: `https://www.rijksmuseum.nl/api/${this.language}/collection?key=${this.key}&ps=10&involvedMaker=Johannes%20Vermeer`,
+
+    // detailsUrl: `https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection/${this.$route.params.id}?key=${this.$store.state.key}`,
+    // singleItemUrl: `api/${this.language}/collection/${this.$route.params.id}?key=${this.key}`
   },
 
   getters: {
     loading: state => state.loading,
-    post: state => state.post,
+    content: state => state.content,
     error: state => state.error,
     items: state => state.items,
     itemId: state => state.itemId,
@@ -31,11 +41,9 @@ export default new Vuex.Store({
       state.loading = status;
     },
 
-    SET_POST(state, post) {
-      state.post = post;
-      console.log('updated post:', post.artObjects[0].longTitle)
-
-      localStorage.setItem("post",JSON.stringify(state.post))
+    SET_CONTENT(state, content) {
+      state.content = content;
+      // localStorage.setItem("content",JSON.stringify(state.content))
     },
     
     SET_ERROR(state, err) {
@@ -44,48 +52,48 @@ export default new Vuex.Store({
 
     SET_ITEMS(state, items) {
       state.items = items;
-      localStorage.setItem("items",JSON.stringify(state.items))
+      // localStorage.setItem("items",JSON.stringify(state.items))
     },
     
     SET_ITEM_ID(state, itemId) {
       state.itemId = itemId;
-      localStorage.setItem("itemId",JSON.stringify(state.itemId))
+      // localStorage.setItem("itemId",JSON.stringify(state.itemId))
     },
 
     CHANGE_LANGUAGE(state, language) {
-      // state.language === 'nl' ? (state.language = 'en') : (state.language = 'nl')
       state.language = language;
-      localStorage.setItem("language", JSON.stringify(state.language))
-        // this.actions.fetchPost()
-        // dispatch('fetchPost')
-      // state.items = items;
-        console.log('store.language:', state.language)
+      // localStorage.setItem("language", JSON.stringify(state.language))
     },
-
-    // FETCH_DATA(store) {
-    //   store.actions.fetchPost()
-    // }
   },
 
   actions: {
    
     changeStoreLanguage(context) {
-      this.state.language === 'nl' ? (this.state.language = 'en') : (this.state.language = 'nl')
-      context.commit('CHANGE_LANGUAGE', this.state.language)
+      let language = ''
+      this.state.language === 'nl' ? language = 'en' : language = 'nl'
+      context.commit('CHANGE_LANGUAGE', language)
     },
-
-    fetchPost(context) {
+  
+    fetchContent(context, url) {
       context.commit('SET_LOADING_STATUS', true)
-      console.log('this.state.language:', this.state.language)
 
-      axios.get(`https://www.rijksmuseum.nl/api/${this.state.language}/collection?key=${this.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`)
+      // const params = {
+      //   answer: { toJSON: () => 42 },
+      //   time: moment('2016-06-01')
+      // };
+
+      // axios.get(`https://www.rijksmuseum.nl/api/${this.state.language}/collection?key=${this.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`)
+
+      axios.get(url)
+
+      // axios.get(`https://www.rijksmuseum.nl/api/${this.state.language}/collection?key=${this.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`)
 
       .then(res => {
         context.commit('SET_LOADING_STATUS', false)
-        context.commit('SET_POST', res.data)
+        context.commit('SET_CONTENT', res.data)
         console.log('res.data:', res.data)
         context.commit('SET_ITEMS', res.data.artObjects)
-        context.commit('SET_ITEM_ID', res.data.artObjects.map(x => x.objectNumber))
+        // context.commit('SET_ITEM_ID', res.data.artObjects.map(x => x.objectNumber))
       })
         .catch((err) => {
           context.commit('SET_LOADING_STATUS', false)
