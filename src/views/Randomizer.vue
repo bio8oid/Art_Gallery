@@ -59,7 +59,7 @@ async created() {
 
     try {
 
-      await this.getRandom()
+      this.getRandom()
   console.log('this.random:', this.random)
   console.log('itemsIDs:', this.$store.state.itemsId)
   console.log('this.randomID:', this.$store.state.itemsId[this.random])

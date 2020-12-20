@@ -7,12 +7,10 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     loading: false,
-    // content:  null,
     singleItem: JSON.parse(localStorage.getItem('single-item')) || null,
-    // content: JSON.parse(localStorage.getItem('content')) || null,
     error: '',
-    items: JSON.parse(localStorage.getItem('items')) || [],
-    // items: [],
+    // items: JSON.parse(localStorage.getItem('items')) || [],
+    items: [],
     // itemsId: [],
     itemsId: JSON.parse(localStorage.getItem('itemsId')) || [],
     // language: 'nl',
@@ -84,6 +82,11 @@ export default new Vuex.Store({
     //   localStorage.setItem("items",JSON.stringify(state.items))
     // },
     
+    SET_ITEMS_ID(state, itemsId) {
+      state.itemsId = itemsId;
+      localStorage.setItem("itemsId",JSON.stringify(state.itemsId))
+    },
+
     // SET_ITEMS_ID(state) {
     //   console.log('state.items:', state.items)
     //   state.itemsId = state.items.map(x => x.objectNumber);
@@ -136,9 +139,10 @@ export default new Vuex.Store({
       .then(res => {
         context.commit('SET_LOADING_STATUS', false)
 
-        if (res.data.artObject !== undefined) {
-          context.commit('SET_SINGLE_ITEM', res.data.artObject)
-        }
+        // if (res.data.artObject !== undefined) {
+        //   context.commit('SET_SINGLE_ITEM', res.data.artObject)
+        //   console.log('res.data.artObject:', res.data.artObject)
+        // }
 
         // context.commit('SET_CONTENT', res.data)
         // console.log('res.data:', res.data)
@@ -146,15 +150,22 @@ export default new Vuex.Store({
 
         if (res.data.artObjects !== undefined) {
           context.commit('SET_ITEMS', res.data.artObjects)
-          console.log('res.data.artObjects:', res.data.artObjects)
+          context.commit('SET_ITEMS_ID', res.data.artObjects.map(x => x.objectNumber))
+
+          console.log('ids:', res.data.artObjects.map(x => x.objectNumber))
+          console.log('items:', res.data.artObjects)
+        } else {
+          context.commit('SET_SINGLE_ITEM', res.data.artObject)
+          console.log('item:', res.data.artObject)
         }
 
         // console.log('res.data.artObject:', res.data.artObjects)
         // context.commit('SET_ITEMS_ID', res.data.artObjects.map(x => x.objectNumber))
 
-        if (this.state.itemsId.length === 0) {
-          context.commit('SET_ITEMS_ID', res.data.artObjects.map(x => x.objectNumber))
-        }
+        // if (res.data.artObjects !== undefined) {
+        // // if (this.state.itemsId.length === 0) {
+        //   context.commit('SET_ITEMS_ID', res.data.artObjects.map(x => x.objectNumber))
+        // }
 
         // context.commit('SET_ITEMS_ID', res.data.artObjects)
         // console.log('res.data.artObjects.map(x => x.objectNumber):', res.data.artObjects.map(x => x.objectNumber))
