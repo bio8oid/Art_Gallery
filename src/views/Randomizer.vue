@@ -1,14 +1,14 @@
 <template>
   <div class="details">
 
-    <LanguageButton />
+    <LanguageButton v-on:changeLanguage="changeLanguage()"/>
 
     <div id="app">
       <p v-if="this.$store.state.loading">Loading...</p>
 
       <div v-else>
         <SingleItem />
-        <div class="random-button">RANDOM</div>
+        <div class="random-button" @click="getRandom()">RANDOM</div>
       </div>
 
       <p v-if="this.$store.state.error">{{ error }}</p>
@@ -48,6 +48,13 @@ export default {
     getRandom() {
       this.random = Math.floor(Math.random() * (10 - 1) + 1)
       localStorage.setItem('random', JSON.stringify(this.random))
+      this.fetchContent(
+        `https://www.rijksmuseum.nl/api/${
+          this.$store.state.language
+        }/collection/${this.$store.state.itemsId[this.random]}?key=${
+          this.$store.state.key
+        }`
+      )
     },
 
     ...mapActions(['fetchContent', 'changeStoreLanguage'])

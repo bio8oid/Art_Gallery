@@ -1,10 +1,7 @@
 <template>
   <div class="details">
-    <!-- <p class="language-button" @click="changeLanguage()">
-      {{ this.$store.state.language === 'nl' ? 'EN' : 'NL' }}
-    </p> -->
 
-    <LanguageButton />
+    <LanguageButton v-on:changeLanguage="changeLanguage()"/>
 
     <div id="app">
       <p v-if="this.$store.state.loading">Loading...</p>
@@ -42,7 +39,6 @@ export default {
   },
 
   async created() {
-    // JSON.parse(localStorage.removeItem('content'))
 
     try {
       await this.fetchContent(

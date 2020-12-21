@@ -2,7 +2,7 @@
   <div class="home">
     <img class="background" alt="Vue logo" src="../assets/background.jpg" />
 
-    <LanguageButton />
+    <LanguageButton v-on:changeLanguage="changeLanguage()" />
 
     <div id="app">
       <label for="categories"></label>
@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import LanguageButton from '@/components/LanguageButton.vue'
 import { mapActions } from 'vuex'
 
 export default {
@@ -65,6 +66,11 @@ export default {
       value: ''
     }
   },
+
+    components: {
+    LanguageButton
+  },
+
   
   methods: {
 

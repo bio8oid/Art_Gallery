@@ -1,5 +1,5 @@
 <template>
-  <p class="language-button" @click="changeLanguage()">
+  <p class="language-button" @click="$emit('changeLanguage')">
     {{ this.$store.state.language === 'nl' ? 'EN' : 'NL' }}
   </p>
 </template>
