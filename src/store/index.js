@@ -2,16 +2,19 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from 'axios';
 
-Vue.use(Vuex);
+Vue.use(Vuex);  
 
 export default new Vuex.Store({
   state: {
     loading: false,
     error: '',
-    // items: JSON.parse(localStorage.getItem('items')) || [],
-    items: [],
-    singleItem: JSON.parse(localStorage.getItem('single-item')) || null,
-    itemsId: JSON.parse(localStorage.getItem('itemsId')) || [],
+    items: JSON.parse(localStorage.getItem('items')) || [],
+    // items: [],
+    relatedItems:  [],
+    // relatedItems: JSON.parse(localStorage.getItem('related-items')) || [],
+    singleItem:  [],
+    // singleItem: JSON.parse(localStorage.getItem('single-item')) || null,
+    itemsId: JSON.parse(localStorage.getItem('items-id')) || [],
     language: JSON.parse(localStorage.getItem('language')) || 'nl',
     key: 'iOQQBTgH',
   },
@@ -33,7 +36,7 @@ export default new Vuex.Store({
 
     SET_SINGLE_ITEM(state, singleItem) {
       state.singleItem = singleItem;
-      localStorage.setItem("singleItem",JSON.stringify(state.singleItem))
+      localStorage.setItem("single-item",JSON.stringify(state.singleItem))
     },
 
     SET_ERROR(state, err) {
@@ -47,12 +50,17 @@ export default new Vuex.Store({
     
     SET_ITEMS_ID(state, itemsId) {
       state.itemsId = itemsId;
-      localStorage.setItem("itemsId",JSON.stringify(state.itemsId))
+      localStorage.setItem("items-id",JSON.stringify(state.itemsId))
     },
 
     CHANGE_LANGUAGE(state, language) {
       state.language = language;
       localStorage.setItem("language", JSON.stringify(state.language))
+    },
+
+    RELATED_ITEMS(state, filtered) {
+      state.relatedItems = filtered;
+      localStorage.setItem("related-items", JSON.stringify(state.relatedItems))
     },
   },
 
@@ -62,6 +70,30 @@ export default new Vuex.Store({
       let language = ''
       this.state.language === 'nl' ? language = 'en' : language = 'nl'
       context.commit('CHANGE_LANGUAGE', language)
+    },
+     
+    getRelatedItems(context) {
+      let shuffeledItems = this.state.items.sort(() => Math.random() - 0.5);
+      console.log('shuffeledItems:', shuffeledItems)
+
+      let filtered = shuffeledItems.slice(0,3)
+      console.log('filtered:', filtered)
+      // let filtered=[];
+      // let indexes = []
+      // let record = 0;
+      // // console.log('filtered-before:', filtered)
+      // // console.log('record:', this.state.items.filter((y) => y === this.state.items[1]))
+      // while (record < 3) {
+      //   let index = Math.floor(Math.random() * (10 - 1) + 1);
+      //   let randomRecord = this.state.items.filter(x => x === this.state.items[index])
+      //   filtered = [ ...filtered, ...randomRecord ]
+      //   // this.random = Math.floor(Math.random() * (10 - 1) + 1)
+      //   console.log('index:', index)
+      //   record++;
+      // }
+      // console.log('filtered:', filtered)
+      // localStorage.setItem('related-items', JSON.stringify(filtered)) 
+      context.commit('RELATED_ITEMS', filtered)
     },
   
     fetchContent(context, url) {

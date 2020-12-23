@@ -48,6 +48,7 @@ export default {
     getRandom() {
       this.random = Math.floor(Math.random() * (10 - 1) + 1)
       localStorage.setItem('random', JSON.stringify(this.random))
+      
       this.fetchContent(
         `https://www.rijksmuseum.nl/api/${
           this.$store.state.language

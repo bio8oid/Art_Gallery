@@ -5,10 +5,11 @@
     <LanguageButton v-on:changeLanguage="changeLanguage()" />
 
     <div id="app">
-      <label for="categories"></label>
+
+      <label for="sort-by"></label>
       <select
-        name="categories"
-        id="categories"
+        name="sort-by"
+        id="sort-by"
         v-model="value"
         @change="sortByName(value)"
       >
@@ -26,12 +27,18 @@
       <p v-if="this.$store.state.loading">Loading...</p>
 
       <div v-else class="records-container">
-        <div
+
+        
+        <!-- <div
           class="record"
           v-for="item in this.$store.state.items"
           :key="item.id"
-        >
-          <router-link
+        >  -->
+
+        <Records v-bind:recordsData="this.$store.state.items"/>
+
+
+          <!-- <router-link
             class="details-link"
             :to="{ name: 'Details', params: { id: item.objectNumber } }"
           >
@@ -47,8 +54,10 @@
                 v-bind:alt="item.title"
               />
             </div>
-          </router-link>
-        </div>
+          </router-link> -->
+
+
+        <!-- </div>  -->
       </div>
 
       <p v-if="this.$store.state.error">{{ error }}</p>
@@ -58,6 +67,7 @@
 
 <script>
 import LanguageButton from '@/components/LanguageButton.vue'
+import Records from '@/components/Records.vue'
 import { mapActions } from 'vuex'
 
 export default {
@@ -68,7 +78,8 @@ export default {
   },
 
     components: {
-    LanguageButton
+    LanguageButton,
+    Records
   },
 
   
@@ -126,7 +137,7 @@ export default {
   flex-wrap: wrap;
 }
 
-.record {
+/* .record {
   box-shadow: 5px 5px 10px #202327;
   border-radius: 10px;
   width: 45%;
@@ -167,13 +178,13 @@ export default {
     &:hover {
       transform: scale(1.01);
     }
-  }
+  } 
 
   .details-link {
     text-decoration: none;
   }
-}
-
+}*/
+/* 
 @media (max-width: 1099px) {
   .record {
     width: 100%;
@@ -200,7 +211,7 @@ export default {
       }
     }
   }
-}
+} */
 
 /* https://www.rijksmuseum.nl/api/en/collection?key=iOQQBTgH&ps=10&involvedMaker=Johannes%20Vermeer */
 </style>
