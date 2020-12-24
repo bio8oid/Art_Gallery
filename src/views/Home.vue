@@ -5,7 +5,6 @@
     <LanguageButton v-on:changeLanguage="changeLanguage()" />
 
     <div id="app">
-
       <label for="sort-by"></label>
       <select
         name="sort-by"
@@ -27,37 +26,7 @@
       <p v-if="this.$store.state.loading">Loading...</p>
 
       <div v-else class="records-container">
-
-        
-        <!-- <div
-          class="record"
-          v-for="item in this.$store.state.items"
-          :key="item.id"
-        >  -->
-
-        <Records v-bind:recordsData="this.$store.state.items"/>
-
-
-          <!-- <router-link
-            class="details-link"
-            :to="{ name: 'Details', params: { id: item.objectNumber } }"
-          >
-            <div class="record-wrapper">
-              <div class="record-text">
-                <h2>{{ item.principalOrFirstMaker }}</h2>
-                <p>{{ item.title }}</p>
-              </div>
-              <img
-                class="record-image"
-                v-if="item.hasImage"
-                v-bind:src="item.webImage.url"
-                v-bind:alt="item.title"
-              />
-            </div>
-          </router-link> -->
-
-
-        <!-- </div>  -->
+        <Records v-bind:recordsData="this.$store.state.items" />
       </div>
 
       <p v-if="this.$store.state.error">{{ error }}</p>
@@ -77,17 +46,17 @@ export default {
     }
   },
 
-    components: {
+  components: {
     LanguageButton,
     Records
   },
 
-  
   methods: {
-
     changeLanguage() {
       this.changeStoreLanguage()
-      this.fetchContent(`https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`)
+      this.fetchContent(
+        `https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`
+      )
     },
 
     sortByName(value) {
@@ -113,13 +82,19 @@ export default {
       }
     },
 
-    ...mapActions(['fetchContent', 'changeStoreLanguage', 'setItemsId', 'setItems'])
+    ...mapActions([
+      'fetchContent',
+      'changeStoreLanguage',
+      'setItemsId',
+      'setItems'
+    ])
   },
 
   async created() {
     try {
-      await this.fetchContent(`https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`)
-
+      await this.fetchContent(
+        `https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`
+      )
     } catch (error) {
       console.log('error:', error)
     }
@@ -131,87 +106,5 @@ export default {
 .background {
   width: 100%;
 }
-
-.records-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-/* .record {
-  box-shadow: 5px 5px 10px #202327;
-  border-radius: 10px;
-  width: 45%;
-  height: 50vh;
-  margin: 2.5%;
-  background: #fff;
-  text-decoration: none;
-
-  .record-wrapper {
-    padding: 50px;
-    display: flex;
-    justify-content: space-between;
-    height: 50vh;
-
-    .record-text {
-      padding-right: 50px;
-      text-align: left;
-      color: #2c3e50;
-
-      h2 {
-        margin: 0;
-      }
-      p {
-        font-size: 16px;
-      }
-    }
-
-    .record-image {
-      height: 100%;
-      max-width: 50%;
-      border-radius: 10px;
-      border: 6px solid#2c3e50;
-      box-shadow: 0 0 5px #2c3e50;
-    }
-  }
-
-  @media not all and (hover: none) {
-    &:hover {
-      transform: scale(1.01);
-    }
-  } 
-
-  .details-link {
-    text-decoration: none;
-  }
-}*/
-/* 
-@media (max-width: 1099px) {
-  .record {
-    width: 100%;
-  }
-}
-
-@media (max-width: 579px) {
-  .record {
-    height: 100%;
-
-    .record-wrapper {
-      height: 100%;
-      flex-direction: column;
-      align-items: center;
-
-      .record-image {
-        max-height: 200px;
-        width: 100%;
-      }
-
-      .record-text {
-        padding: 0;
-        text-align: center;
-      }
-    }
-  }
-} */
-
 /* https://www.rijksmuseum.nl/api/en/collection?key=iOQQBTgH&ps=10&involvedMaker=Johannes%20Vermeer */
 </style>

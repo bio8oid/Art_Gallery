@@ -31,13 +31,14 @@ export default {
 
 <style lang="scss">
 .record-container {
-  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .record {
   box-shadow: 5px 5px 10px #202327;
   border-radius: 10px;
-  width: 95%;
+  width: 45%;
   height: 50vh;
   margin: 2.5%;
   background: #fff;
