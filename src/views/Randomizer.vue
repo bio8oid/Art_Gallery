@@ -63,18 +63,13 @@ export default {
 
   async created() {
     this.getRandom()
-
-    try {
-      await this.fetchContent(
+    this.fetchContent(
         `https://www.rijksmuseum.nl/api/${
           this.$store.state.language
         }/collection/${this.$store.state.itemsId[this.random]}?key=${
           this.$store.state.key
         }`
       )
-    } catch (error) {
-      console.log('error:', error)
-    }
   }
 }
 </script>

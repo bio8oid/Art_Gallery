@@ -90,7 +90,7 @@ export default {
 
 @media (max-width: 579px) {
     .record {
-        height: 100%;
+        /* height: 100%; */
 
         .record-wrapper {
             height: 100%;

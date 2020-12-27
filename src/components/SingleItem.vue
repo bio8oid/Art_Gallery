@@ -1,6 +1,7 @@
 <template>
   <div>
     <img
+      v-if="this.$store.state.singleItem.webImage !== null"
       style="width: 100%"
       v-bind:src="this.$store.state.singleItem.webImage.url"
       v-bind:alt="this.$store.state.singleItem.title"
