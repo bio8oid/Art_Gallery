@@ -45,12 +45,7 @@ export default {
     },
 
     refreshContent() {
-      // this.fetchContent(
-      //   `https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection/${this.$route.params.id}?key=${this.$store.state.key}`
-      // )
-
       this.$router.go()
-      // this.$router.go(this.$router.currentRoute)
     },
 
     ...mapActions(['fetchContent', 'changeStoreLanguage', 'getRelatedItems'])

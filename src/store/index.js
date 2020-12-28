@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from 'axios';
 
-Vue.use(Vuex);  
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
@@ -12,8 +12,8 @@ export default new Vuex.Store({
     // items: [],
     relatedItems: [],
     // relatedItems: JSON.parse(localStorage.getItem('related-items')) || [],
-    // singleItem: [],
-    singleItem: JSON.parse(localStorage.getItem('single-item')) || [],
+    singleItem: [],
+    // singleItem: JSON.parse(localStorage.getItem('single-item')) || [],
     itemsId: JSON.parse(localStorage.getItem('items-id')) || [],
     language: JSON.parse(localStorage.getItem('language')) || 'nl',
     key: 'iOQQBTgH',
@@ -37,7 +37,7 @@ export default new Vuex.Store({
 
     SET_SINGLE_ITEM(state, singleItem) {
       state.singleItem = singleItem;
-      localStorage.setItem("single-item",JSON.stringify(state.singleItem))
+      localStorage.setItem("single-item", JSON.stringify(state.singleItem))
     },
 
     SET_ERROR(state, err) {
@@ -46,12 +46,12 @@ export default new Vuex.Store({
 
     SET_ITEMS(state, items) {
       state.items = items;
-      localStorage.setItem("items",JSON.stringify(state.items))
+      localStorage.setItem("items", JSON.stringify(state.items))
     },
-    
+
     SET_ITEMS_ID(state, itemsId) {
       state.itemsId = itemsId;
-      localStorage.setItem("items-id",JSON.stringify(state.itemsId))
+      localStorage.setItem("items-id", JSON.stringify(state.itemsId))
     },
 
     CHANGE_LANGUAGE(state, language) {
@@ -72,26 +72,26 @@ export default new Vuex.Store({
       this.state.language === 'nl' ? language = 'en' : language = 'nl'
       context.commit('CHANGE_LANGUAGE', language)
     },
-     
+
     getRelatedItems(context) {
       let shuffeledItems = this.state.items.sort(() => Math.random() - 0.5);
-      let filtered = shuffeledItems.slice(0,3)
+      let filtered = shuffeledItems.slice(0, 3)
       context.commit('RELATED_ITEMS', filtered)
     },
-  
+
     fetchContent(context, url) {
       context.commit('SET_LOADING_STATUS', true)
       axios.get(url)
-      .then(res => {
-        
-        if (res.data.artObjects !== undefined) {
-          context.commit('SET_ITEMS', res.data.artObjects)
-          context.commit('SET_ITEMS_ID', res.data.artObjects.map(x => x.objectNumber))
-        } else {
-          context.commit('SET_SINGLE_ITEM', res.data.artObject)
-        }
-        context.commit('SET_LOADING_STATUS', false)
-      })
+        .then(res => {
+
+          if (res.data.artObjects !== undefined) {
+            context.commit('SET_ITEMS', res.data.artObjects)
+            context.commit('SET_ITEMS_ID', res.data.artObjects.map(x => x.objectNumber))
+          } else {
+            context.commit('SET_SINGLE_ITEM', res.data.artObject)
+          }
+          context.commit('SET_LOADING_STATUS', false)
+        })
         .catch((err) => {
           context.commit('SET_LOADING_STATUS', false)
           context.commit('SET_ERROR', err)
