@@ -1,18 +1,19 @@
 <template>
-   <div class="details">
-      <LanguageButton v-on:changeLanguage="changeLanguage()" />
+  <div class="details">
 
-      <div id="app">
-         <p v-if="this.$store.state.loading">Loading...</p>
+    <LanguageButton v-on:changeLanguage="changeLanguage()"/>
 
-         <div v-else>
-            <SingleItem />
-            <div class="random-button" @click="getRandom()">RANDOM</div>
-         </div>
+    <div id="app">
+      <p v-if="this.$store.state.loading">Loading...</p>
 
-         <p v-if="this.$store.state.error">{{ error }}</p>
+      <div v-else>
+        <SingleItem />
+        <div class="random-button" @click="getRandom()">RANDOM</div>
       </div>
-   </div>
+
+      <p v-if="this.$store.state.error">{{ error }}</p>
+    </div>
+  </div>
 </template>
 
 <script>

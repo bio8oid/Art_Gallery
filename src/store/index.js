@@ -72,26 +72,26 @@ export default new Vuex.Store({
       this.state.language === 'nl' ? language = 'en' : language = 'nl'
       context.commit('CHANGE_LANGUAGE', language)
     },
-
+     
     getRelatedItems(context) {
       let shuffeledItems = this.state.items.sort(() => Math.random() - 0.5);
-      let filtered = shuffeledItems.slice(0, 3)
+      let filtered = shuffeledItems.slice(0,3)
       context.commit('RELATED_ITEMS', filtered)
     },
-
+  
     fetchContent(context, url) {
       context.commit('SET_LOADING_STATUS', true)
       axios.get(url)
-        .then(res => {
+      .then(res => {
+        context.commit('SET_LOADING_STATUS', false)
 
-          if (res.data.artObjects !== undefined) {
-            context.commit('SET_ITEMS', res.data.artObjects)
-            context.commit('SET_ITEMS_ID', res.data.artObjects.map(x => x.objectNumber))
-          } else {
-            context.commit('SET_SINGLE_ITEM', res.data.artObject)
-          }
-          context.commit('SET_LOADING_STATUS', false)
-        })
+        if (res.data.artObjects !== undefined) {
+          context.commit('SET_ITEMS', res.data.artObjects)
+          context.commit('SET_ITEMS_ID', res.data.artObjects.map(x => x.objectNumber))
+        } else {
+          context.commit('SET_SINGLE_ITEM', res.data.artObject)
+        }
+      })
         .catch((err) => {
           context.commit('SET_LOADING_STATUS', false)
           context.commit('SET_ERROR', err)

@@ -24,8 +24,8 @@
 
 <script>
 export default {
-   name: 'records',
-   props: ['recordsData'],
+  name: 'records',
+  props: ['recordsData']
 }
 </script>
 

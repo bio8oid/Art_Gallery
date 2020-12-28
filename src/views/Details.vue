@@ -1,21 +1,22 @@
 <template>
-
   <div class="details">
- 
-    <LanguageButton v-on:changeLanguage="changeLanguage()"/>
+    <LanguageButton v-on:changeLanguage="changeLanguage()" />
 
     <div id="app">
       <p v-if="this.$store.state.loading">Loading...</p>
 
       <div v-else>
         <SingleItem />
-        <Records v-bind:recordsData="this.$store.state.relatedItems" v-on:refresh="refreshContent()"/>
+        <Records
+          class="details-related-records"
+          v-bind:recordsData="this.$store.state.relatedItems"
+          v-on:refresh="refreshContent()"
+        />
       </div>
 
       <p v-if="this.$store.state.error">{{ error }}</p>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -25,7 +26,6 @@ import Records from '@/components/Records.vue'
 import { mapActions } from 'vuex'
 
 export default {
-
   components: {
     SingleItem,
     LanguageButton,
@@ -33,7 +33,7 @@ export default {
   },
 
   watch: {
-    '$route': 'refreshContent'
+    $route: 'refreshContent'
   },
 
   methods: {
@@ -68,5 +68,9 @@ export default {
 </script>
 
 <style lang="scss">
+.details-related-records {
+  margin-top: 20%;
+  justify-content: space-around;
+}
 /* https://www.rijksmuseum.nl/api/en/collection/SK-A-2860?key=iOQQBTgH */
 </style>
