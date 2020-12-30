@@ -1,5 +1,7 @@
-import Vue from "vue";
-import Vuex from "vuex";
+/* eslint-disable */
+
+import Vue from 'vue';
+import Vuex from 'vuex';
 import axios from 'axios';
 
 Vue.use(Vuex);
@@ -37,7 +39,7 @@ export default new Vuex.Store({
 
     SET_SINGLE_ITEM(state, singleItem) {
       state.singleItem = singleItem;
-      localStorage.setItem("single-item", JSON.stringify(state.singleItem))
+      localStorage.setItem('single-item', JSON.stringify(state.singleItem))
     },
 
     SET_ERROR(state, err) {
@@ -46,22 +48,22 @@ export default new Vuex.Store({
 
     SET_ITEMS(state, items) {
       state.items = items;
-      localStorage.setItem("items", JSON.stringify(state.items))
+      localStorage.setItem('items', JSON.stringify(state.items))
     },
 
     SET_ITEMS_ID(state, itemsId) {
       state.itemsId = itemsId;
-      localStorage.setItem("items-id", JSON.stringify(state.itemsId))
+      localStorage.setItem('items-id', JSON.stringify(state.itemsId))
     },
 
     CHANGE_LANGUAGE(state, language) {
       state.language = language;
-      localStorage.setItem("language", JSON.stringify(state.language))
+      localStorage.setItem('language', JSON.stringify(state.language))
     },
 
     RELATED_ITEMS(state, filtered) {
       state.relatedItems = filtered;
-      localStorage.setItem("related-items", JSON.stringify(state.relatedItems))
+      localStorage.setItem('related-items', JSON.stringify(state.relatedItems))
     },
   },
 

@@ -1,29 +1,29 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "Home",
+    path: '/',
+    name: 'Home',
     component: Home
   },
   {
-    path: "/categories",
-    name: "Categories",
-    component: () => import("../views/Categories.vue")
+    path: '/categories',
+    name: 'Categories',
+    component: () => import('../views/Categories.vue')
   },
   {
-    path: "/randomizer",
-    name: "Randomizer",
-    component: () => import("../views/Randomizer.vue")
+    path: '/randomizer',
+    name: 'Randomizer',
+    component: () => import('../views/Randomizer.vue')
   },
   {
-    path: "/details/:id",
-    name: "Details",
-    component: () => import("../views/Details.vue")
+    path: '/details/:id',
+    name: 'Details',
+    component: () => import('../views/Details.vue')
   }
 ];
 
