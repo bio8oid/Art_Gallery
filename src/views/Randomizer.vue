@@ -1,31 +1,30 @@
 <template>
-  <div class="details">
+   <div class="details">
+      <LanguageButton v-on:changeLanguage="changeLanguage()" />
 
-    <LanguageButton v-on:changeLanguage="changeLanguage()"/>
+      <div id="app">
+         <p v-if="this.$store.state.loading">Loading...</p>
 
-    <div id="app">
-      <p v-if="this.$store.state.loading">Loading...</p>
+         <div v-else>
+            <SingleItem />
+            <div class="random-button" @click="getRandom()">RANDOM</div>
+         </div>
 
-      <div v-else>
-        <SingleItem />
-        <div class="random-button" @click="getRandom()">RANDOM</div>
+         <p v-if="this.$store.state.error">{{ error }}</p>
       </div>
-
-      <p v-if="this.$store.state.error">{{ error }}</p>
-    </div>
-  </div>
+   </div>
 </template>
 
 <script>
-import SingleItem from '@/components/SingleItem.vue'
-import LanguageButton from '@/components/LanguageButton.vue'
-import { mapActions } from 'vuex'
+import SingleItem from '@/components/SingleItem.vue';
+import LanguageButton from '@/components/LanguageButton.vue';
+import { mapActions } from 'vuex';
 
 export default {
    data() {
       return {
          random: JSON.parse(localStorage.getItem('random')) || 0,
-      }
+      };
    },
 
    components: {
@@ -35,19 +34,19 @@ export default {
 
    methods: {
       changeLanguage() {
-         this.changeStoreLanguage()
+         this.changeStoreLanguage();
          this.fetchContent(
             `https://www.rijksmuseum.nl/api/${
                this.$store.state.language
             }/collection/${this.$store.state.itemsId[this.random]}?key=${
                this.$store.state.key
             }`
-         )
+         );
       },
 
       getRandom() {
-         this.random = Math.floor(Math.random() * (10 - 1) + 1)
-         localStorage.setItem('random', JSON.stringify(this.random))
+         this.random = Math.floor(Math.random() * (10 - 1) + 1);
+         localStorage.setItem('random', JSON.stringify(this.random));
 
          this.fetchContent(
             `https://www.rijksmuseum.nl/api/${
@@ -55,23 +54,23 @@ export default {
             }/collection/${this.$store.state.itemsId[this.random]}?key=${
                this.$store.state.key
             }`
-         )
+         );
       },
 
       ...mapActions(['fetchContent', 'changeStoreLanguage']),
    },
 
    async created() {
-      this.getRandom()
+      this.getRandom();
       this.fetchContent(
          `https://www.rijksmuseum.nl/api/${
             this.$store.state.language
          }/collection/${this.$store.state.itemsId[this.random]}?key=${
             this.$store.state.key
          }`
-      )
+      );
    },
-}
+};
 </script>
 
 <style lang="scss">

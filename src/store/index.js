@@ -21,15 +21,15 @@ export default new Vuex.Store({
     key: 'iOQQBTgH',
   },
 
-  getters: {
-    loading: state => state.loading,
-    error: state => state.error,
-    items: state => state.items,
-    relatedItems: state => state.relatedItems,
-    singleItem: state => state.singleItem,
-    itemsId: state => state.itemsId,
-    language: state => state.language,
-  },
+  // getters: {
+  //   loading: state => state.loading,
+  //   error: state => state.error,
+  //   items: state => state.items,
+  //   relatedItems: state => state.relatedItems,
+  //   singleItem: state => state.singleItem,
+  //   itemsId: state => state.itemsId,
+  //   language: state => state.language,
+  // },
 
   mutations: {
 

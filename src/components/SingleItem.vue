@@ -23,8 +23,8 @@
 
 <script>
 export default {
-  name: 'singleItem'
-}
+   name: 'singleItem',
+};
 </script>
 
 <style lang="scss">

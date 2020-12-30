@@ -5,7 +5,7 @@
             class="details-link"
             :to="{ name: 'Details', params: { id: item.objectNumber } }"
          >
-            <div class="record-wrapper" @click="$emit('refresh')">
+            <div class="record-wrapper">
                <div class="record-text">
                   <h2>{{ item.principalOrFirstMaker }}</h2>
                   <p>{{ item.title }}</p>
@@ -24,9 +24,9 @@
 
 <script>
 export default {
-  name: 'records',
-  props: ['recordsData']
-}
+   name: 'records',
+   props: ['recordsData'],
+};
 </script>
 
 <style lang="scss">
@@ -92,7 +92,6 @@ export default {
 
 @media (max-width: 579px) {
    .record {
-
       .record-wrapper {
          height: 100%;
          flex-direction: column;

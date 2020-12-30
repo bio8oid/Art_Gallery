@@ -35,15 +35,15 @@
 </template>
 
 <script>
-import LanguageButton from '@/components/LanguageButton.vue'
-import Records from '@/components/Records.vue'
-import { mapActions } from 'vuex'
+import LanguageButton from '@/components/LanguageButton.vue';
+import Records from '@/components/Records.vue';
+import { mapActions } from 'vuex';
 
 export default {
    data() {
       return {
          value: '',
-      }
+      };
    },
 
    components: {
@@ -53,32 +53,32 @@ export default {
 
    methods: {
       changeLanguage() {
-         this.changeStoreLanguage()
+         this.changeStoreLanguage();
          this.fetchContent(
             `https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`
-         )
+         );
       },
 
       sortByName(value) {
          if (value === 'z-a') {
             this.$store.state.items = this.$store.state.items.sort((a, b) =>
                b.title.localeCompare(a.title)
-            )
+            );
          }
          if (value === 'a-z') {
             this.$store.state.items = this.$store.state.items.sort((a, b) =>
                a.title.localeCompare(b.title)
-            )
+            );
          }
          if (value === 'newest') {
             this.$store.state.items = this.$store.state.items.sort(
                (a, b) => b.longTitle.match(/\d{4}/) - a.longTitle.match(/\d{4}/)
-            )
+            );
          }
          if (value === 'oldest') {
             this.$store.state.items = this.$store.state.items.sort(
                (a, b) => a.longTitle.match(/\d{4}/) - b.longTitle.match(/\d{4}/)
-            )
+            );
          }
       },
 
@@ -93,9 +93,9 @@ export default {
    created() {
       this.fetchContent(
          `https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`
-      )
+      );
    },
-}
+};
 </script>
 
 <style lang="scss">
