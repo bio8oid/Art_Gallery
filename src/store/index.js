@@ -12,22 +12,22 @@ export default new Vuex.Store({
     // items: [],
     relatedItems: [],
     // relatedItems: JSON.parse(localStorage.getItem('related-items')) || [],
-    singleItem: [],
-    // singleItem: JSON.parse(localStorage.getItem('single-item')) || [],
+    // singleItem: [],
+    singleItem: JSON.parse(localStorage.getItem('single-item')) || [],
     itemsId: JSON.parse(localStorage.getItem('items-id')) || [],
     language: JSON.parse(localStorage.getItem('language')) || 'nl',
     key: 'iOQQBTgH',
   },
 
-  // getters: {
-  //   loading: state => state.loading,
-  //   error: state => state.error,
-  //   items: state => state.items,
-  //   relatedItems: state => state.relatedItems,
-  //   singleItem: state => state.singleItem,
-  //   itemsId: state => state.itemsId,
-  //   language: state => state.language,
-  // },
+  getters: {
+    loading: state => state.loading,
+    error: state => state.error,
+    items: state => state.items,
+    relatedItems: state => state.relatedItems,
+    singleItem: state => state.singleItem,
+    itemsId: state => state.itemsId,
+    language: state => state.language,
+  },
 
   mutations: {
 
