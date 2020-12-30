@@ -7,6 +7,7 @@
 
       <div v-else>
         <SingleItem />
+        <h2 class="related-items">YOU MAY BE INTERESTED WITH</h2>
         <Records
           class="details-related-records"
           v-bind:recordsData="this.$store.state.relatedItems"
@@ -53,23 +54,22 @@ export default {
 
   async created() {
     this.getRelatedItems();
-    console.log('getRelatedItems:', this.$store.state.relatedItems)
-
-
-    try {
-      await this.fetchContent(
+    this.fetchContent(
         `https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection/${this.$route.params.id}?key=${this.$store.state.key}`
       )
-    } catch (error) {
-      console.log('error:', error)
-    }
   }
 }
 </script>
 
 <style lang="scss">
-.details-related-records {
+
+.related-items {
   margin-top: 20%;
+  color: rgb(199, 199, 199);
+  text-shadow: 3px 3px 10px #000;
+}
+
+.details-related-records {
   justify-content: space-around;
 }
 /* https://www.rijksmuseum.nl/api/en/collection/SK-A-2860?key=iOQQBTgH */
