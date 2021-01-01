@@ -12,7 +12,6 @@
                </div>
                <img
                   class="record-image"
-                  v-if="item.hasImage"
                   v-bind:src="item.webImage.url"
                   v-bind:alt="item.title"
                />

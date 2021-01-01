@@ -10,7 +10,7 @@
             name="sort-by"
             id="sort-by"
             v-model="value"
-            @change="sortByName(value)"
+            @change="this.sortItems(value)"
          >
             <option value="" disabled>sort by</option>
             <optgroup label="Date">
@@ -54,46 +54,23 @@ export default {
    methods: {
       changeLanguage() {
          this.changeStoreLanguage();
-         this.fetchContent(
-            `https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`
-         );
-      },
-
-      sortByName(value) {
-         if (value === 'z-a') {
-            this.$store.state.items = this.$store.state.items.sort((a, b) =>
-               b.title.localeCompare(a.title)
-            );
-         }
-         if (value === 'a-z') {
-            this.$store.state.items = this.$store.state.items.sort((a, b) =>
-               a.title.localeCompare(b.title)
-            );
-         }
-         if (value === 'newest') {
-            this.$store.state.items = this.$store.state.items.sort(
-               (a, b) => b.longTitle.match(/\d{4}/) - a.longTitle.match(/\d{4}/)
-            );
-         }
-         if (value === 'oldest') {
-            this.$store.state.items = this.$store.state.items.sort(
-               (a, b) => a.longTitle.match(/\d{4}/) - b.longTitle.match(/\d{4}/)
-            );
-         }
+         // this.setUrl();
+         this.fetchContent();
       },
 
       ...mapActions([
          'fetchContent',
          'changeStoreLanguage',
-         'setItemsId',
-         'setItems',
+         // 'setItemsId',
+         // 'setItems',
+         // 'setUrl',
+         // 'sortItems'
       ]),
    },
 
    created() {
-      this.fetchContent(
-         `https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection?key=${this.$store.state.key}&ps=10&involvedMaker=Johannes%20Vermeer`
-      );
+      // this.setUrl();
+      this.fetchContent();
    },
 };
 </script>

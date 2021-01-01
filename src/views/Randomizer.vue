@@ -7,7 +7,7 @@
 
          <div v-else>
             <SingleItem />
-            <div class="random-button" @click="getRandom()">RANDOM</div>
+            <div class="random-button" @click="getgetRandom()">RANDOM</div>
          </div>
 
          <p v-if="this.$store.state.error">{{ error }}</p>
@@ -21,11 +21,11 @@ import LanguageButton from '@/components/LanguageButton.vue';
 import { mapActions } from 'vuex';
 
 export default {
-   data() {
-      return {
-         random: JSON.parse(localStorage.getItem('random')) || 0,
-      };
-   },
+   // data() {
+   //    return {
+   //       random: JSON.parse(localStorage.getItem('random')) || 0,
+   //    };
+   // },
 
    components: {
       SingleItem,
@@ -35,40 +35,28 @@ export default {
    methods: {
       changeLanguage() {
          this.changeStoreLanguage();
-         this.fetchContent(
-            `https://www.rijksmuseum.nl/api/${
-               this.$store.state.language
-            }/collection/${this.$store.state.itemsId[this.random]}?key=${
-               this.$store.state.key
-            }`
-         );
+         // this.setUrl(this.$store.state.itemsId[this.$store.state.random]);
+         this.fetchContent(this.$store.state.itemsId[this.$store.state.random]);
       },
 
-      getRandom() {
-         this.random = Math.floor(Math.random() * (10 - 1) + 1);
-         localStorage.setItem('random', JSON.stringify(this.random));
-
-         this.fetchContent(
-            `https://www.rijksmuseum.nl/api/${
-               this.$store.state.language
-            }/collection/${this.$store.state.itemsId[this.random]}?key=${
-               this.$store.state.key
-            }`
-         );
+      getgetRandom() {
+         this.getRandom();
+         // this.setUrl(this.$store.state.itemsId[this.$store.state.random]);
+         this.fetchContent(this.$store.state.itemsId[this.$store.state.random]);
       },
 
-      ...mapActions(['fetchContent', 'changeStoreLanguage']),
+      ...mapActions([
+         'fetchContent',
+         'changeStoreLanguage',
+         'getRandom',
+         // 'setUrl',
+      ]),
    },
 
-   async created() {
+   created() {
       this.getRandom();
-      this.fetchContent(
-         `https://www.rijksmuseum.nl/api/${
-            this.$store.state.language
-         }/collection/${this.$store.state.itemsId[this.random]}?key=${
-            this.$store.state.key
-         }`
-      );
+      // this.setUrl(this.$store.state.itemsId[this.$store.state.random]);
+      this.fetchContent(this.$store.state.itemsId[this.$store.state.random]);
    },
 };
 </script>

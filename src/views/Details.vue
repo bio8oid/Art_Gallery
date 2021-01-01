@@ -12,7 +12,6 @@
                class="details-related-records"
                v-bind:recordsData="this.$store.state.relatedItems"
             />
-            <!-- v-on:refresh="refreshContent()" -->
          </div>
 
          <p v-if="this.$store.state.error">{{ error }}</p>
@@ -27,12 +26,6 @@ import Records from '@/components/Records.vue';
 import { mapActions } from 'vuex';
 
 export default {
-   data() {
-      return {
-         id: '',
-      };
-   },
-
    components: {
       SingleItem,
       LanguageButton,
@@ -40,48 +33,34 @@ export default {
    },
 
    watch: {
-      // $route: 'refreshContent',
       $route: 'updated',
    },
 
    methods: {
       changeLanguage() {
          this.changeStoreLanguage();
-         this.fetchContent(
-            `https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection/${this.$route.params.id}?key=${this.$store.state.key}`
-         );
+         // this.setUrl(this.$route.params.id);
+         this.fetchContent(this.$route.params.id);
       },
 
       updated() {
-         //  if (id !== undefined) {
-         //     console.log('this.id:', id.params.id);
-         //     console.log('this.id:', $route);
-         //  this.$router.go()
-         //  { name: 'Details', params: { id: item.objectNumber } }
-         //  this.$router.push(id.params.id)
-         //  this.$router.push({id.params.id
-         // name: 'Details',
-         // params: { id: id.params.id },
-         // console.log('relatedItems:', this.$store.state.relatedItems)
          this.getRelatedItems();
-         // console.log('relatedItems:', this.$store.state.relatedItems)
-
-         this.fetchContent(
-            `https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection/${this.$route.params.id}?key=${this.$store.state.key}`
-         );
-         // console.log('singleItem.objectNumber:', this.$store.state.singleItem.objectNumber)
-         //  });
-         //  }
+         // this.setUrl(this.$route.params.id);
+         this.fetchContent(this.$route.params.id);
       },
 
-      ...mapActions(['fetchContent', 'changeStoreLanguage', 'getRelatedItems']),
+      ...mapActions([
+         'fetchContent',
+         'changeStoreLanguage',
+         'getRelatedItems',
+         // 'setUrl',
+      ]),
    },
 
    created() {
       this.getRelatedItems();
-      this.fetchContent(
-         `https://www.rijksmuseum.nl/api/${this.$store.state.language}/collection/${this.$route.params.id}?key=${this.$store.state.key}`
-      );
+      // this.setUrl(this.$route.params.id);
+      this.fetchContent(this.$route.params.id);
    },
 };
 </script>
