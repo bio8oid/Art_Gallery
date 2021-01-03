@@ -9,21 +9,21 @@ export default new Vuex.Store({
     loading: false,
     error: '',
     items: JSON.parse(localStorage.getItem('items')) || [],
-    // items: [],
-    relatedItems: [],
-    // relatedItems: JSON.parse(localStorage.getItem('related-items')) || [],
-    // singleItem: [],
     singleItem: JSON.parse(localStorage.getItem('single-item')) || [],
     itemsId: JSON.parse(localStorage.getItem('items-id')) || [],
     language: JSON.parse(localStorage.getItem('language')) || 'nl',
+    relatedItems: [],
+    paginationNumbers: [],
+    paginatedItems: [],
+    // recentPageNumber:  1,
+    maxRecordsNumber: 50,
+    APIkey: 'iOQQBTgH',
     random: 0,
-    // random: JSON.parse(localStorage.getItem('random')) || 0,
-    key: 'iOQQBTgH',
-    recordsPerPage: '50',
     url: '',
   },
 
   // getters: {
+  //   // loading: state => state.loading,
   //   loading: state => state.loading,
   //   error: state => state.error,
   //   items: state => state.items,
@@ -48,9 +48,26 @@ export default new Vuex.Store({
     },
 
     SET_ITEMS(state, items) {
+      const firstPage = JSON.parse(localStorage.getItem('paginated-items')) || items.slice(0, 10)
+      state.paginatedItems = firstPage;
       state.items = items;
       localStorage.setItem('items', JSON.stringify(state.items));
     },
+
+    SET_PAGINATION_NUMBERS(state, items) {
+      const pages = Math.ceil(items.length / 10);
+      const pageNumbers = Array.from({ length: pages }, (x, page) => ++page);
+      state.paginationNumbers = pageNumbers;
+    },
+
+    SET_PAGINATED_ITEMS(state, paginatedItems) {
+      state.paginatedItems = paginatedItems;
+      localStorage.setItem('paginated-items', JSON.stringify(state.paginatedItems));
+    },
+
+    // SET_RECENT_PAGE(state, pageNumber) {
+    //   state.recentPageNumber = pageNumber;
+    // },
 
     SET_ITEMS_ID(state, itemsId) {
       state.itemsId = itemsId;
@@ -64,27 +81,22 @@ export default new Vuex.Store({
 
     SET_RELATED_ITEMS(state, filtered) {
       state.relatedItems = filtered;
-      localStorage.setItem(
-        'related-items',
-        JSON.stringify(state.relatedItems)
-      );
+    },
+
+    SET_SORTED_ITEMS(state, sorted) {
+      state.paginatedItems = sorted;
     },
 
     SET_RANDOM(state, random) {
       state.random = random;
-      // localStorage.setItem('random', JSON.stringify(state.random));
-      // fetchContent();
     },
 
     SET_URL(state, routeData) {
-    // SET_URL(state, urlData) {
-
-      console.log('routeData:', routeData);
       let urlData = '';
       if (routeData) {
-        urlData = `https://www.rijksmuseum.nl/api/${this.state.language}/collection/${routeData}?key=${this.state.key}`;
+        urlData = `https://www.rijksmuseum.nl/api/${this.state.language}/collection/${routeData}?key=${this.state.APIkey}`;
       } else {
-        urlData = `https://www.rijksmuseum.nl/api/${this.state.language}/collection?key=${this.state.key}&ps=${this.state.recordsPerPage}&involvedMaker=Johannes%20Vermeer`;
+        urlData = `https://www.rijksmuseum.nl/api/${this.state.language}/collection?key=${this.state.APIkey}&ps=${this.state.maxRecordsNumber}&involvedMaker=Johannes%20Vermeer`;
       }
       state.url = urlData;
     },
@@ -109,42 +121,33 @@ export default new Vuex.Store({
       context.commit('SET_RANDOM', random);
     },
 
-    sortItems(value) {
-      if (value === 'z-a') {
-        this.state.items = this.state.items.sort((a, b) =>
-          b.title.localeCompare(a.title)
-        );
-      }
-      if (value === 'a-z') {
-        this.state.items = this.state.items.sort((a, b) =>
-          a.title.localeCompare(b.title)
-        );
-      }
-      if (value === 'newest') {
-        this.state.items = this.state.items.sort(
-          (a, b) => b.longTitle.match(/\d{4}/) - a.longTitle.match(/\d{4}/)
-        );
-      }
-      if (value === 'oldest') {
-        this.state.items = this.state.items.sort(
-          (a, b) => a.longTitle.match(/\d{4}/) - b.longTitle.match(/\d{4}/)
-        );
-      }
+    handlePage(context, event) {
+      const dataset = this.state.items;
+      const pageNumber = event;
+      const offset = (pageNumber - 1) * 10
+      const paginatedItems = dataset.slice(offset).slice(0, 10)
+      // context.commit('SET_RECENT_PAGE', pageNumber);
+      context.commit('SET_PAGINATED_ITEMS', paginatedItems);
     },
 
-    // setUrl(context, routeData) {
-    //   console.log('routeData:', routeData);
-    //   var urlData = '';
-    //   if (routeData) {
-    //     urlData = `https://www.rijksmuseum.nl/api/${this.state.language}/collection/${routeData}?key=${this.state.key}`;
-    //   } else {
-    //     urlData = `https://www.rijksmuseum.nl/api/${this.state.language}/collection?key=${this.state.key}&ps=${this.state.recordsPerPage}&involvedMaker=Johannes%20Vermeer`;
-    //   }
-    //   context.commit('SET_URL', urlData);
-    // },
+    sortItems(context, value) {
+      let sortedItems;
+      if (value === 'z-a') {
+        sortedItems = this.state.paginatedItems.sort((a, b) => b.title.localeCompare(a.title));
+      }
+      if (value === 'a-z') {
+        sortedItems = this.state.paginatedItems.sort((a, b) => a.title.localeCompare(b.title));
+      }
+      if (value === 'newest') {
+        sortedItems = this.state.paginatedItems.sort((a, b) => b.longTitle.match(/\d{4}/) - a.longTitle.match(/\d{4}/));
+      }
+      if (value === 'oldest') {
+        sortedItems = this.state.paginatedItems.sort((a, b) => a.longTitle.match(/\d{4}/) - b.longTitle.match(/\d{4}/));
+      }
+      context.commit('SET_SORTED_ITEMS', sortedItems);
+    },
 
     fetchContent(context, routeData) {
-    // fetchContent(context) {
       context.commit('SET_URL', routeData);
       context.commit('SET_LOADING_STATUS', true);
       axios
@@ -155,7 +158,8 @@ export default new Vuex.Store({
           if (res.data.artObjects !== undefined) {
             let data = res.data.artObjects.filter(x => x.hasImage === true)
             context.commit('SET_ITEMS', data);
-            context.commit('SET_ITEMS_ID',data.map(x => x.objectNumber));
+            context.commit('SET_PAGINATION_NUMBERS', data);
+            context.commit('SET_ITEMS_ID', data.map(x => x.objectNumber));
           } else {
             context.commit('SET_SINGLE_ITEM', res.data.artObject);
           }

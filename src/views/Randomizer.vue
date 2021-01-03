@@ -7,7 +7,7 @@
 
          <div v-else>
             <SingleItem />
-            <div class="random-button" @click="getgetRandom()">RANDOM</div>
+            <div class="random-button" @click="getRandomHandle()">RANDOM</div>
          </div>
 
          <p v-if="this.$store.state.error">{{ error }}</p>
@@ -21,12 +21,6 @@ import LanguageButton from '@/components/LanguageButton.vue';
 import { mapActions } from 'vuex';
 
 export default {
-   // data() {
-   //    return {
-   //       random: JSON.parse(localStorage.getItem('random')) || 0,
-   //    };
-   // },
-
    components: {
       SingleItem,
       LanguageButton,
@@ -35,27 +29,24 @@ export default {
    methods: {
       changeLanguage() {
          this.changeStoreLanguage();
-         // this.setUrl(this.$store.state.itemsId[this.$store.state.random]);
          this.fetchContent(this.$store.state.itemsId[this.$store.state.random]);
       },
 
-      getgetRandom() {
+      getRandomHandle() {
          this.getRandom();
-         // this.setUrl(this.$store.state.itemsId[this.$store.state.random]);
          this.fetchContent(this.$store.state.itemsId[this.$store.state.random]);
+         window.scrollTo(0, 0);
       },
 
       ...mapActions([
          'fetchContent',
          'changeStoreLanguage',
          'getRandom',
-         // 'setUrl',
       ]),
    },
 
    created() {
       this.getRandom();
-      // this.setUrl(this.$store.state.itemsId[this.$store.state.random]);
       this.fetchContent(this.$store.state.itemsId[this.$store.state.random]);
    },
 };

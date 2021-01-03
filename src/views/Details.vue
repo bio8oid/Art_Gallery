@@ -39,27 +39,24 @@ export default {
    methods: {
       changeLanguage() {
          this.changeStoreLanguage();
-         // this.setUrl(this.$route.params.id);
          this.fetchContent(this.$route.params.id);
       },
 
       updated() {
          this.getRelatedItems();
-         // this.setUrl(this.$route.params.id);
          this.fetchContent(this.$route.params.id);
+         window.scrollTo(0, 0);
       },
 
       ...mapActions([
          'fetchContent',
          'changeStoreLanguage',
          'getRelatedItems',
-         // 'setUrl',
       ]),
    },
 
    created() {
       this.getRelatedItems();
-      // this.setUrl(this.$route.params.id);
       this.fetchContent(this.$route.params.id);
    },
 };

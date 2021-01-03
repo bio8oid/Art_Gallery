@@ -10,7 +10,7 @@
             name="sort-by"
             id="sort-by"
             v-model="value"
-            @change="this.sortItems(value)"
+            @change="sortItemsHandle(value)"
          >
             <option value="" disabled>sort by</option>
             <optgroup label="Date">
@@ -26,7 +26,8 @@
          <p v-if="this.$store.state.loading">Loading...</p>
 
          <div v-else class="records-container">
-            <Records v-bind:recordsData="this.$store.state.items" />
+            <Records v-bind:recordsData="this.$store.state.paginatedItems" />
+            <button v-for="number in this.$store.state.paginationNumbers" :key="number" @click="pageHandler(number)" class="pagination-button">{{number}}</button>
          </div>
 
          <p v-if="this.$store.state.error">{{ error }}</p>
@@ -51,25 +52,33 @@ export default {
       Records,
    },
 
+   // watch: {
+   //    methods: 'pageHandler',
+   // },
+
    methods: {
       changeLanguage() {
          this.changeStoreLanguage();
-         // this.setUrl();
          this.fetchContent();
       },
 
+      sortItemsHandle(value) {
+         this.sortItems(value)
+      },
+
+      pageHandler(value) {
+         this.handlePage(value)
+      },
+      
       ...mapActions([
          'fetchContent',
          'changeStoreLanguage',
-         // 'setItemsId',
-         // 'setItems',
-         // 'setUrl',
-         // 'sortItems'
+         'sortItems',
+         'handlePage'
       ]),
    },
 
    created() {
-      // this.setUrl();
       this.fetchContent();
    },
 };
