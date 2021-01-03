@@ -3,7 +3,7 @@
       <LanguageButton v-on:changeLanguage="changeLanguage()" />
 
       <div id="app">
-         <p v-if="this.$store.state.loading">Loading...</p>
+         <p v-if="this.$store.state.loading" class="loading">Loading...</p>
 
          <div v-else>
             <SingleItem />
@@ -63,8 +63,8 @@ export default {
 </script>
 
 <style lang="scss">
-.related-items {
-   margin-top: 20%;
+.related-items, .loading, .category-header {
+   /* margin-top: 20%; */
    color: rgb(199, 199, 199);
    text-shadow: 3px 3px 10px #000;
 }

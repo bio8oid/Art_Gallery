@@ -15,11 +15,11 @@ export default new Vuex.Store({
     relatedItems: [],
     paginationNumbers: [],
     paginatedItems: [],
-    // recentPageNumber:  1,
     maxRecordsNumber: 50,
     APIkey: 'iOQQBTgH',
     random: 0,
     url: '',
+    // itemCategory: ''
   },
 
   // getters: {
@@ -48,7 +48,7 @@ export default new Vuex.Store({
     },
 
     SET_ITEMS(state, items) {
-      const firstPage = JSON.parse(localStorage.getItem('paginated-items')) || items.slice(0, 10)
+      const firstPage = items.slice(0, 10)
       state.paginatedItems = firstPage;
       state.items = items;
       localStorage.setItem('items', JSON.stringify(state.items));
@@ -64,10 +64,6 @@ export default new Vuex.Store({
       state.paginatedItems = paginatedItems;
       localStorage.setItem('paginated-items', JSON.stringify(state.paginatedItems));
     },
-
-    // SET_RECENT_PAGE(state, pageNumber) {
-    //   state.recentPageNumber = pageNumber;
-    // },
 
     SET_ITEMS_ID(state, itemsId) {
       state.itemsId = itemsId;
@@ -92,12 +88,24 @@ export default new Vuex.Store({
     },
 
     SET_URL(state, routeData) {
+      console.log('routeData:', routeData)
       let urlData = '';
       if (routeData) {
-        urlData = `https://www.rijksmuseum.nl/api/${this.state.language}/collection/${routeData}?key=${this.state.APIkey}`;
+        if (/\d/.test(routeData)) {
+          console.log('cond-1')
+          console.log('filter: ', /\d/.test(routeData))
+          urlData = `https://www.rijksmuseum.nl/api/${this.state.language}/collection/${routeData}?key=${this.state.APIkey}`;
+        } else {
+          console.log('cond-2')
+          urlData = `https://www.rijksmuseum.nl/api/${this.state.language}/collection?key=${this.state.APIkey}&type=${routeData}`;
+        }
       } else {
+        console.log('cond-3')
+        // 'https://www.rijksmuseum.nl/api/nl/collection&ps=50&type=painting&involvedMaker=Johannes%20Vermeer?key=iOQQBTgH'
+        // urlData = `https://www.rijksmuseum.nl/api/nl/collection?key=iOQQBTgH&involvedMaker=Johannes%20Vermeer&type=painting`;
         urlData = `https://www.rijksmuseum.nl/api/${this.state.language}/collection?key=${this.state.APIkey}&ps=${this.state.maxRecordsNumber}&involvedMaker=Johannes%20Vermeer`;
       }
+      console.log('set')
       state.url = urlData;
     },
   },
@@ -116,17 +124,15 @@ export default new Vuex.Store({
     },
 
     getRandom(context) {
-      let random = Math.floor(
-        Math.random() * (this.state.items.length - 1) + 1);
+      let random = Math.floor(Math.random() * (this.state.items.length - 1) + 1);
       context.commit('SET_RANDOM', random);
     },
 
     handlePage(context, event) {
       const dataset = this.state.items;
       const pageNumber = event;
-      const offset = (pageNumber - 1) * 10
-      const paginatedItems = dataset.slice(offset).slice(0, 10)
-      // context.commit('SET_RECENT_PAGE', pageNumber);
+      const offset = (pageNumber - 1) * 10;
+      const paginatedItems = dataset.slice(offset).slice(0, 10);
       context.commit('SET_PAGINATED_ITEMS', paginatedItems);
     },
 
@@ -148,6 +154,7 @@ export default new Vuex.Store({
     },
 
     fetchContent(context, routeData) {
+      console.log('this.state.url:', this.state.url)
       context.commit('SET_URL', routeData);
       context.commit('SET_LOADING_STATUS', true);
       axios

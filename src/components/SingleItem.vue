@@ -8,12 +8,13 @@
       />
 
       <div class="record record-details">
-         <h2>{{ this.$store.state.singleItem.title }}</h2>
+         <h2>{{ this.$store.state.singleItem.longTitle }}</h2>
          <h3 v-if="this.$store.state.singleItem.label.makerLine === null">
             {{ this.$store.state.singleItem.principalOrFirstMaker }}
          </h3>
          <p>{{ this.$store.state.singleItem.label.makerLine }}</p>
          <p>{{ this.$store.state.singleItem.subTitle }}</p>
+         <p>Category: {{ this.$store.state.singleItem.objectTypes[0] }}</p>
          <p class="record-description">
             {{ this.$store.state.singleItem.label.description }}
          </p>

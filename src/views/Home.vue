@@ -7,6 +7,7 @@
       <div id="app">
          <label for="sort-by"></label>
          <select
+            class="select-element"
             name="sort-by"
             id="sort-by"
             v-model="value"
@@ -23,11 +24,18 @@
             </optgroup>
          </select>
 
-         <p v-if="this.$store.state.loading">Loading...</p>
+         <p v-if="this.$store.state.loading" class="loading" >Loading...</p>
 
          <div v-else class="records-container">
             <Records v-bind:recordsData="this.$store.state.paginatedItems" />
-            <button v-for="number in this.$store.state.paginationNumbers" :key="number" @click="pageHandler(number)" class="pagination-button">{{number}}</button>
+            <button
+               v-for="number in this.$store.state.paginationNumbers"
+               :key="number"
+               @click="pageHandler(number)"
+               class="pagination-buttons"
+            >
+               {{ number }}
+            </button>
          </div>
 
          <p v-if="this.$store.state.error">{{ error }}</p>
@@ -52,10 +60,6 @@ export default {
       Records,
    },
 
-   // watch: {
-   //    methods: 'pageHandler',
-   // },
-
    methods: {
       changeLanguage() {
          this.changeStoreLanguage();
@@ -63,18 +67,18 @@ export default {
       },
 
       sortItemsHandle(value) {
-         this.sortItems(value)
+         this.sortItems(value);
       },
 
-      pageHandler(value) {
-         this.handlePage(value)
+      pageHandler(number) {
+         this.handlePage(number);
       },
-      
+
       ...mapActions([
          'fetchContent',
          'changeStoreLanguage',
          'sortItems',
-         'handlePage'
+         'handlePage',
       ]),
    },
 
@@ -87,6 +91,25 @@ export default {
 <style lang="scss">
 .background {
    width: 100%;
+}
+
+.home {
+   min-height: 80vh;
+}
+
+.select-element {
+   padding: 5px 15px;
+   margin: 4% 0 2.5% 0;
+   border-radius: 5px;
+   border: 5px solid #2c3e50;
+   box-shadow: 5px 5px 10px #202327;
+}
+
+.pagination-buttons {
+   position: static;
+   padding: 5px 10px;
+   margin: 2.5% 10px 5% 10px;
+   box-shadow: 5px 5px 10px #202327;
 }
 /* https://www.rijksmuseum.nl/api/en/collection?key=iOQQBTgH&ps=10&involvedMaker=Johannes%20Vermeer */
 </style>

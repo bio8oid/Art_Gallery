@@ -1,6 +1,6 @@
 <template>
    <div class="footer">
-      <h5>Hello me footer</h5>
+      <p>Hello me footer</p>
    </div>
 </template>
 
@@ -17,5 +17,10 @@ export default {
 .footer {
    height: 20vh;
    background: #020202;
+
+   p {
+      padding: 0;
+      margin: 0;
+   }
 }
 </style>

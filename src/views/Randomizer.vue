@@ -1,9 +1,9 @@
 <template>
-   <div class="details">
+   <div class="details random">
       <LanguageButton v-on:changeLanguage="changeLanguage()" />
 
       <div id="app">
-         <p v-if="this.$store.state.loading">Loading...</p>
+         <p v-if="this.$store.state.loading" class="loading">Loading...</p>
 
          <div v-else>
             <SingleItem />
@@ -53,12 +53,16 @@ export default {
 </script>
 
 <style lang="scss">
-.randomizer {
+/* .randomizer {
    .record-randomizer {
       width: 95%;
       height: 100%;
       padding: 50px;
    }
+} */
+
+.random, .details {
+   margin-top: 11vh;
 }
 
 .random-button {
