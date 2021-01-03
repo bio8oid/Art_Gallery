@@ -19,14 +19,16 @@
 
          <div v-else class="records-container">
             <Records v-bind:recordsData="this.$store.state.paginatedItems" />
-            <button
+                  <PaginationButtons v-on:paginationButtonAction="changeLanguage()" />
+
+            <!-- <button
                v-for="number in this.$store.state.paginationNumbers"
                :key="number"
                @click="pageHandler(number)"
                class="pagination-buttons"
             >
                {{ number }}
-            </button>
+            </button> -->
          </div>
 
          <p v-if="this.$store.state.error">{{ error }}</p>
@@ -35,6 +37,7 @@
 
 <script>
 import LanguageButton from '@/components/LanguageButton.vue';
+import PaginationButtons from '@/components/PaginationButtons.vue';
 import Records from '@/components/Records.vue';
 import { mapActions } from 'vuex';
 
@@ -46,6 +49,7 @@ export default {
    },
 
    components: {
+      PaginationButtons,
       LanguageButton,
       Records,
    },

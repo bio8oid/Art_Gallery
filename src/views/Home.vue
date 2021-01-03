@@ -28,14 +28,17 @@
 
          <div v-else class="records-container">
             <Records v-bind:recordsData="this.$store.state.paginatedItems" />
-            <button
+      <PaginationButtons v-on:paginationButtonAction="changeLanguage()" />
+
+            <!-- <button
                v-for="number in this.$store.state.paginationNumbers"
                :key="number"
                @click="pageHandler(number)"
                class="pagination-buttons"
             >
                {{ number }}
-            </button>
+            </button> -->
+
          </div>
 
          <p v-if="this.$store.state.error">{{ error }}</p>
@@ -45,6 +48,7 @@
 
 <script>
 import LanguageButton from '@/components/LanguageButton.vue';
+import PaginationButtons from '@/components/PaginationButtons.vue';
 import Records from '@/components/Records.vue';
 import { mapActions } from 'vuex';
 
@@ -56,6 +60,7 @@ export default {
    },
 
    components: {
+      PaginationButtons,
       LanguageButton,
       Records,
    },
@@ -105,11 +110,11 @@ export default {
    box-shadow: 5px 5px 10px #202327;
 }
 
-.pagination-buttons {
+/* .pagination-buttons {
    position: static;
    padding: 5px 10px;
    margin: 2.5% 10px 5% 10px;
    box-shadow: 5px 5px 10px #202327;
-}
+} */
 /* https://www.rijksmuseum.nl/api/en/collection?key=iOQQBTgH&ps=10&involvedMaker=Johannes%20Vermeer */
 </style>
