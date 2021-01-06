@@ -1,7 +1,5 @@
 <template>
    <div class="details random">
-      <LanguageButton v-on:changeLanguage="changeLanguage()" />
-
       <div id="app">
          <p v-if="this.$store.state.loading" class="loading">Loading...</p>
 
@@ -17,32 +15,21 @@
 
 <script>
 import SingleItem from '@/components/SingleItem.vue';
-import LanguageButton from '@/components/LanguageButton.vue';
 import { mapActions } from 'vuex';
 
 export default {
    components: {
       SingleItem,
-      LanguageButton,
    },
 
    methods: {
-      changeLanguage() {
-         this.changeStoreLanguage();
-         this.fetchContent(this.$store.state.itemsId[this.$store.state.random]);
-      },
-
       getRandomHandle() {
          this.getRandom();
          this.fetchContent(this.$store.state.itemsId[this.$store.state.random]);
          window.scrollTo(0, 0);
       },
 
-      ...mapActions([
-         'fetchContent',
-         'changeStoreLanguage',
-         'getRandom',
-      ]),
+      ...mapActions(['fetchContent', 'getRandom']),
    },
 
    created() {
@@ -53,15 +40,8 @@ export default {
 </script>
 
 <style lang="scss">
-/* .randomizer {
-   .record-randomizer {
-      width: 95%;
-      height: 100%;
-      padding: 50px;
-   }
-} */
-
-.random, .details {
+.random,
+.details {
    margin-top: 11vh;
 }
 
@@ -81,6 +61,5 @@ export default {
       box-shadow: 0 0 5px 1px #ffdc96;
    }
 }
-
 /* https://www.rijksmuseum.nl/api/en/collection?key=iOQQBTgH&ps=10&involvedMaker=Johannes%20Vermeer */
 </style>

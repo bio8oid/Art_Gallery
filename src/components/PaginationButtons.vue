@@ -1,31 +1,27 @@
 <template>
-   <p class="language-button" @click="$emit('changeLanguage')">
-      {{ this.$store.state.language === 'nl' ? 'EN' : 'NL' }}
-   </p>
+   <div>
+      <button
+         v-for="number in this.$store.state.paginationNumbers"
+         :key="number"
+         @click="$emit(`paginationButtonAction`, number)"
+         class="pagination-buttons"
+      >
+         {{ number }}
+      </button>
+   </div>
 </template>
 
 <script>
 export default {
-   name: 'LanguageButton',
+   name: 'PaginationButtons',
 };
 </script>
 
 <style lang="scss">
-.language-button, .pagination-buttons {
-   position: fixed;
-   top: 30px;
-   right: 25px;
-   z-index: 3;
-   background: #2c3e50;
-   border-radius: 5px;
-   padding: 3px 5px;
-   margin: 0;
-   color: #ffdc96;
-   font-size: 16px;
-   cursor: pointer;
-
-   &:hover {
-      box-shadow: 0 0 5px 1px #ffdc96;
-   }
+.pagination-buttons {
+   position: static;
+   padding: 5px 10px;
+   margin: 2.5% 10px 5% 10px;
+   box-shadow: 5px 5px 10px #202327;
 }
 </style>

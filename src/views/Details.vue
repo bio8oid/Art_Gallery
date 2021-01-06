@@ -1,7 +1,5 @@
 <template>
    <div class="details">
-      <LanguageButton v-on:changeLanguage="changeLanguage()" />
-
       <div id="app">
          <p v-if="this.$store.state.loading" class="loading">Loading...</p>
 
@@ -21,14 +19,12 @@
 
 <script>
 import SingleItem from '@/components/SingleItem.vue';
-import LanguageButton from '@/components/LanguageButton.vue';
 import Records from '@/components/Records.vue';
 import { mapActions } from 'vuex';
 
 export default {
    components: {
       SingleItem,
-      LanguageButton,
       Records,
    },
 
@@ -37,9 +33,9 @@ export default {
    },
 
    methods: {
-      changeLanguage() {
-         this.changeStoreLanguage();
-         this.fetchContent(this.$route.params.id);
+      changeComponentLanguage() {
+         console.log('working');
+         this.fetchContent(this.value);
       },
 
       updated() {
@@ -48,23 +44,21 @@ export default {
          window.scrollTo(0, 0);
       },
 
-      ...mapActions([
-         'fetchContent',
-         'changeStoreLanguage',
-         'getRelatedItems',
-      ]),
+      ...mapActions(['fetchContent', 'getRelatedItems']),
    },
 
    created() {
       this.getRelatedItems();
       this.fetchContent(this.$route.params.id);
+      window.scrollTo(0, 0);
    },
 };
 </script>
 
 <style lang="scss">
-.related-items, .loading, .category-header {
-   /* margin-top: 20%; */
+.related-items,
+.loading,
+.category-header {
    color: rgb(199, 199, 199);
    text-shadow: 3px 3px 10px #000;
 }

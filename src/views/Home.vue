@@ -1,9 +1,6 @@
 <template>
    <div class="home">
       <img class="background" alt="Vue logo" src="../assets/background.jpg" />
-
-      <LanguageButton v-on:changeLanguage="changeLanguage()" />
-
       <div id="app">
          <label for="sort-by"></label>
          <select
@@ -24,21 +21,13 @@
             </optgroup>
          </select>
 
-         <p v-if="this.$store.state.loading" class="loading" >Loading...</p>
+         <p v-if="this.$store.state.loading" class="loading">Loading...</p>
 
          <div v-else class="records-container">
             <Records v-bind:recordsData="this.$store.state.paginatedItems" />
-      <PaginationButtons v-on:paginationButtonAction="changeLanguage()" />
-
-            <!-- <button
-               v-for="number in this.$store.state.paginationNumbers"
-               :key="number"
-               @click="pageHandler(number)"
-               class="pagination-buttons"
-            >
-               {{ number }}
-            </button> -->
-
+            <PaginationButtons
+               v-on:paginationButtonAction="pageHandler($event)"
+            />
          </div>
 
          <p v-if="this.$store.state.error">{{ error }}</p>
@@ -47,7 +36,6 @@
 </template>
 
 <script>
-import LanguageButton from '@/components/LanguageButton.vue';
 import PaginationButtons from '@/components/PaginationButtons.vue';
 import Records from '@/components/Records.vue';
 import { mapActions } from 'vuex';
@@ -61,16 +49,10 @@ export default {
 
    components: {
       PaginationButtons,
-      LanguageButton,
       Records,
    },
 
    methods: {
-      changeLanguage() {
-         this.changeStoreLanguage();
-         this.fetchContent();
-      },
-
       sortItemsHandle(value) {
          this.sortItems(value);
       },
@@ -79,16 +61,11 @@ export default {
          this.handlePage(number);
       },
 
-      ...mapActions([
-         'fetchContent',
-         'changeStoreLanguage',
-         'sortItems',
-         'handlePage',
-      ]),
+      ...mapActions(['fetchContent', 'sortItems', 'handlePage']),
    },
 
    created() {
-      this.fetchContent();
+      this.fetchContent('');
    },
 };
 </script>
@@ -109,12 +86,5 @@ export default {
    border: 5px solid #2c3e50;
    box-shadow: 5px 5px 10px #202327;
 }
-
-/* .pagination-buttons {
-   position: static;
-   padding: 5px 10px;
-   margin: 2.5% 10px 5% 10px;
-   box-shadow: 5px 5px 10px #202327;
-} */
 /* https://www.rijksmuseum.nl/api/en/collection?key=iOQQBTgH&ps=10&involvedMaker=Johannes%20Vermeer */
 </style>

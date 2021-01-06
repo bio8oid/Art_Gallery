@@ -1,17 +1,32 @@
 <template>
-   <p class="language-button" @click="$emit('changeLanguage')">
+   <p class="language-button" @click="changeLanguage()">
       {{ this.$store.state.language === 'nl' ? 'EN' : 'NL' }}
    </p>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
    name: 'LanguageButton',
+
+   methods: {
+      changeLanguage() {
+         this.changeStoreLanguage();
+         // this.changeComponentLanguage();
+         // this.fetchContent(this.$store.state.routeData);
+         this.fetchContent(this.$store.state.route);
+         // this.fetchContent('');
+      },
+
+      ...mapActions(['fetchContent', 'changeStoreLanguage']),
+   },
 };
 </script>
 
 <style lang="scss">
-.language-button, .pagination-buttons {
+.language-button,
+.pagination-buttons {
    position: fixed;
    top: 30px;
    right: 25px;
