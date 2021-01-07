@@ -2,31 +2,22 @@
    <div class="home category">
       <h1 class="category-header">Select Category</h1>
       <label for="categories"></label>
-      <select
-         class="select-element"
-         name="categories"
-         id="categories"
-         v-model="value"
-         @change="filterItemsHandle(value)"
-      >
+      <select class="select-element" name="categories" id="categories" v-model="value" @change="filterItemsHandle(value)">
          <option value="" disabled>SELECT</option>
          <option value="&type=painting">painting</option>
          <option value="&type=drawing">drawing</option>
          <option value="&type=print">print</option>
-         <option value="&type=photomechanical+print">
-            photomechanical print
-         </option>
+         <option value="&type=photomechanical+print">photomechanical print</option>
          <option value="&type=photograph">photograph</option>
       </select>
 
       <p v-if="this.$store.state.loading" class="loading">Loading...</p>
+      <p v-else-if="this.$store.state.error" class="loading">{{ this.$store.state.error }}</p>
 
       <div v-else class="records-container">
          <Records v-bind:recordsData="this.$store.state.paginatedItems" />
          <PaginationButtons v-on:paginationButtonAction="pageHandler($event)" />
       </div>
-
-      <p v-if="this.$store.state.error">{{ error }}</p>
    </div>
 </template>
 
@@ -56,12 +47,7 @@ export default {
          this.handlePage(number);
       },
 
-      ...mapActions([
-         'filteredByCategory',
-         'fetchContent',
-         'handlePage',
-         'reset',
-      ]),
+      ...mapActions(['filteredByCategory', 'fetchContent', 'handlePage', 'reset']),
    },
 
    created() {

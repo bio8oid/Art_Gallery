@@ -1,13 +1,12 @@
 <template>
    <div class="details random">
       <p v-if="this.$store.state.loading" class="loading">Loading...</p>
+      <p v-else-if="this.$store.state.error" class="loading">{{ this.$store.state.error }}</p>
 
       <div v-else>
          <SingleItem />
          <div class="random-button" @click="getRandomHandle()">RANDOM</div>
       </div>
-
-      <p v-if="this.$store.state.error">{{ error }}</p>
    </div>
 </template>
 

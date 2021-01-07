@@ -8,7 +8,6 @@ export default {
 
    SET_SINGLE_ITEM(state, singleItem) {
       state.singleItem = singleItem;
-      localStorage.setItem('single-item', JSON.stringify(state.singleItem));
    },
 
    SET_ITEMS_ID(state, itemsId) {
@@ -40,7 +39,7 @@ export default {
    },
 
    SET_ERROR(state, err) {
-      state.err = err;
+      state.error = err;
    },
 
    SET_RANDOM(state, random) {

@@ -15,13 +15,12 @@
       </select>
 
       <p v-if="this.$store.state.loading" class="loading">Loading...</p>
+      <p v-else-if="this.$store.state.error" class="loading">{{ this.$store.state.error }}</p>
 
       <div v-else class="records-container">
          <Records v-bind:recordsData="this.$store.state.paginatedItems" />
          <PaginationButtons v-on:paginationButtonAction="pageHandler($event)" />
       </div>
-
-      <p v-if="this.$store.state.error">{{ error }}</p>
    </div>
 </template>
 

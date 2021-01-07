@@ -64,23 +64,25 @@ export default {
    },
 
    fetchContent(context, routeData) {
-
+      context.commit('SET_ERROR', '');
       context.commit('SET_LOADING_STATUS', true);
 
       let detailsRoute = '';
       let categoriesRoute = '';
+      let recordsNumber = '';
 
       if (/\d/.test(routeData)) {
          detailsRoute = '/' + routeData;
-         this.state.maxRecordsNumber = '';
+         recordsNumber = '';
          context.commit('SET_ROUTE_DATA', detailsRoute);
       } else {
+         recordsNumber = `&ps=${this.state.maxRecordsNumber}`;
          categoriesRoute = routeData;
          context.commit('SET_ROUTE_DATA', categoriesRoute);
          if (categoriesRoute !== '') context.commit('CHANGE_LANGUAGE', 'en');
       }
 
-      let urlData = `https://www.rijksmuseum.nl/api/${this.state.language}/collection${detailsRoute}?key=${this.state.APIkey}${categoriesRoute}&ps=${this.state.maxRecordsNumber}&imgonly=True`;
+      let urlData = `https://www.rijksmuseum.nl/api/${this.state.language}/collection${detailsRoute}?key=${this.state.APIkey}${categoriesRoute}&imgonly=True${recordsNumber}`;
 
       axios
          .get(urlData)
@@ -102,6 +104,7 @@ export default {
          .catch(err => {
             context.commit('SET_LOADING_STATUS', false);
             context.commit('SET_ERROR', err);
+            console.log('me error :) =', err)
          });
    }
 };

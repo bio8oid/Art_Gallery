@@ -29,6 +29,7 @@ export default {
    right: 25px;
    z-index: 3;
    background: #2c3e50;
+   border: none;
    border-radius: 5px;
    padding: 3px 5px;
    margin: 0;

@@ -2,14 +2,13 @@
    <div class="home details">
       <div id="app">
          <p v-if="this.$store.state.loading" class="loading">Loading...</p>
+         <p v-else-if="this.$store.state.error" class="loading">{{ this.$store.state.error }}</p>
 
          <div v-else>
             <SingleItem />
             <h2 class="related-items-header">YOU MAY BE INTERESTED WITH</h2>
             <Records class="details-related-records" v-bind:recordsData="this.$store.state.relatedItems" />
          </div>
-
-         <p v-if="this.$store.state.error">{{ error }}</p>
       </div>
    </div>
 </template>
