@@ -1,0 +1,17 @@
+export default {
+   items: JSON.parse(localStorage.getItem('items')) || [],
+   singleItem: JSON.parse(localStorage.getItem('single-item')) || [],
+   itemsId: JSON.parse(localStorage.getItem('items-id')) || [],
+   language: JSON.parse(localStorage.getItem('language')) || 'nl',
+   paginationNumbers: [],
+   paginatedItems: [],
+   relatedItems: [],
+   maxRecordsNumber: `&ps=${30}`,
+   recordsPerPage: 10,
+   APIkey: 'iOQQBTgH',
+   loading: false,
+   error: '',
+   random: 0,
+   route: '',
+   url: '',
+};

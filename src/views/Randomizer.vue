@@ -1,15 +1,13 @@
 <template>
    <div class="details random">
-      <div id="app">
-         <p v-if="this.$store.state.loading" class="loading">Loading...</p>
+      <p v-if="this.$store.state.loading" class="loading">Loading...</p>
 
-         <div v-else>
-            <SingleItem />
-            <div class="random-button" @click="getRandomHandle()">RANDOM</div>
-         </div>
-
-         <p v-if="this.$store.state.error">{{ error }}</p>
+      <div v-else>
+         <SingleItem />
+         <div class="random-button" @click="getRandomHandle()">RANDOM</div>
       </div>
+
+      <p v-if="this.$store.state.error">{{ error }}</p>
    </div>
 </template>
 
@@ -33,18 +31,12 @@ export default {
    },
 
    created() {
-      this.getRandom();
-      this.fetchContent(this.$store.state.itemsId[this.$store.state.random]);
+      this.getRandomHandle();
    },
 };
 </script>
 
 <style lang="scss">
-.random,
-.details {
-   margin-top: 11vh;
-}
-
 .random-button {
    display: block;
    margin: 100px auto;

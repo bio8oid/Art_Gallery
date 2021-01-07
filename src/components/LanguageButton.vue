@@ -13,10 +13,7 @@ export default {
    methods: {
       changeLanguage() {
          this.changeStoreLanguage();
-         // this.changeComponentLanguage();
-         // this.fetchContent(this.$store.state.routeData);
          this.fetchContent(this.$store.state.route);
-         // this.fetchContent('');
       },
 
       ...mapActions(['fetchContent', 'changeStoreLanguage']),

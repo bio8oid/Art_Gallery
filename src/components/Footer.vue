@@ -17,6 +17,7 @@ export default {
 .footer {
    height: 20vh;
    background: #020202;
+   margin-top: 20vh;
 
    p {
       padding: 0;

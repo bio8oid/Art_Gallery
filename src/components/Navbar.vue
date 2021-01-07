@@ -23,7 +23,7 @@ export default {
 
 <style lang="scss">
 #nav {
-   padding: 30px;
+   height: 12vh;
    position: fixed;
    top: 0;
    left: 0;
@@ -39,6 +39,7 @@ export default {
       text-decoration: none;
       font-weight: 300;
       padding: 0 10px;
+      line-height: 12vh;
 
       &.router-link-exact-active {
          color: #ffdc96;

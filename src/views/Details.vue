@@ -1,11 +1,11 @@
 <template>
-   <div class="details">
+   <div class="home details">
       <div id="app">
          <p v-if="this.$store.state.loading" class="loading">Loading...</p>
 
          <div v-else>
             <SingleItem />
-            <h2 class="related-items">YOU MAY BE INTERESTED WITH</h2>
+            <h2 class="related-items-header">YOU MAY BE INTERESTED WITH</h2>
             <Records
                class="details-related-records"
                v-bind:recordsData="this.$store.state.relatedItems"
@@ -33,11 +33,6 @@ export default {
    },
 
    methods: {
-      changeComponentLanguage() {
-         console.log('working');
-         this.fetchContent(this.value);
-      },
-
       updated() {
          this.getRelatedItems();
          this.fetchContent(this.$route.params.id);
@@ -48,19 +43,16 @@ export default {
    },
 
    created() {
-      this.getRelatedItems();
-      this.fetchContent(this.$route.params.id);
-      window.scrollTo(0, 0);
+      this.updated();
    },
 };
 </script>
 
 <style lang="scss">
-.related-items,
-.loading,
-.category-header {
+.related-items-header {
    color: rgb(199, 199, 199);
    text-shadow: 3px 3px 10px #000;
+   margin: 20vh 0;
 }
 
 .details-related-records {

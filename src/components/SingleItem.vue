@@ -29,10 +29,6 @@ export default {
 </script>
 
 <style lang="scss">
-.details {
-   min-height: 100vh;
-}
-
 .record-details {
    width: 95%;
    height: 100%;

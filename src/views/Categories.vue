@@ -22,10 +22,7 @@
       <p v-if="this.$store.state.loading" class="loading">Loading...</p>
 
       <div v-else class="records-container">
-         <!-- <Records v-if="this.$store.state.items.length > 1" v-bind:recordsData="this.$store.state.items" /> -->
          <Records v-bind:recordsData="this.$store.state.paginatedItems" />
-         <!-- <Records v-bind:recordsData="this.$store.state.filteredByCategoryItems" /> -->
-         <!-- <Records  /> -->
          <PaginationButtons v-on:paginationButtonAction="pageHandler($event)" />
       </div>
 
@@ -42,7 +39,6 @@ export default {
    data() {
       return {
          value: '',
-         // categorized: []
       };
    },
 
@@ -52,32 +48,39 @@ export default {
    },
 
    methods: {
-      // changeLanguage() {
-      //    this.changeStoreLanguage();
-      //    this.fetchContent(this.value);
-      // },
-
       filterItemsHandle(value) {
          this.fetchContent(value);
-         // this.filteredByCategory()
       },
 
       pageHandler(number) {
          this.handlePage(number);
       },
 
-      ...mapActions(['filteredByCategory', 'fetchContent', 'handlePage']),
+      ...mapActions([
+         'filteredByCategory',
+         'fetchContent',
+         'handlePage',
+         'reset',
+      ]),
    },
-   // created() {
-   // localStorage.removeItem('items', JSON.stringify(this.$store.state.items));
-   // localStorage.removeItem('items', JSON.stringify(this.$store.state.paginatedItems));
-   // this.fetchContent();
-   // },
+
+   created() {
+      this.reset();
+   },
 };
 </script>
 
 <style lang="scss">
 .category {
-   padding-top: 20vh;
+   padding-top: 15vh;
+
+   .category-header {
+      color: rgb(199, 199, 199);
+      text-shadow: 3px 3px 10px #000;
+   }
+
+   .select-element {
+      margin: 10vh 0;
+   }
 }
 </style>

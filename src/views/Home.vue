@@ -1,37 +1,33 @@
 <template>
    <div class="home">
       <img class="background" alt="Vue logo" src="../assets/background.jpg" />
-      <div id="app">
-         <label for="sort-by"></label>
-         <select
-            class="select-element"
-            name="sort-by"
-            id="sort-by"
-            v-model="value"
-            @change="sortItemsHandle(value)"
-         >
-            <option value="" disabled>sort by</option>
-            <optgroup label="Date">
-               <option value="oldest">from oldest</option>
-               <option value="newest">from newest</option>
-            </optgroup>
-            <optgroup label="Title">
-               <option value="a-z">a-z</option>
-               <option value="z-a">z-a</option>
-            </optgroup>
-         </select>
+      <label for="sort-by"></label>
+      <select
+         class="select-element"
+         name="sort-by"
+         id="sort-by"
+         v-model="value"
+         @change="sortItemsHandle(value)"
+      >
+         <option value="" disabled>sort by</option>
+         <optgroup label="Date">
+            <option value="oldest">from oldest</option>
+            <option value="newest">from newest</option>
+         </optgroup>
+         <optgroup label="Title">
+            <option value="a-z">a-z</option>
+            <option value="z-a">z-a</option>
+         </optgroup>
+      </select>
 
-         <p v-if="this.$store.state.loading" class="loading">Loading...</p>
+      <p v-if="this.$store.state.loading" class="loading">Loading...</p>
 
-         <div v-else class="records-container">
-            <Records v-bind:recordsData="this.$store.state.paginatedItems" />
-            <PaginationButtons
-               v-on:paginationButtonAction="pageHandler($event)"
-            />
-         </div>
-
-         <p v-if="this.$store.state.error">{{ error }}</p>
+      <div v-else class="records-container">
+         <Records v-bind:recordsData="this.$store.state.paginatedItems" />
+         <PaginationButtons v-on:paginationButtonAction="pageHandler($event)" />
       </div>
+
+      <p v-if="this.$store.state.error">{{ error }}</p>
    </div>
 </template>
 
@@ -75,8 +71,16 @@ export default {
    width: 100%;
 }
 
-.home {
-   min-height: 80vh;
+.home,
+.details {
+   min-height: 68vh;
+}
+
+.loading {
+   font-size: 28px;
+   color: rgb(199, 199, 199);
+   text-shadow: 3px 3px 10px #000;
+   margin-top: 50vh;
 }
 
 .select-element {
@@ -85,6 +89,7 @@ export default {
    border-radius: 5px;
    border: 5px solid #2c3e50;
    box-shadow: 5px 5px 10px #202327;
+   text-transform: uppercase;
 }
 /* https://www.rijksmuseum.nl/api/en/collection?key=iOQQBTgH&ps=10&involvedMaker=Johannes%20Vermeer */
 </style>
