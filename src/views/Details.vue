@@ -6,10 +6,7 @@
          <div v-else>
             <SingleItem />
             <h2 class="related-items-header">YOU MAY BE INTERESTED WITH</h2>
-            <Records
-               class="details-related-records"
-               v-bind:recordsData="this.$store.state.relatedItems"
-            />
+            <Records class="details-related-records" v-bind:recordsData="this.$store.state.relatedItems" />
          </div>
 
          <p v-if="this.$store.state.error">{{ error }}</p>
@@ -58,5 +55,4 @@ export default {
 .details-related-records {
    justify-content: space-around;
 }
-/* https://www.rijksmuseum.nl/api/en/collection/SK-A-2860?key=iOQQBTgH */
 </style>

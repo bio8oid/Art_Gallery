@@ -53,5 +53,4 @@ export default {
       box-shadow: 0 0 5px 1px #ffdc96;
    }
 }
-/* https://www.rijksmuseum.nl/api/en/collection?key=iOQQBTgH&ps=10&involvedMaker=Johannes%20Vermeer */
 </style>

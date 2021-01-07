@@ -2,13 +2,7 @@
    <div class="home">
       <img class="background" alt="Vue logo" src="../assets/background.jpg" />
       <label for="sort-by"></label>
-      <select
-         class="select-element"
-         name="sort-by"
-         id="sort-by"
-         v-model="value"
-         @change="sortItemsHandle(value)"
-      >
+      <select class="select-element" name="sort-by" id="sort-by" v-model="value" @change="sortItemsHandle(value)">
          <option value="" disabled>sort by</option>
          <optgroup label="Date">
             <option value="oldest">from oldest</option>
@@ -91,5 +85,4 @@ export default {
    box-shadow: 5px 5px 10px #202327;
    text-transform: uppercase;
 }
-/* https://www.rijksmuseum.nl/api/en/collection?key=iOQQBTgH&ps=10&involvedMaker=Johannes%20Vermeer */
 </style>
