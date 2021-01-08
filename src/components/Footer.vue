@@ -1,14 +1,9 @@
 <template>
    <div class="footer">
       <div class="footer-site-map">
-         <!-- <a v-for="item in this.siteMap" :key="item.name" v-bind:href="baseUrl + item.path">{{ item.name }}</a> -->
          <router-link v-for="item in this.siteMap" :key="item.name" :to="item.path">{{ item.name }}</router-link>
-
-         <!-- <router-link to="/">Home</router-link> | <router-link to="/categories">Categories</router-link> |
-         <router-link to="/random">Random</router-link> -->
       </div>
-
-      <a class="footer-logo">bio8oid © {{ new Date().getFullYear() }}</a>
+      <a class="footer-logo" v-bind:href="logoLink">bio8oid © {{ new Date().getFullYear() }}</a>
    </div>
 </template>
 
@@ -21,6 +16,7 @@ export default {
    data() {
       return {
          siteMap: [],
+         logoLink: 'https://github.com/bio8oid',
          baseUrl: 'https://a-r-t-gallery.netlify.app',
          // baseUrl: 'http://localhost:8080',
       };
