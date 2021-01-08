@@ -4491,7 +4491,6 @@ __metadata:
     sass-loader: ^8.0.2
     vue: ^2.6.11
     vue-router: ^3.2.0
-    vue-router-sitemap: ^0.0.4
     vue-template-compiler: ^2.6.11
     vuex: ^3.4.0
   languageName: unknown
@@ -10312,16 +10311,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"sitemap@npm:1.13.0":
-  version: 1.13.0
-  resolution: "sitemap@npm:1.13.0"
-  dependencies:
-    underscore: ^1.7.0
-    url-join: ^1.1.0
-  checksum: 62aa832a7c126d8f45100328783cf4d1197db2fc146f5f5ad80c4b779efdcc69d6a83acad10d6b6056f442315274909b246cf79475abc5dc2dabb8a7fbe84d0d
-  languageName: node
-  linkType: hard
-
 "slash@npm:^1.0.0":
   version: 1.0.0
   resolution: "slash@npm:1.0.0"
@@ -11331,13 +11320,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"underscore@npm:^1.7.0":
-  version: 1.12.0
-  resolution: "underscore@npm:1.12.0"
-  checksum: c4423fa2c68de8d5e0ccfdeeb7f61f803d6600b8ec14c1f154ad28f8734e3cdf39152e0e09a6a3f1e9911f6a815074b83803a7aa4dfee6f375427ec12e80d1d4
-  languageName: node
-  linkType: hard
-
 "unicode-canonical-property-names-ecmascript@npm:^1.0.4":
   version: 1.0.4
   resolution: "unicode-canonical-property-names-ecmascript@npm:1.0.4"
@@ -11471,13 +11453,6 @@ fsevents@~2.1.2:
   version: 0.1.0
   resolution: "urix@npm:0.1.0"
   checksum: 6bdfca4e7fb7d035537068a47a04ace1bacfa32e6b1aaf54c5a0340c83125a186d59109a19b9a3a1c1f986d3eb718b82faf9ad03d53cb99cf868068580b15b3b
-  languageName: node
-  linkType: hard
-
-"url-join@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "url-join@npm:1.1.0"
-  checksum: 2f42ba3642f3fa879b12eaa31d085055a67e650c4ad08a44983e155cbcc3dee888e885f31b084d33d819b19e8c764f04d25bf63d7357c59796d7bc9a0e996999
   languageName: node
   linkType: hard
 
@@ -11696,17 +11671,6 @@ fsevents@~2.1.2:
     vue-template-compiler:
       optional: true
   checksum: 30c649d7797336cf80ff8f0d77a44f601db83f9ffeba3f9b7f7a89959c721904a79f194203ad08ca0efa652347a73067874bea27dd3cdaa56431ed00b6c2a249
-  languageName: node
-  linkType: hard
-
-"vue-router-sitemap@npm:^0.0.4":
-  version: 0.0.4
-  resolution: "vue-router-sitemap@npm:0.0.4"
-  dependencies:
-    sitemap: 1.13.0
-  peerDependencies:
-    vue-router: 3.0.1
-  checksum: 7fa0953da4299a3b99e7341088f6ca3ce433253f93dbaddf519aad86ad84006d514c1cec60584f40d243341dd9a8dffc76edc0924df69e2b80b927241c3ac026
   languageName: node
   linkType: hard
 

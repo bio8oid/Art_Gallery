@@ -56,7 +56,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["sass-loader", "virtual:cc22f6c11440851fd6f305f3b5a0b240ea88b2294687ecdb13d4f4815f837470e600163f72f8f5883925726859dba07bc9ece2b9e158bc888c89181d10b1d044#npm:8.0.2"],
             ["vue", "npm:2.6.12"],
             ["vue-router", "npm:3.4.9"],
-            ["vue-router-sitemap", "virtual:cc22f6c11440851fd6f305f3b5a0b240ea88b2294687ecdb13d4f4815f837470e600163f72f8f5883925726859dba07bc9ece2b9e158bc888c89181d10b1d044#npm:0.0.4"],
             ["vue-template-compiler", "npm:2.6.12"],
             ["vuex", "virtual:cc22f6c11440851fd6f305f3b5a0b240ea88b2294687ecdb13d4f4815f837470e600163f72f8f5883925726859dba07bc9ece2b9e158bc888c89181d10b1d044#npm:3.6.0"]
           ],
@@ -6135,7 +6134,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["sass-loader", "virtual:cc22f6c11440851fd6f305f3b5a0b240ea88b2294687ecdb13d4f4815f837470e600163f72f8f5883925726859dba07bc9ece2b9e158bc888c89181d10b1d044#npm:8.0.2"],
             ["vue", "npm:2.6.12"],
             ["vue-router", "npm:3.4.9"],
-            ["vue-router-sitemap", "virtual:cc22f6c11440851fd6f305f3b5a0b240ea88b2294687ecdb13d4f4815f837470e600163f72f8f5883925726859dba07bc9ece2b9e158bc888c89181d10b1d044#npm:0.0.4"],
             ["vue-template-compiler", "npm:2.6.12"],
             ["vuex", "virtual:cc22f6c11440851fd6f305f3b5a0b240ea88b2294687ecdb13d4f4815f837470e600163f72f8f5883925726859dba07bc9ece2b9e158bc888c89181d10b1d044#npm:3.6.0"]
           ],
@@ -12644,17 +12642,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["sitemap", [
-        ["npm:1.13.0", {
-          "packageLocation": "./.yarn/cache/sitemap-npm-1.13.0-15e2471a44-62aa832a7c.zip/node_modules/sitemap/",
-          "packageDependencies": [
-            ["sitemap", "npm:1.13.0"],
-            ["underscore", "npm:1.12.0"],
-            ["url-join", "npm:1.1.0"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["slash", [
         ["npm:1.0.0", {
           "packageLocation": "./.yarn/cache/slash-npm-1.0.0-a244873c30-fb026d08e4.zip/node_modules/slash/",
@@ -13813,15 +13800,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["underscore", [
-        ["npm:1.12.0", {
-          "packageLocation": "./.yarn/cache/underscore-npm-1.12.0-b99c126ef2-c4423fa2c6.zip/node_modules/underscore/",
-          "packageDependencies": [
-            ["underscore", "npm:1.12.0"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["unicode-canonical-property-names-ecmascript", [
         ["npm:1.0.4", {
           "packageLocation": "./.yarn/cache/unicode-canonical-property-names-ecmascript-npm-1.0.4-8c5eeb73e7-8b51950f8f.zip/node_modules/unicode-canonical-property-names-ecmascript/",
@@ -13993,15 +13971,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["url", "npm:0.11.0"],
             ["punycode", "npm:1.3.2"],
             ["querystring", "npm:0.2.0"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["url-join", [
-        ["npm:1.1.0", {
-          "packageLocation": "./.yarn/cache/url-join-npm-1.1.0-c9bf25c365-2f42ba3642.zip/node_modules/url-join/",
-          "packageDependencies": [
-            ["url-join", "npm:1.1.0"]
           ],
           "linkType": "HARD",
         }]
@@ -14286,29 +14255,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/vue-router-npm-3.4.9-c4e6cedef1-eaacc4d501.zip/node_modules/vue-router/",
           "packageDependencies": [
             ["vue-router", "npm:3.4.9"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["vue-router-sitemap", [
-        ["npm:0.0.4", {
-          "packageLocation": "./.yarn/cache/vue-router-sitemap-npm-0.0.4-97cff29740-7fa0953da4.zip/node_modules/vue-router-sitemap/",
-          "packageDependencies": [
-            ["vue-router-sitemap", "npm:0.0.4"]
-          ],
-          "linkType": "SOFT",
-        }],
-        ["virtual:cc22f6c11440851fd6f305f3b5a0b240ea88b2294687ecdb13d4f4815f837470e600163f72f8f5883925726859dba07bc9ece2b9e158bc888c89181d10b1d044#npm:0.0.4", {
-          "packageLocation": "./.yarn/$$virtual/vue-router-sitemap-virtual-28fa7fd864/0/cache/vue-router-sitemap-npm-0.0.4-97cff29740-7fa0953da4.zip/node_modules/vue-router-sitemap/",
-          "packageDependencies": [
-            ["vue-router-sitemap", "virtual:cc22f6c11440851fd6f305f3b5a0b240ea88b2294687ecdb13d4f4815f837470e600163f72f8f5883925726859dba07bc9ece2b9e158bc888c89181d10b1d044#npm:0.0.4"],
-            ["@types/vue-router", null],
-            ["sitemap", "npm:1.13.0"],
-            ["vue-router", "npm:3.4.9"]
-          ],
-          "packagePeers": [
-            "@types/vue-router",
-            "vue-router"
           ],
           "linkType": "HARD",
         }]

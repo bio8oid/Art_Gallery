@@ -8,7 +8,7 @@ export default {
 
    SET_SINGLE_ITEM(state, singleItem) {
       state.singleItem = singleItem;
-      localStorage.setItem('single-item', JSON.stringify(state.single - item));
+      localStorage.setItem('single-item', JSON.stringify(state.singleItem));
    },
 
    SET_ITEMS_ID(state, itemsId) {
