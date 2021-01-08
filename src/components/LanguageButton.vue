@@ -40,4 +40,10 @@ export default {
       box-shadow: 0 0 5px 1px #ffdc96;
    }
 }
+
+@media (max-width: 458px) {
+   .language-button {
+      top: 110px;
+   }
+}
 </style>

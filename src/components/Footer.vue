@@ -3,7 +3,7 @@
       <div class="footer-site-map">
          <router-link v-for="item in this.siteMap" :key="item.name" :to="item.path">{{ item.name }}</router-link>
       </div>
-      <a class="footer-logo" v-bind:href="logoLink">bio8oid © {{ new Date().getFullYear() }}</a>
+      <a class="footer-logo" v-bind:href="logoLink" target="_blank">bio8oid © {{ new Date().getFullYear() }}</a>
    </div>
 </template>
 
@@ -17,8 +17,6 @@ export default {
       return {
          siteMap: [],
          logoLink: 'https://github.com/bio8oid',
-         baseUrl: 'https://a-r-t-gallery.netlify.app',
-         // baseUrl: 'http://localhost:8080',
       };
    },
 
@@ -35,6 +33,9 @@ export default {
          const filteredPaths = allRoutes.filter(x => x.path !== currentRoute);
          this.siteMap = filteredPaths;
       },
+   },
+   created() {
+      this.getRoutesList();
    },
 };
 </script>
@@ -56,6 +57,7 @@ export default {
          font-weight: bold;
          text-decoration: none;
          font-weight: 300;
+         font-size: 16px;
          padding: 20px;
          cursor: pointer;
 
@@ -64,6 +66,22 @@ export default {
             color: #ffdc96;
          }
       }
+   }
+
+   .footer-logo {
+      text-decoration: none;
+      color: #2c3e50;
+      font-size: 16px;
+
+      &:hover {
+         color: #ffdc96;
+      }
+   }
+}
+
+@media (max-width: 320px) {
+   .footer .footer-site-map a {
+      padding: 10px;
    }
 }
 </style>

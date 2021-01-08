@@ -49,4 +49,10 @@ export default {
       }
    }
 }
+
+@media (max-width: 458px) {
+   .record h2 {
+      font-size: 28px;
+   }
+}
 </style>

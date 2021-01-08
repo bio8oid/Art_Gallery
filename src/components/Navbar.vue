@@ -45,4 +45,10 @@ export default {
       }
    }
 }
+
+@media (max-width: 320px) {
+   #nav a {
+      padding: 0 2px;
+   }
+}
 </style>
