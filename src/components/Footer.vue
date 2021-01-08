@@ -17,7 +17,8 @@ export default {
    data() {
       return {
          siteMap: [],
-         baseUrl: 'http://localhost:8080',
+         baseUrl: 'https://a-r-t-gallery.netlify.app',
+         // baseUrl: 'http://localhost:8080',
       };
    },
 
