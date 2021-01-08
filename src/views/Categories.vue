@@ -53,12 +53,11 @@ export default {
          this.handlePage(number);
       },
 
-      ...mapActions(['filteredByCategory', 'fetchContent', 'handlePage', 'reset']),
+      ...mapActions(['fetchContent', 'handlePage', 'reset']),
    },
 
    created() {
       this.reset();
-      this.fetchContent(value);
    },
 };
 </script>
