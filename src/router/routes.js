@@ -16,8 +16,8 @@ const routes = [
       component: () => import('../views/Categories.vue'),
    },
    {
-      path: '/randomizer',
-      name: 'Randomizer',
+      path: '/random',
+      name: 'Random',
       component: () => import('../views/Randomizer.vue'),
    },
    {

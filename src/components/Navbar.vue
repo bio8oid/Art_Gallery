@@ -1,9 +1,8 @@
 <template>
    <div>
       <div id="nav">
-         <router-link to="/">Home</router-link> |
-         <router-link to="/categories">Categories</router-link> |
-         <router-link to="/randomizer">Random</router-link>
+         <router-link to="/">Home</router-link> | <router-link to="/categories">Categories</router-link> |
+         <router-link to="/random">Random</router-link>
       </div>
       <LanguageButton />
    </div>

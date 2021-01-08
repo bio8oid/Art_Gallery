@@ -22,8 +22,7 @@ export default {
 </script>
 
 <style lang="scss">
-.language-button,
-.pagination-buttons {
+.language-button {
    position: fixed;
    top: 30px;
    right: 25px;
