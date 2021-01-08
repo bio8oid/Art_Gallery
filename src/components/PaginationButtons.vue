@@ -1,6 +1,11 @@
 <template>
    <div>
-      <button v-for="number in this.$store.state.paginationNumbers" :key="number" @click="$emit(`paginationButtonAction`, number)" class="pagination-buttons">
+      <button
+         v-for="number in this.$store.state.paginationNumbers"
+         :key="number"
+         @click="$emit(`paginationButtonAction`, number)"
+         class="pagination-buttons"
+      >
          {{ number }}
       </button>
    </div>

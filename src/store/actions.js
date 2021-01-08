@@ -14,9 +14,7 @@ export default {
    },
 
    getRandom(context) {
-      let random = Math.floor(
-         Math.random() * (this.state.items.length - 1) + 1
-      );
+      let random = Math.floor(Math.random() * (this.state.items.length - 1) + 1);
       context.commit('SET_RANDOM', random);
    },
 
@@ -24,9 +22,7 @@ export default {
       const dataset = this.state.items;
       const pageNumber = event;
       const offset = (pageNumber - 1) * this.state.recordsPerPage;
-      const paginatedItems = dataset
-         .slice(offset)
-         .slice(0, this.state.recordsPerPage);
+      const paginatedItems = dataset.slice(offset).slice(0, this.state.recordsPerPage);
       context.commit('SET_PAGINATED_ITEMS', paginatedItems);
    },
 
@@ -38,25 +34,19 @@ export default {
       let sortedItems;
       switch (value) {
          case 'z-a':
-            sortedItems = this.state.paginatedItems.sort((a, b) =>
-               b.title.localeCompare(a.title)
-            );
+            sortedItems = this.state.paginatedItems.sort((a, b) => b.title.localeCompare(a.title));
             break;
          case 'a-z':
-            sortedItems = this.state.paginatedItems.sort((a, b) =>
-               a.title.localeCompare(b.title)
-            );
+            sortedItems = this.state.paginatedItems.sort((a, b) => a.title.localeCompare(b.title));
             break;
          case 'newest':
             sortedItems = this.state.paginatedItems.sort(
-               (a, b) =>
-                  b.longTitle.match(/\d{4}/) - a.longTitle.match(/\d{4}/)
+               (a, b) => b.longTitle.match(/\d{4}/) - a.longTitle.match(/\d{4}/)
             );
             break;
          case 'oldest':
             sortedItems = this.state.paginatedItems.sort(
-               (a, b) =>
-                  a.longTitle.match(/\d{4}/) - b.longTitle.match(/\d{4}/)
+               (a, b) => a.longTitle.match(/\d{4}/) - b.longTitle.match(/\d{4}/)
             );
             break;
       }
@@ -104,7 +94,7 @@ export default {
          .catch(err => {
             context.commit('SET_LOADING_STATUS', false);
             context.commit('SET_ERROR', err);
-            console.log('me error :) =', err)
+            console.log('me error :) =', err);
          });
-   }
+   },
 };

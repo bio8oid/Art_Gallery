@@ -2,7 +2,13 @@
    <div class="home category">
       <h1 class="category-header">Select Category</h1>
       <label for="categories"></label>
-      <select class="select-element" name="categories" id="categories" v-model="value" @change="filterItemsHandle(value)">
+      <select
+         class="select-element"
+         name="categories"
+         id="categories"
+         v-model="value"
+         @change="filterItemsHandle(value)"
+      >
          <option value="" disabled>SELECT</option>
          <option value="&type=painting">painting</option>
          <option value="&type=drawing">drawing</option>

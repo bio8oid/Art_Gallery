@@ -1,20 +1,13 @@
 <template>
    <div class="record-container">
       <div class="record" v-for="item in recordsData" :key="item.id">
-         <router-link
-            class="details-link"
-            :to="{ name: 'Details', params: { id: item.objectNumber } }"
-         >
+         <router-link class="details-link" :to="{ name: 'Details', params: { id: item.objectNumber } }">
             <div class="record-wrapper">
                <div class="record-text">
                   <h2>{{ item.principalOrFirstMaker }}</h2>
                   <p>{{ item.title }}</p>
                </div>
-               <img
-                  class="record-image"
-                  v-bind:src="item.webImage.url"
-                  v-bind:alt="item.title"
-               />
+               <img class="record-image" v-bind:src="item.webImage.url" v-bind:alt="item.title" />
             </div>
          </router-link>
       </div>
