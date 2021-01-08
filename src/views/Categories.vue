@@ -58,6 +58,7 @@ export default {
 
    created() {
       this.reset();
+      this.fetchContent(value);
    },
 };
 </script>

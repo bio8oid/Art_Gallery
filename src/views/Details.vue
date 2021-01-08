@@ -39,7 +39,10 @@ export default {
    },
 
    created() {
-      this.updated();
+      // this.updated();
+      this.getRelatedItems();
+      this.fetchContent(this.$route.params.id);
+      window.scrollTo(0, 0);
    },
 };
 </script>

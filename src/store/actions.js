@@ -94,7 +94,6 @@ export default {
          .catch(err => {
             context.commit('SET_LOADING_STATUS', false);
             context.commit('SET_ERROR', err);
-            console.log('me error :) =', err);
          });
    },
 };
