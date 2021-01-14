@@ -24,7 +24,7 @@
    </div>
 </template>
 
-<script>
+<script lang="ts">
 import PaginationButtons from '@/components/PaginationButtons.vue';
 import Records from '@/components/Records.vue';
 import { mapActions } from 'vuex';
