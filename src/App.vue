@@ -6,9 +6,9 @@
    </div>
 </template>
 
-<script>
-import Footer from '@/components/Footer.vue';
-import Navbar from '@/components/Navbar.vue';
+<script lang="ts">
+import Footer from './components/Footer.vue';
+import Navbar from './components/Navbar.vue';
 
 export default {
    components: {

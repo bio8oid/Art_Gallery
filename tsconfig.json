@@ -1,18 +1,23 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    // "target": "esnext",
     "module": "esnext",
+    "target": "es5",
+    // "module": "es2020",
     "strict": true,
     "jsx": "preserve",
-    "importHelpers": true,
+    // "importHelpers": true,
     "moduleResolution": "node",
-    "esModuleInterop": true,
+    // "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    // "noImplicitAny": true,
+    // "noImplicitReturns": true,
+    // "noImplicitThis": true,
     "baseUrl": ".",
-    "types": [
-      "webpack-env"
-    ],
+    // "types": [
+    //   "webpack-env"
+    // ],
     "paths": {
       "@/*": [
         "src/*"
@@ -28,9 +33,10 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/**/*.js"
   ]
 }
