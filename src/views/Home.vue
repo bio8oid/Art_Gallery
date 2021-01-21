@@ -13,6 +13,7 @@
             <option value="z-a">z-a</option>
          </optgroup>
       </select>
+      <p class="loading">{{ this.$store.state.loading }}</p>
 
       <p v-if="this.$store.state.loading" class="loading">Loading...</p>
       <p v-else-if="this.$store.state.error" class="loading">{{ this.$store.state.error }}</p>
@@ -25,9 +26,11 @@
 </template>
 
 <script>
+// <script lang="ts">
 import PaginationButtons from '@/components/PaginationButtons.vue';
 import Records from '@/components/Records.vue';
 import { mapActions } from 'vuex';
+// import store from '../store/indexTs';
 
 export default {
    data() {

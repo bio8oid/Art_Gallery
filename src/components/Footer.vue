@@ -28,7 +28,7 @@ export default {
       getRoutesList() {
          // Filter all routes from details path
          const allRoutes = router.options.routes.filter(x => !/\bdetails\b/g.test(x.path));
-         let currentRoute = this.$route.path;
+         const currentRoute = this.$route.path;
          // Remove current route from site map
          const filteredPaths = allRoutes.filter(x => x.path !== currentRoute);
          this.siteMap = filteredPaths;

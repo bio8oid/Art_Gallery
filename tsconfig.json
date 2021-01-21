@@ -1,23 +1,20 @@
 {
   "compilerOptions": {
-    // "target": "esnext",
+    "target": "esnext",
     "module": "esnext",
-    "target": "es5",
-    // "module": "es2020",
     "strict": true,
     "jsx": "preserve",
-    // "importHelpers": true,
+    "importHelpers": true,
     "moduleResolution": "node",
-    // "esModuleInterop": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    // "noImplicitAny": true,
-    // "noImplicitReturns": true,
-    // "noImplicitThis": true,
     "baseUrl": ".",
-    // "types": [
-    //   "webpack-env"
-    // ],
+    "types": [
+      "webpack-env",
+      "node"
+    ],
     "paths": {
       "@/*": [
         "src/*"
@@ -34,9 +31,53 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
   ],
   "exclude": [
-    "node_modules",
-    "src/**/*.js"
+    "node_modules"
   ]
 }
+// {
+//   "compilerOptions": {
+//     "module": "esnext",
+//     "target": "esnext",
+//     // "target": "es5",
+//     // "module": "es2020",
+//     "strict": true,
+//     "jsx": "preserve",
+//     "importHelpers": true,
+//     "moduleResolution": "node",
+//     "esModuleInterop": true,
+//     "allowSyntheticDefaultImports": true,
+//     "sourceMap": true,
+//     // "noImplicitAny": true,
+//     // "noImplicitReturns": true,
+//     // "noImplicitThis": true,
+//     "skipLibCheck": true,
+//     "baseUrl": ".",
+//     // "types": [
+//     //   "webpack-env"
+//     // ],
+//     "paths": {
+//       "@/*": [
+//         "src/*"
+//       ]
+//     },
+//     "lib": [
+//       "esnext",
+//       "dom",
+//       "dom.iterable",
+//       "scripthost"
+//     ]
+//   },
+//   "include": [
+//     "src/**/*.ts",
+//     "src/**/*.tsx",
+//     "src/**/*.vue",
+//   ],
+//   "exclude": [
+//     "node_modules",
+//     "src/**/*.js"
+//   ]
+// }
