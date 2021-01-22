@@ -1,15 +1,16 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { createDirectStore } from "direct-vuex";
+
 import axios from 'axios';
 
-// import combo from './combo';
 
 // import state from './state';
-// import actions from './actionsJs';
-// import mutations from './mutationsJs';
+// import actions from './actions';
+// import mutations from './mutations';
 
-export interface StateTypes {
+interface StateTypes {
+
    items: Array<object>,
    itemsId: Array<string>,
    language: string,
@@ -26,7 +27,6 @@ export interface StateTypes {
    random: number,
 }
 
-
 Vue.use(Vuex)
 
 const { store,
@@ -36,12 +36,11 @@ const { store,
    moduleGetterContext
 } = createDirectStore({
 
-   // modules: {
-   //    combo
-   //    // state,
-   //    // actions,
-   //    // mutations
-   // }
+   // state: (): StateTypes => state,
+   // // state,
+   // mutations,
+   // actions,
+
 
    state: (): StateTypes => {
       return {
@@ -62,6 +61,10 @@ const { store,
       }
    },
 
+
+
+
+   // state,
    mutations: {
 
       SET_ITEMS(state, items: Array<object>) {
@@ -162,29 +165,29 @@ const { store,
          context.commit('SET_RESET', state);
       },
 
-      // sortItems(context, value: string) {
-      //     const {  state } = rootActionContext(context)
-      //     let sortedItems;
-      //     switch (value) {
-      //         case 'z-a':
-      //             sortedItems = state.paginatedItems.sort((a: undefined | string, b: undefined | string) => b.title.localeCompare(a.title));
-      //             break;
-      //         case 'a-z':
-      //             sortedItems = state.paginatedItems.sort((a, b) => a.title.localeCompare(b.title));
-      //             break;
-      //         case 'newest':
-      //             sortedItems = state.paginatedItems.sort(
-      //                 (a, b) => b.longTitle.match(/\d{4}/) - a.longTitle.match(/\d{4}/)
-      //             );
-      //             break;
-      //         case 'oldest':
-      //             sortedItems = state.paginatedItems.sort(
-      //                 (a, b) => a.longTitle.match(/\d{4}/) - b.longTitle.match(/\d{4}/)
-      //             );
-      //             break;
-      //     }
-      //     context.commit('SET_SORTED_ITEMS', sortedItems);
-      // },
+      sortItems(context, value: string) {
+         const { state } = rootActionContext(context)
+         let sortedItems;
+         switch (value) {
+            case 'z-a':
+               sortedItems = state.paginatedItems.sort((a: any, b: any) => b.title.localeCompare(a.title));
+               break;
+            case 'a-z':
+               sortedItems = state.paginatedItems.sort((a: any, b: any) => a.title.localeCompare(b.title));
+               break;
+            case 'newest':
+               sortedItems = state.paginatedItems.sort(
+                  (a: any, b: any) => b.longTitle.match(/\d{4}/) - a.longTitle.match(/\d{4}/)
+               );
+               break;
+            case 'oldest':
+               sortedItems = state.paginatedItems.sort(
+                  (a: any, b: any) => a.longTitle.match(/\d{4}/) - b.longTitle.match(/\d{4}/)
+               );
+               break;
+         }
+         context.commit('SET_SORTED_ITEMS', sortedItems);
+      },
 
       fetchContent(context, routeData: string) {
          const { state } = rootActionContext(context);
@@ -218,10 +221,10 @@ const { store,
                   const data = res.data.artObjects;
                   context.commit('SET_ITEMS', data);
                   context.commit('SET_PAGINATION_NUMBERS', data);
-                  // context.commit(
-                  //     'SET_ITEMS_ID',
-                  //     data.map((x: string) => x.objectNumber)
-                  // );
+                  context.commit(
+                     'SET_ITEMS_ID',
+                     data.map((x: any) => x.objectNumber)
+                  );
                } else {
                   context.commit('SET_SINGLE_ITEM', res.data.artObject);
                }
@@ -243,10 +246,9 @@ export {
    moduleActionContext,
    rootGetterContext,
    moduleGetterContext
-} // The following lines enable types in the injected store '$store'.
+}
 
 export type AppStore = typeof store;
-console.log('AppStore:', store)
 
 declare module "vuex" {
    interface Store<S> {

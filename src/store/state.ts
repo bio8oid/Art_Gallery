@@ -13,7 +13,26 @@ export default {
    error: '',
    route: '',
    random: 0,
-};
+}
+
+
+
+// export default {
+//    items: [],
+//    itemsId: [],
+//    language: 'nl',
+//    singleItem: [],
+//    paginationNumbers: [],
+//    paginatedItems: [],
+//    relatedItems: [],
+//    maxRecordsNumber: '30',
+//    recordsPerPage: 10,
+//    APIkey: 'iOQQBTgH',
+//    loading: false,
+//    error: '',
+//    route: '',
+//    random: 0,
+// };
 
 // export default {
 //    items: JSON.parse(localStorage.getItem('items')) || [],

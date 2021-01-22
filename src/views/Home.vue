@@ -13,7 +13,6 @@
             <option value="z-a">z-a</option>
          </optgroup>
       </select>
-      <p class="loading">{{ this.$store.state.loading }}</p>
 
       <p v-if="this.$store.state.loading" class="loading">Loading...</p>
       <p v-else-if="this.$store.state.error" class="loading">{{ this.$store.state.error }}</p>
