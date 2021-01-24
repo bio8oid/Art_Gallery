@@ -14,7 +14,6 @@ export default {
    methods: {
       changeLanguage() {
          this.changeStoreLanguage();
-         console.log('LanguageButton', store.state.route);
          this.fetchContent(store.state.route);
       },
 

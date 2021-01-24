@@ -47,7 +47,6 @@ export default {
 
    methods: {
       filterItemsHandle(value: string) {
-         console.log('Categories', value);
          this.fetchContent(value);
       },
 

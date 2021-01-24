@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { createDirectStore } from 'direct-vuex';
 import router from '../router/routes';
-
 import axios from 'axios';
 
 // import state from './state';
@@ -24,8 +23,6 @@ interface StateTypes {
    loading: boolean;
    error: string;
    route: string;
-
-   // random: number;
 }
 
 Vue.use(Vuex);
@@ -52,19 +49,9 @@ const { store, rootActionContext, moduleActionContext, rootGetterContext, module
          loading: false,
          error: '',
          route: '',
-         // random: 0,
       };
    },
 
-   // getters: {
-   //    getterInTheRootStore(...args) {
-   //      const { state, fetchContent } = rootGetterContext(args)
-   //      // Here, 'getters', 'state' are typed.
-   //      // Without 'rootGetterContext' only 'state' would be typed.
-   //    }
-   //  },
-
-   // state,
    mutations: {
       SET_ITEMS(state, items: Array<object>) {
          const firstPage = items.slice(0, state.recordsPerPage);
@@ -85,7 +72,7 @@ const { store, rootActionContext, moduleActionContext, rootGetterContext, module
 
       CHANGE_LANGUAGE(state, language: string) {
          state.language = language;
-         // localStorage.setItem('language', JSON.stringify(state.language));
+         localStorage.setItem('language', JSON.stringify(state.language));
       },
 
       SET_PAGINATION_NUMBERS(state, items: Array<number>) {
@@ -110,9 +97,9 @@ const { store, rootActionContext, moduleActionContext, rootGetterContext, module
          state.error = err;
       },
 
-      // SET_RANDOM(state, random: number) {
-      //    state.random = random;
-      // },
+      SET_SITEMAP(state, siteMapData: Array<object>) {
+         state.siteMap = siteMapData;
+      },
 
       SET_ROUTE_DATA(state, routeData: string) {
          state.route = routeData;
@@ -146,12 +133,8 @@ const { store, rootActionContext, moduleActionContext, rootGetterContext, module
       getRandom(context) {
          const { state } = rootActionContext(context);
          const random = Math.floor(Math.random() * (state.items.length - 1) + 1);
-
          context.dispatch('fetchContent', state.itemsId[random]);
          window.scrollTo(0, 0);
-         // this.fetchContent(store.state.itemsId[store.state.random]);
-
-         // context.commit('SET_RANDOM', random);
       },
 
       handlePage(context, event: number) {
@@ -164,15 +147,53 @@ const { store, rootActionContext, moduleActionContext, rootGetterContext, module
       },
 
       reset(context) {
-         const { state } = rootActionContext(context);
-         context.commit('SET_RESET', state);
+         context.commit('SET_RESET');
       },
 
       loadContent(context, routeData: string) {
-         const { dispatch } = rootActionContext(context);
          context.dispatch('getRelatedItems');
          context.dispatch('fetchContent', routeData);
          window.scrollTo(0, 0);
+      },
+
+      generateSiteMap(context) {
+         interface Router {
+            options: Content;
+            history?: Current;
+         }
+
+         interface Content {
+            routes: Array<Routes>;
+         }
+
+         interface Routes {
+            component?: object;
+            name?: string;
+            path?: string;
+         }
+
+         interface Current {
+            current: Path;
+         }
+
+         interface Path {
+            path: string;
+         }
+
+         const typedRouter = router as Router;
+
+         // Remove "details" path from navigation routes
+         const typedRoutes = typedRouter.options.routes as Array<Routes>;
+         const allRoutes = typedRoutes.filter((x: Routes) => !/\bdetails\b/g.test(x.path as string));
+
+         let currentRoute = '';
+         if (typedRouter.history !== undefined) {
+            currentRoute = typedRouter.history.current.path;
+         }
+
+         // Remove current path from site map
+         const filteredPaths = allRoutes.filter((x: Routes) => x.path !== currentRoute);
+         context.commit('SET_SITEMAP', filteredPaths);
       },
 
       sortItems(context, value: string) {
@@ -220,7 +241,7 @@ const { store, rootActionContext, moduleActionContext, rootGetterContext, module
          }
 
          const urlData = `https://www.rijksmuseum.nl/api/${state.language}/collection${detailsRoute}?key=${state.APIkey}${categoriesRoute}&imgonly=True${recordsNumber}`;
-         console.log('urlData:', urlData);
+         // console.log('urlData:', urlData);
 
          axios
             .get(urlData)
@@ -231,9 +252,14 @@ const { store, rootActionContext, moduleActionContext, rootGetterContext, module
                   const data = res.data.artObjects;
                   context.commit('SET_ITEMS', data);
                   context.commit('SET_PAGINATION_NUMBERS', data);
+
+                  interface Id {
+                     objectNumber: string;
+                  }
+
                   context.commit(
                      'SET_ITEMS_ID',
-                     data.map((x: any) => x.objectNumber)
+                     data.map((x: Id) => x.objectNumber)
                   );
                } else {
                   context.commit('SET_SINGLE_ITEM', res.data.artObject);

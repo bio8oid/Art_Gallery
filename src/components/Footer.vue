@@ -1,7 +1,9 @@
 <template>
    <div class="footer">
       <div class="footer-site-map">
-         <router-link v-for="item in this.siteMap" :key="item.name" :to="item.path">{{ item.name }}</router-link>
+         <router-link v-for="item in this.$store.state.siteMap" :key="item.name" :to="item.path">{{
+            item.name
+         }}</router-link>
       </div>
       <a class="footer-logo" v-bind:href="logoLink" target="_blank">bio8oid © {{ new Date().getFullYear() }}</a>
    </div>
@@ -9,81 +11,73 @@
 
 <script lang="ts">
 import router from '../router/routes';
-// import store from '../store/indexTs';
-
-interface Map {
-   siteMap: Array<object>;
-   logoLink: string;
-}
+import store from '../store/indexTs';
+import { mapActions } from 'vuex';
 
 export default {
    name: 'Footer',
 
    data() {
       return {
-         siteMap: [],
          logoLink: 'https://github.com/bio8oid',
       };
    },
 
    watch: {
-      $route: 'getRoutesList',
+      $route: 'generateSiteMap',
    },
 
    methods: {
-      getRoutesList(): void {
-         interface Router {
-            options: Content;
-            history?: Current;
-         }
+      //    getRoutesList(): void {
+      //       // getRoutesList(): Array<object> {
+      //       interface Router {
+      //          options: Content;
+      //          history?: Current;
+      //       }
 
-         interface Content {
-            routes: Array<Routes>;
-         }
+      //       interface Content {
+      //          routes: Array<Routes>;
+      //       }
 
-         interface Routes {
-            component?: object;
-            name?: string;
-            path?: string;
-         }
+      //       interface Routes {
+      //          component?: object;
+      //          name?: string;
+      //          path?: string;
+      //       }
 
-         interface Current {
-            current: Path;
-         }
+      //       interface Current {
+      //          current: Path;
+      //       }
 
-         interface Path {
-            path: string;
-         }
+      //       interface Path {
+      //          path: string;
+      //       }
 
-         interface Map {
-            siteMap: Array<Routes>;
-         }
-         const map: Map = this.siteMap;
+      //       const typedRouter = router as Router;
 
-         const typedRouter = router as Router;
-         // console.log('typedRouter:', typedRouter);
+      //       // Remove "details" path from navigation routes
+      //       const typedRoutes = typedRouter.options.routes as Array<Routes>;
+      //       const allRoutes = typedRoutes.filter((x: Routes) => !/\bdetails\b/g.test(x.path as string));
 
-         // Remove "details" path from navigation routes
-         const typedRoutes = typedRouter.options.routes as Array<Routes>;
-         const allRoutes = typedRoutes.filter((x: Routes) => !/\bdetails\b/g.test(x.path as string));
-         // console.log('allRoutes:', allRoutes);
+      //       let currentRoute = '';
+      //       if (typedRouter.history !== undefined) {
+      //          currentRoute = typedRouter.history.current.path;
+      //       }
 
-         let currentRoute = '';
-         if (typedRouter.history !== undefined) {
-            currentRoute = typedRouter.history.current.path;
-            // console.log('currentRoute:', currentRoute);
-            // Remove current path from site map
-            // const map: Array<Routes> = filteredPaths;
-         }
-         const filteredPaths = allRoutes.filter((x: Routes) => x.path !== currentRoute);
-         // console.log('filteredPaths:', filteredPaths);
-         // const siteMap: Array<object> = filteredPaths;
-         this.siteMap = filteredPaths;
-      },
+      //       // Remove current path from site map
+      //       const filteredPaths = allRoutes.filter((x: Routes) => x.path !== currentRoute);
+      //       console.log('filteredPaths:', filteredPaths);
+      //       store.dispatch.generateSiteMap(filteredPaths);
+      //    },
+
+      ...mapActions(['generateSiteMap']),
    },
 
    created() {
-      this.getRoutesList();
+      // this.getRoutesList();
+      // console.log('store.state.siteMa:', store.state.siteMap);
+      store.dispatch.generateSiteMap();
+      // store.dispatch.generateSiteMap(this.typedRouter.history.current.path);
    },
 };
 </script>

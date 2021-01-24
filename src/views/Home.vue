@@ -56,7 +56,6 @@ export default {
 
    created() {
       store.dispatch.fetchContent('');
-      console.log('Home:', 'empty string');
    },
 };
 </script>

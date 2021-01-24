@@ -11,12 +11,12 @@ module.exports = {
     "@vue/prettier/@typescript-eslint"
   ],
   parserOptions: {
-    parser: "@typescript-eslint/parser"
-    // ecmaVersion: 2020
+    parser: "@typescript-eslint/parser",
+    ecmaVersion: 2020,
+    sourceType: "module",
   },
   ignorePatterns: ["/**/*.d.ts"],
   rules: {
-    // 'prettier/prettier': 0,
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
   }

@@ -32,14 +32,11 @@ export default {
 
    methods: {
       updated() {
-         console.log('details', router.app.$route.params.id);
-
          store.dispatch.loadContent(router.app.$route.params.id);
       },
    },
 
    created() {
-      console.log('details', router.app.$route.params.id);
       store.dispatch.loadContent(router.app.$route.params.id);
    },
 };
