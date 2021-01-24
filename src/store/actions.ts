@@ -1,29 +1,33 @@
 import axios from 'axios';
-import { rootActionContext } from './indexTs';
+import { defineActions } from 'direct-vuex';
+import { moduleActionContext } from './indexTs';
+import { Id, Item, Router, Routes } from './types';
+import router from '../router/routes';
 
-export default {
-   changeStoreLanguage(context: any) {
-      const { state } = rootActionContext(context);
+export default defineActions({
+   changeStoreLanguage(context) {
+      const { state } = moduleActionContext(context, context);
       let language = '';
       state.language === 'nl' ? (language = 'en') : (language = 'nl');
       context.commit('CHANGE_LANGUAGE', language);
    },
 
-   getRelatedItems(context: any) {
-      const { state } = rootActionContext(context);
+   getRelatedItems(context) {
+      const { state } = moduleActionContext(context, context);
       const shuffeledItems = state.items.sort(() => Math.random() - 0.5);
       const filtered = shuffeledItems.slice(0, 3);
       context.commit('SET_RELATED_ITEMS', filtered);
    },
 
-   getRandom(context: any) {
-      const { state } = rootActionContext(context);
+   getRandom(context) {
+      const { state } = moduleActionContext(context, context);
       const random = Math.floor(Math.random() * (state.items.length - 1) + 1);
-      context.commit('SET_RANDOM', random);
+      context.dispatch('fetchContent', state.itemsId[random]);
+      window.scrollTo(0, 0);
    },
 
-   handlePage(context: any, event: number) {
-      const { state } = rootActionContext(context);
+   handlePage(context, event: number) {
+      const { state } = moduleActionContext(context, context);
       const dataset = state.items;
       const pageNumber = event;
       const offset = (pageNumber - 1) * state.recordsPerPage;
@@ -31,37 +35,59 @@ export default {
       context.commit('SET_PAGINATED_ITEMS', paginatedItems);
    },
 
-   reset(context: any) {
-      const { state } = rootActionContext(context);
-      context.commit('SET_RESET', state);
+   reset(context) {
+      context.commit('SET_RESET');
    },
 
-   sortItems(context: any, value: string) {
-      const { state } = rootActionContext(context);
-      let sortedItems;
+   loadContent(context, routeData: string) {
+      context.dispatch('getRelatedItems');
+      context.dispatch('fetchContent', routeData);
+      window.scrollTo(0, 0);
+   },
+
+   generateSiteMap(context) {
+      const typedRouter = router as Router;
+
+      // Remove "details" path from siteMap paths
+      const typedRoutes = typedRouter.options.routes as Array<Routes>;
+      const allRoutes = typedRoutes.filter(x => !/\bdetails\b/g.test(x.path as string));
+
+      let currentRoute = '';
+      if (typedRouter.history !== undefined) {
+         currentRoute = typedRouter.history.current.path;
+      }
+
+      // Remove current path from site map
+      const filteredPaths = allRoutes.filter(x => x.path !== currentRoute);
+      context.commit('SET_SITEMAP', filteredPaths);
+   },
+
+   sortItems(context, value: string) {
+      const { state } = moduleActionContext(context, context);
+      let sortedItems: Array<Item> = [];
       switch (value) {
          case 'z-a':
-            sortedItems = state.paginatedItems.sort((a: any, b: any) => a.title.localeCompare(b.title));
+            sortedItems = state.paginatedItems.sort((a: Item, b: Item) => b.title.localeCompare(a.title));
             break;
          case 'a-z':
-            sortedItems = state.paginatedItems.sort((a: any, b: any) => a.title.localeCompare(b.title));
+            sortedItems = state.paginatedItems.sort((a: Item, b: Item) => a.title.localeCompare(b.title));
             break;
          case 'newest':
             sortedItems = state.paginatedItems.sort(
-               (a: any, b: any) => b.longTitle.match(/\d{4}/) - a.longTitle.match(/\d{4}/)
+               (a: Item, b: Item) => Number(b.longTitle.match(/\d{4}/)) - Number(a.longTitle.match(/\d{4}/))
             );
             break;
          case 'oldest':
             sortedItems = state.paginatedItems.sort(
-               (a: any, b: any) => a.longTitle.match(/\d{4}/) - b.longTitle.match(/\d{4}/)
+               (a: Item, b: Item) => Number(a.longTitle.match(/\d{4}/)) - Number(b.longTitle.match(/\d{4}/))
             );
             break;
       }
       context.commit('SET_SORTED_ITEMS', sortedItems);
    },
 
-   fetchContent(context: any, routeData: string) {
-      const { state } = rootActionContext(context);
+   fetchContent(context, routeData: string) {
+      const { state } = moduleActionContext(context, context);
       context.commit('SET_ERROR', '');
       context.commit('SET_LOADING_STATUS', true);
 
@@ -81,7 +107,6 @@ export default {
       }
 
       const urlData = `https://www.rijksmuseum.nl/api/${state.language}/collection${detailsRoute}?key=${state.APIkey}${categoriesRoute}&imgonly=True${recordsNumber}`;
-      console.log('urlData:', urlData);
 
       axios
          .get(urlData)
@@ -94,7 +119,7 @@ export default {
                context.commit('SET_PAGINATION_NUMBERS', data);
                context.commit(
                   'SET_ITEMS_ID',
-                  data.map((x: any) => x.objectNumber)
+                  data.map((x: Id) => x.objectNumber)
                );
             } else {
                context.commit('SET_SINGLE_ITEM', res.data.artObject);
@@ -105,4 +130,4 @@ export default {
             context.commit('SET_ERROR', err);
          });
    },
-};
+});
