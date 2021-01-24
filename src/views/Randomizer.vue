@@ -6,13 +6,15 @@
       <div v-else>
          <SingleItem />
          <div class="random-button" @click="getRandomHandle()">RANDOM</div>
+         <!-- <div class="random-button" @click="getRandomHandle()">RANDOM</div> -->
       </div>
    </div>
 </template>
 
-<script>
-import SingleItem from '@/components/SingleItem.vue';
-import { mapActions } from 'vuex';
+<script lang="ts">
+import SingleItem from '../components/SingleItem.vue';
+// import { mapActions } from 'vuex';
+import store from '../store/indexTs';
 
 export default {
    components: {
@@ -21,16 +23,20 @@ export default {
 
    methods: {
       getRandomHandle() {
-         this.getRandom();
-         this.fetchContent(this.$store.state.itemsId[this.$store.state.random]);
-         window.scrollTo(0, 0);
+         store.dispatch.getRandom();
       },
 
-      ...mapActions(['fetchContent', 'getRandom']),
+      // this.getRandom();
+      //    this.fetchContent(store.state.itemsId[store.state.random]);
+      //    window.scrollTo(0, 0);
    },
 
+   // ...mapActions(['fetchContent', 'getRandom']),
+   // },
+
    created() {
-      this.getRandomHandle();
+      // this.getRandomHandle();
+      store.dispatch.getRandom();
    },
 };
 </script>

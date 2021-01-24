@@ -1,72 +1,71 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import { createDirectStore } from "direct-vuex";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import { createDirectStore } from 'direct-vuex';
+import router from '../router/routes';
 
 import axios from 'axios';
-
 
 // import state from './state';
 // import actions from './actions';
 // import mutations from './mutations';
 
 interface StateTypes {
+   items: Array<object>;
+   itemsId: Array<string>;
+   language: string;
+   singleItem: Array<object>;
+   paginationNumbers: Array<number>;
+   paginatedItems: Array<object>;
+   relatedItems: Array<object>;
+   siteMap: Array<object>;
+   maxRecordsNumber: string;
+   recordsPerPage: number;
+   APIkey: string;
+   loading: boolean;
+   error: string;
+   route: string;
 
-   items: Array<object>,
-   itemsId: Array<string>,
-   language: string,
-   singleItem: null | Array<object>,
-   paginationNumbers: Array<number>,
-   paginatedItems: Array<object>,
-   relatedItems: Array<object>,
-   maxRecordsNumber: string,
-   recordsPerPage: number,
-   APIkey: string,
-   loading: boolean,
-   error: string,
-   route: string,
-   random: number,
+   // random: number;
 }
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-const { store,
-   rootActionContext,
-   moduleActionContext,
-   rootGetterContext,
-   moduleGetterContext
-} = createDirectStore({
-
+const { store, rootActionContext, moduleActionContext, rootGetterContext, moduleGetterContext } = createDirectStore({
    // state: (): StateTypes => state,
    // // state,
    // mutations,
    // actions,
 
-
    state: (): StateTypes => {
       return {
-         items: [],
-         itemsId: [],
-         language: 'nl',
-         singleItem: [],
+         items: JSON.parse(localStorage.getItem('items') as string) || [],
+         itemsId: JSON.parse(localStorage.getItem('items-id') as string) || [],
+         language: JSON.parse(localStorage.getItem('language') as string) || 'nl',
+         singleItem: JSON.parse(localStorage.getItem('single-item') as string) || [],
          paginationNumbers: [],
          paginatedItems: [],
          relatedItems: [],
+         siteMap: [],
          maxRecordsNumber: '30',
          recordsPerPage: 10,
          APIkey: 'iOQQBTgH',
          loading: false,
          error: '',
          route: '',
-         random: 0,
-      }
+         // random: 0,
+      };
    },
 
-
-
+   // getters: {
+   //    getterInTheRootStore(...args) {
+   //      const { state, fetchContent } = rootGetterContext(args)
+   //      // Here, 'getters', 'state' are typed.
+   //      // Without 'rootGetterContext' only 'state' would be typed.
+   //    }
+   //  },
 
    // state,
    mutations: {
-
       SET_ITEMS(state, items: Array<object>) {
          const firstPage = items.slice(0, state.recordsPerPage);
          state.paginatedItems = firstPage;
@@ -111,9 +110,9 @@ const { store,
          state.error = err;
       },
 
-      SET_RANDOM(state, random: number) {
-         state.random = random;
-      },
+      // SET_RANDOM(state, random: number) {
+      //    state.random = random;
+      // },
 
       SET_ROUTE_DATA(state, routeData: string) {
          state.route = routeData;
@@ -130,29 +129,33 @@ const { store,
    },
 
    actions: {
-
       changeStoreLanguage(context) {
-         const { state } = rootActionContext(context)
+         const { state } = rootActionContext(context);
          let language = '';
          state.language === 'nl' ? (language = 'en') : (language = 'nl');
          context.commit('CHANGE_LANGUAGE', language);
       },
 
       getRelatedItems(context) {
-         const { state } = rootActionContext(context)
+         const { state } = rootActionContext(context);
          const shuffeledItems = state.items.sort(() => Math.random() - 0.5);
          const filtered = shuffeledItems.slice(0, 3);
          context.commit('SET_RELATED_ITEMS', filtered);
       },
 
       getRandom(context) {
-         const { state } = rootActionContext(context)
+         const { state } = rootActionContext(context);
          const random = Math.floor(Math.random() * (state.items.length - 1) + 1);
-         context.commit('SET_RANDOM', random);
+
+         context.dispatch('fetchContent', state.itemsId[random]);
+         window.scrollTo(0, 0);
+         // this.fetchContent(store.state.itemsId[store.state.random]);
+
+         // context.commit('SET_RANDOM', random);
       },
 
       handlePage(context, event: number) {
-         const { state } = rootActionContext(context)
+         const { state } = rootActionContext(context);
          const dataset = state.items;
          const pageNumber = event;
          const offset = (pageNumber - 1) * state.recordsPerPage;
@@ -161,13 +164,20 @@ const { store,
       },
 
       reset(context) {
-         const { state } = rootActionContext(context)
+         const { state } = rootActionContext(context);
          context.commit('SET_RESET', state);
       },
 
+      loadContent(context, routeData: string) {
+         const { dispatch } = rootActionContext(context);
+         context.dispatch('getRelatedItems');
+         context.dispatch('fetchContent', routeData);
+         window.scrollTo(0, 0);
+      },
+
       sortItems(context, value: string) {
-         const { state } = rootActionContext(context)
-         let sortedItems;
+         const { state } = rootActionContext(context);
+         let sortedItems: Array<object> = [];
          switch (value) {
             case 'z-a':
                sortedItems = state.paginatedItems.sort((a: any, b: any) => b.title.localeCompare(a.title));
@@ -210,7 +220,7 @@ const { store,
          }
 
          const urlData = `https://www.rijksmuseum.nl/api/${state.language}/collection${detailsRoute}?key=${state.APIkey}${categoriesRoute}&imgonly=True${recordsNumber}`;
-         console.log('urlData:', urlData)
+         console.log('urlData:', urlData);
 
          axios
             .get(urlData)
@@ -234,24 +244,17 @@ const { store,
                context.commit('SET_ERROR', err);
             });
       },
-   }
+   },
+}); // Export the direct-store instead of the classic Vuex store.
 
-
-})// Export the direct-store instead of the classic Vuex store.
-
-export default store// The following exports will be used to enable types in the
+export default store; // The following exports will be used to enable types in the
 // implementation of actions.
-export {
-   rootActionContext,
-   moduleActionContext,
-   rootGetterContext,
-   moduleGetterContext
-}
+export { rootActionContext, moduleActionContext, rootGetterContext, moduleGetterContext };
 
 export type AppStore = typeof store;
 
-declare module "vuex" {
+declare module 'vuex' {
    interface Store<S> {
-      direct: AppStore
+      direct: AppStore;
    }
 }

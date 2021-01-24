@@ -13,9 +13,7 @@ export default {
    error: '',
    route: '',
    random: 0,
-}
-
-
+};
 
 // export default {
 //    items: [],

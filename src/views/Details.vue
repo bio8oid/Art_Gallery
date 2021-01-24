@@ -12,12 +12,15 @@
    </div>
 </template>
 
-<script>
-import SingleItem from '@/components/SingleItem.vue';
-import Records from '@/components/Records.vue';
-import { mapActions } from 'vuex';
+<script lang="ts">
+import SingleItem from '../components/SingleItem.vue';
+import Records from '../components/Records.vue';
+import store from '../store/indexTs';
+import router from '../router/routes';
 
 export default {
+   name: 'Details',
+
    components: {
       SingleItem,
       Records,
@@ -29,16 +32,15 @@ export default {
 
    methods: {
       updated() {
-         this.getRelatedItems();
-         this.fetchContent(this.$route.params.id);
-         window.scrollTo(0, 0);
-      },
+         console.log('details', router.app.$route.params.id);
 
-      ...mapActions(['fetchContent', 'getRelatedItems']),
+         store.dispatch.loadContent(router.app.$route.params.id);
+      },
    },
 
    created() {
-      this.updated();
+      console.log('details', router.app.$route.params.id);
+      store.dispatch.loadContent(router.app.$route.params.id);
    },
 };
 </script>

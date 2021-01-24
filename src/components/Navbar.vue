@@ -8,8 +8,8 @@
    </div>
 </template>
 
-<script>
-import LanguageButton from '@/components/LanguageButton.vue';
+<script lang="ts">
+import LanguageButton from '../components/LanguageButton.vue';
 
 export default {
    name: 'Navbar',

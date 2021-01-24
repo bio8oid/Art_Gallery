@@ -24,12 +24,11 @@
    </div>
 </template>
 
-<script>
-// <script lang="ts">
-import PaginationButtons from '@/components/PaginationButtons.vue';
-import Records from '@/components/Records.vue';
+<script lang="ts">
+import PaginationButtons from '../components/PaginationButtons.vue';
+import Records from '../components/Records.vue';
 import { mapActions } from 'vuex';
-// import store from '../store/indexTs';
+import store from '../store/indexTs';
 
 export default {
    data() {
@@ -44,11 +43,11 @@ export default {
    },
 
    methods: {
-      sortItemsHandle(value) {
+      sortItemsHandle(value: string) {
          this.sortItems(value);
       },
 
-      pageHandler(number) {
+      pageHandler(number: number) {
          this.handlePage(number);
       },
 
@@ -56,7 +55,8 @@ export default {
    },
 
    created() {
-      this.fetchContent('');
+      store.dispatch.fetchContent('');
+      console.log('Home:', 'empty string');
    },
 };
 </script>

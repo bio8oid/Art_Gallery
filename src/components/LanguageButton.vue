@@ -4,8 +4,9 @@
    </p>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions } from 'vuex';
+import store from '../store/indexTs';
 
 export default {
    name: 'LanguageButton',
@@ -13,7 +14,8 @@ export default {
    methods: {
       changeLanguage() {
          this.changeStoreLanguage();
-         this.fetchContent(this.$store.state.route);
+         console.log('LanguageButton', store.state.route);
+         this.fetchContent(store.state.route);
       },
 
       ...mapActions(['fetchContent', 'changeStoreLanguage']),
