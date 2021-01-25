@@ -15,7 +15,7 @@
 <script lang="ts">
 import SingleItem from '../components/SingleItem.vue';
 import Records from '../components/Records.vue';
-import store from '../store/indexTs';
+import store from '../store/index';
 import router from '../router/routes';
 
 export default {

@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { mapActions } from 'vuex';
-import store from '../store/indexTs';
+import store from '../store/index';
 
 export default {
    name: 'LanguageButton',

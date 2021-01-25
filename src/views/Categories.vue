@@ -31,7 +31,7 @@
 import PaginationButtons from '../components/PaginationButtons.vue';
 import Records from '../components/Records.vue';
 import { mapActions } from 'vuex';
-import store from '../store/indexTs';
+import store from '../store/index';
 
 export default {
    data() {

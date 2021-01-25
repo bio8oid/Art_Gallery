@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { defineActions } from 'direct-vuex';
-import { moduleActionContext } from './indexTs';
+import { moduleActionContext } from '.';
 import { Id, Item, Router, Routes } from './types';
 import router from '../router/routes';
 

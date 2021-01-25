@@ -1,6 +1,6 @@
 <template>
    <div class="home">
-      <img class="background" alt="Vue logo" src="../assets/background.jpg" />
+      <img class="background" alt="Vue logo" src="../assets/background.webp" />
       <label for="sort-by"></label>
       <select class="select-element" name="sort-by" id="sort-by" v-model="value" @change="sortItemsHandle(value)">
          <option value="" disabled>sort by</option>
@@ -28,7 +28,7 @@
 import PaginationButtons from '../components/PaginationButtons.vue';
 import Records from '../components/Records.vue';
 import { mapActions } from 'vuex';
-import store from '../store/indexTs';
+import store from '../store/index';
 
 export default {
    data() {

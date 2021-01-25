@@ -5,12 +5,13 @@
             item.name
          }}</router-link>
       </div>
+      <a class="footer-thanks" v-bind:href="museumLink" target="_blank">Thanks to Rijks Museum</a>
       <a class="footer-logo" v-bind:href="logoLink" target="_blank">bio8oid © {{ new Date().getFullYear() }}</a>
    </div>
 </template>
 
 <script lang="ts">
-import store from '../store/indexTs';
+import store from '../store/index';
 import { mapActions } from 'vuex';
 
 export default {
@@ -19,6 +20,7 @@ export default {
    data() {
       return {
          logoLink: 'https://github.com/bio8oid',
+         museumLink: 'https://www.rijksmuseum.nl/en',
       };
    },
 
@@ -64,7 +66,8 @@ export default {
       }
    }
 
-   .footer-logo {
+   .footer-logo,
+   .footer-thanks {
       text-decoration: none;
       color: #2c3e50;
       font-size: 16px;

@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import SingleItem from '../components/SingleItem.vue';
-import store from '../store/indexTs';
+import store from '../store/index';
 
 export default {
    components: {
