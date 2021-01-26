@@ -40,10 +40,10 @@ export default {
 
 <style lang="scss">
 .footer {
-   height: 20vh;
+   min-height: 20vh;
    background: #020202;
    margin-top: 20vh;
-   padding: 20px 0;
+   padding: 50px 0;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -64,6 +64,10 @@ export default {
             color: #ffdc96;
          }
       }
+   }
+
+   .footer-thanks {
+      margin: 25px 0;
    }
 
    .footer-logo,

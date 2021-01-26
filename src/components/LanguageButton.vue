@@ -44,7 +44,7 @@ export default {
 
 @media (max-width: 458px) {
    .language-button {
-      top: 110px;
+      display: none;
    }
 }
 </style>

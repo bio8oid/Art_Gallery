@@ -2,7 +2,7 @@ export default {
    items: JSON.parse(localStorage.getItem('items') as string) || [],
    itemsId: JSON.parse(localStorage.getItem('items-id') as string) || [],
    language: JSON.parse(localStorage.getItem('language') as string) || 'nl',
-   singleItem: JSON.parse(localStorage.getItem('single-item') as string) || [],
+   singleItem: [],
    paginationNumbers: [],
    paginatedItems: [],
    relatedItems: [],
