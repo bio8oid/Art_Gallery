@@ -4,7 +4,7 @@
 [DEMO](https://a-r-t-gallery.netlify.app)
 
 
-![](public/images/screen.webp)
+![](public/img/screen.webp)
 
 
 ## Project setup
