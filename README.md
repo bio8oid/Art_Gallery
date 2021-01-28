@@ -1,9 +1,10 @@
-# vue/typescript-task
+# vue/typescript-app
+
 
 [DEMO](https://a-r-t-gallery.netlify.app)
 
 
-
+![](public/images/screen.webp)
 
 
 ## Project setup

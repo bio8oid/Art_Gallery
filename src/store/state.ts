@@ -7,7 +7,7 @@ export default {
    paginatedItems: [],
    relatedItems: [],
    siteMap: [],
-   maxRecordsNumber: '20',
+   maxRecordsNumber: '30',
    recordsPerPage: 10,
    APIkey: 'iOQQBTgH',
    loading: false,
