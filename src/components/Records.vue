@@ -7,7 +7,13 @@
                   <h2>{{ item.principalOrFirstMaker }}</h2>
                   <p>{{ item.title }}</p>
                </div>
-               <img class="record-image" v-bind:src="item.webImage.url" v-bind:alt="item.title" />
+               <img
+                  class="record-image"
+                  min-width="640"
+                  min-height="360"
+                  v-bind:src="item.webImage.url"
+                  v-bind:alt="item.title"
+               />
             </div>
          </router-link>
       </div>

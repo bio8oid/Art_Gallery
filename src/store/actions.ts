@@ -50,7 +50,7 @@ export default defineActions({
 
       // Remove "details" path from siteMap paths
       const typedRoutes = typedRouter.options.routes as Array<Routes>;
-      const allRoutes = typedRoutes.filter(x => !/\bdetails\b/g.test(x.path as string));
+      const allRoutes = typedRoutes.filter(x => !/\bdetails\b/g.test(x.path as string) && x.path !== '*');
 
       let currentRoute = '';
       if (typedRouter.history !== undefined) {

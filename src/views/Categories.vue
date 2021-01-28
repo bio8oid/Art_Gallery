@@ -1,11 +1,11 @@
 <template>
    <div class="category">
       <h1 class="category-header">Select Category</h1>
-      <label for="categories"></label>
       <select
          class="select-element"
          name="categories"
          id="categories"
+         aria-label="categories"
          v-model="value"
          @change="filterItemsHandle(value)"
       >

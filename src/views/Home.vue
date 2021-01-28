@@ -1,8 +1,14 @@
 <template>
    <div class="home">
       <img class="background" alt="Vue logo" src="../assets/background.webp" />
-      <label for="sort-by"></label>
-      <select class="select-element" name="sort-by" id="sort-by" v-model="value" @change="sortItemsHandle(value)">
+      <select
+         class="select-element"
+         name="sort-by"
+         id="sort-by"
+         aria-label="sort-by"
+         v-model="value"
+         @change="sortItemsHandle(value)"
+      >
          <option value="" disabled>sort by</option>
          <optgroup label="Date">
             <option value="oldest">from oldest</option>
