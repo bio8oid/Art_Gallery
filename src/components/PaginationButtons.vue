@@ -20,8 +20,8 @@ export default {
 <style lang="scss">
 .pagination-buttons {
    position: static;
-   padding: 5px 10px;
-   margin: 2.5% 10px 5% 10px;
+   padding: 10px 15px;
+   margin: 5% 10px;
    box-shadow: 5px 5px 10px #202327;
    background: #2c3e50;
    border: none;
