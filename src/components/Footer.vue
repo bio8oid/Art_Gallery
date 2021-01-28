@@ -5,8 +5,10 @@
             item.name
          }}</router-link>
       </div>
-      <a class="footer-thanks" v-bind:href="museumLink" target="_blank">Thanks to Rijks Museum</a>
-      <a class="footer-logo" v-bind:href="logoLink" target="_blank">bio8oid © {{ new Date().getFullYear() }}</a>
+      <a class="footer-thanks" v-bind:href="museumLink" target="_blank" rel="noopener">Thanks to Rijks Museum</a>
+      <a class="footer-logo" v-bind:href="logoLink" target="_blank" rel="noopener"
+         >bio8oid © {{ new Date().getFullYear() }}</a
+      >
    </div>
 </template>
 
