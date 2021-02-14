@@ -16,12 +16,8 @@
          <option value="&type=photomechanical+print">photomechanical print</option>
          <option value="&type=photograph">photograph</option>
       </select>
-
-      <p v-if="this.$store.state.loading" class="loading">Loading...</p>
-      <p v-else-if="this.$store.state.error" class="loading">{{ this.$store.state.error }}</p>
-
-      <div v-else class="records-container">
-         <Records v-bind:recordsData="this.$store.state.paginatedItems" />
+      <div class="records-container">
+         <Records v-bind:recordsData="$store.state.paginatedItems" />
          <PaginationButtons v-on:paginationButtonAction="pageHandler($event)" />
       </div>
    </div>
@@ -65,15 +61,14 @@ export default {
 
 <style lang="scss">
 .category {
-   padding-top: 15vh;
+   padding-top: 11vh;
 
    .category-header {
-      color: rgb(199, 199, 199);
-      text-shadow: 3px 3px 10px #000;
+      margin-top: 0;
    }
 
    .select-element {
-      margin: 10vh 0;
+      margin-top: 10vh;
    }
 }
 </style>

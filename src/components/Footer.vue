@@ -1,7 +1,7 @@
 <template>
    <div class="footer">
       <div class="footer-site-map">
-         <router-link v-for="item in this.$store.state.siteMap" :key="item.name" :to="item.path">{{
+         <router-link v-for="item in $store.state.siteMap" :key="item.name" :to="item.path">{{
             item.name
          }}</router-link>
       </div>

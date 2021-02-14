@@ -19,12 +19,8 @@
             <option value="z-a">z-a</option>
          </optgroup>
       </select>
-
-      <p v-if="this.$store.state.loading" class="loading">Loading...</p>
-      <p v-else-if="this.$store.state.error" class="loading">{{ this.$store.state.error }}</p>
-
-      <div v-else class="records-container">
-         <Records v-bind:recordsData="this.$store.state.paginatedItems" />
+      <div>
+         <Records v-bind:recordsData="$store.state.paginatedItems" />
          <PaginationButtons v-on:paginationButtonAction="pageHandler($event)" />
       </div>
    </div>
@@ -77,10 +73,15 @@ export default {
 }
 
 .loading {
+   margin-top: 50vh;
+}
+
+.loading,
+.category-header,
+.related-items-header {
    font-size: 28px;
    color: rgb(199, 199, 199);
    text-shadow: 3px 3px 10px #000;
-   margin-top: 50vh;
 }
 
 .select-element {

@@ -1,6 +1,6 @@
 <template>
    <p class="language-button" @click="changeLanguage()">
-      {{ this.$store.state.language === 'nl' ? 'EN' : 'NL' }}
+      {{ $store.state.language === 'nl' ? 'EN' : 'NL' }}
    </p>
 </template>
 

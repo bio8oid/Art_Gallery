@@ -1,18 +1,14 @@
 <template>
    <div class="details random">
-      <p v-if="this.$store.state.loading" class="loading">Loading...</p>
-      <p v-else-if="this.$store.state.error" class="loading">{{ this.$store.state.error }}</p>
-
-      <div v-else>
-         <SingleItem />
-         <div class="random-button" @click="getRandomHandle()">RANDOM</div>
-      </div>
+      <SingleItem v-if="$store.state.loading === false" />
+      <div class="random-button" @click="getRandomHandle()">RANDOM</div>
    </div>
 </template>
 
 <script lang="ts">
 import SingleItem from '../components/SingleItem.vue';
 import store from '../store/index';
+import { mapActions } from 'vuex';
 
 export default {
    components: {
@@ -21,8 +17,9 @@ export default {
 
    methods: {
       getRandomHandle() {
-         store.dispatch.getRandom();
+         this.getRandom();
       },
+      ...mapActions(['getRandom']),
    },
 
    created() {
