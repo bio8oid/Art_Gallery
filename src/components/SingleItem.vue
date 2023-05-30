@@ -1,5 +1,5 @@
 <template>
-   <div v-if="$store.state.singleItem !== null">
+   <div class="single-item-container" v-if="$store.state.singleItem !== null">
       <img
          v-if="$store.state.singleItem.webImage !== null"
          style="width: 100%"
@@ -29,6 +29,10 @@ export default {
 </script>
 
 <style lang="scss">
+.single-item-container img {
+   box-shadow: 5px 5px 10px #202327;
+}
+
 .record-details {
    width: 95%;
    height: 100%;

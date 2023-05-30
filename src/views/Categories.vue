@@ -62,6 +62,7 @@ export default {
 <style lang="scss">
 .category {
    padding-top: 11vh;
+   min-height: 48vh;
 
    .category-header {
       margin-top: 0;

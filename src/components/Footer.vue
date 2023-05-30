@@ -50,6 +50,7 @@ export default {
    flex-direction: column;
    align-items: center;
    justify-content: space-between;
+   box-shadow: -5px -3px 10px #202327;
 
    .footer-site-map {
       a {

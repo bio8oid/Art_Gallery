@@ -65,6 +65,7 @@ export default {
 <style lang="scss">
 .background {
    width: 100%;
+   box-shadow: 5px 5px 10px #202327;
 }
 
 .home,

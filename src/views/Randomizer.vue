@@ -1,7 +1,7 @@
 <template>
    <div class="details random">
       <SingleItem v-if="$store.state.loading === false" />
-      <div class="random-button" @click="getRandomHandle()">RANDOM</div>
+      <div id="random_button" class="random-button" @click="getRandomHandle()">RANDOM</div>
    </div>
 </template>
 
@@ -30,7 +30,7 @@ export default {
 
 <style lang="scss">
 .random-button {
-   display: block;
+   display: none;
    margin: 100px auto;
    width: 230px;
    font-size: 16px;
@@ -44,5 +44,9 @@ export default {
    &:hover {
       box-shadow: 0 0 5px 1px #ffdc96;
    }
+}
+
+.single-item-container ~ .random-button {
+   display: block;
 }
 </style>
