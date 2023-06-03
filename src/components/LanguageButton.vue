@@ -1,7 +1,7 @@
 <template>
-   <p class="language-button" @click="changeLanguage()">
+   <button class="language-button" @click="changeLanguage()">
       {{ this.$store.state.language === 'nl' ? 'EN' : 'NL' }}
-   </p>
+   </button>
 </template>
 
 <script>
@@ -30,15 +30,11 @@ export default {
    background: #2c3e50;
    border: none;
    border-radius: 5px;
-   padding: 3px 5px;
+   padding: 5px;
    margin: 0;
    color: #ffdc96;
    font-size: 16px;
    cursor: pointer;
-
-   &:hover {
-      box-shadow: 0 0 5px 1px #ffdc96;
-   }
 }
 
 @media (max-width: 458px) {

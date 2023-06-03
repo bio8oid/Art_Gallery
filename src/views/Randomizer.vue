@@ -1,11 +1,8 @@
 <template>
    <div class="details random">
-      <p v-if="this.$store.state.loading" class="loading">Loading...</p>
-      <p v-else-if="this.$store.state.error" class="loading">{{ this.$store.state.error }}</p>
-
-      <div v-else>
+      <div>
          <SingleItem />
-         <div class="random-button" @click="getRandomHandle()">RANDOM</div>
+         <button class="random-button" @click="getRandomHandle()">RANDOM</button>
       </div>
    </div>
 </template>
@@ -40,16 +37,12 @@ export default {
    display: block;
    margin: 100px auto;
    width: 230px;
-   font-size: 16px;
-   padding: 15px;
+   font-size: 18px;
+   padding: 18px;
    background: #202327;
    border: 3px solid #000;
    color: #ffdc96;
    border-radius: 10px;
    cursor: pointer;
-
-   &:hover {
-      box-shadow: 0 0 5px 1px #ffdc96;
-   }
 }
 </style>

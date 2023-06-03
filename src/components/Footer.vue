@@ -3,12 +3,13 @@
       <div class="footer-site-map">
          <router-link v-for="item in this.siteMap" :key="item.name" :to="item.path">{{ item.name }}</router-link>
       </div>
+      <a class="footer-thanks" v-bind:href="museumLink" target="_blank" rel="noopener">Thanks to Rijks Museum</a>
       <a class="footer-logo" v-bind:href="logoLink" target="_blank">bio8oid © {{ new Date().getFullYear() }}</a>
    </div>
 </template>
 
 <script>
-import router from '../router/routes';
+import router from '@/router/routes';
 
 export default {
    name: 'Footer',
@@ -17,6 +18,7 @@ export default {
       return {
          siteMap: [],
          logoLink: 'https://github.com/bio8oid',
+         museumLink: 'https://www.rijksmuseum.nl/en',
       };
    },
 
@@ -29,7 +31,7 @@ export default {
          // Filter all routes from details path
          const allRoutes = router.options.routes.filter(x => !/\bdetails\b/g.test(x.path));
          let currentRoute = this.$route.path;
-         // Remove current route from site map
+         // Removes current route from site map
          const filteredPaths = allRoutes.filter(x => x.path !== currentRoute);
          this.siteMap = filteredPaths;
       },
@@ -42,14 +44,16 @@ export default {
 
 <style lang="scss">
 .footer {
-   height: 20vh;
+   min-height: 20vh;
    background: #020202;
    margin-top: 20vh;
-   padding: 20px 0;
+   padding: 50px 0;
    display: flex;
    flex-direction: column;
    align-items: center;
    justify-content: space-between;
+   font-size: 18px;
+   box-shadow: -5px -3px 10px #202327;
 
    .footer-site-map {
       a {
@@ -57,7 +61,6 @@ export default {
          font-weight: bold;
          text-decoration: none;
          font-weight: 300;
-         font-size: 16px;
          padding: 20px;
          cursor: pointer;
 
@@ -68,14 +71,14 @@ export default {
       }
    }
 
-   .footer-logo {
+   .footer-thanks {
+      margin: 25px 0;
+   }
+
+   .footer-logo,
+   .footer-thanks {
       text-decoration: none;
       color: #2c3e50;
-      font-size: 16px;
-
-      &:hover {
-         color: #ffdc96;
-      }
    }
 }
 

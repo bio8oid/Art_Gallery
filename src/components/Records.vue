@@ -4,7 +4,7 @@
          <router-link class="details-link" :to="{ name: 'Details', params: { id: item.objectNumber } }">
             <div class="record-wrapper">
                <div class="record-text">
-                  <h2>{{ item.principalOrFirstMaker }}</h2>
+                  <h3>{{ item.principalOrFirstMaker }}</h3>
                   <p>{{ item.title }}</p>
                </div>
                <img class="record-image" v-bind:src="item.webImage.url" v-bind:alt="item.title" />
@@ -29,7 +29,6 @@ export default {
 }
 
 .record {
-   box-shadow: 5px 5px 10px #202327;
    border-radius: 10px;
    width: 45%;
    max-height: 100%;
@@ -48,8 +47,10 @@ export default {
          text-align: left;
          color: #2c3e50;
 
-         h2 {
+         h3 {
             margin: 0;
+            font-size: 36px;
+            font-weight: 900;
          }
          p {
             font-size: 16px;
@@ -61,7 +62,6 @@ export default {
          max-width: 50%;
          border-radius: 10px;
          border: 6px solid#2c3e50;
-         box-shadow: 0 0 5px #2c3e50;
       }
    }
 

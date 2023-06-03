@@ -1,6 +1,6 @@
 <template>
    <div>
-      <div id="nav">
+      <div class="navbar" id="nav">
          <router-link to="/">Home</router-link> | <router-link to="/categories">Categories</router-link> |
          <router-link to="/random">Random</router-link>
       </div>
@@ -21,14 +21,13 @@ export default {
 </script>
 
 <style lang="scss">
-#nav {
+.navbar {
    height: 12vh;
    position: fixed;
    top: 0;
    left: 0;
    right: 0;
    background: #1a1a1e;
-   box-shadow: 0 0 10px #000;
    color: #96ffc2;
    z-index: 2;
 

@@ -8,10 +8,10 @@
       />
 
       <div class="record record-details">
-         <h2>{{ this.$store.state.singleItem.longTitle }}</h2>
-         <h3 v-if="this.$store.state.singleItem.label.makerLine === null">
+         <h3>{{ this.$store.state.singleItem.longTitle }}</h3>
+         <h4 v-if="this.$store.state.singleItem.label.makerLine === null">
             {{ this.$store.state.singleItem.principalOrFirstMaker }}
-         </h3>
+         </h4>
          <p>{{ this.$store.state.singleItem.label.makerLine }}</p>
          <p>{{ this.$store.state.singleItem.subTitle }}</p>
          <p>Category: {{ this.$store.state.singleItem.objectTypes[0] }}</p>
@@ -34,13 +34,13 @@ export default {
    height: 100%;
    padding: 50px;
 
-   h2 {
+   h3 {
       padding-bottom: 50px;
    }
 
    .record-description {
       padding-top: 50px;
-      font-size: 17px;
+      font-size: 18px;
    }
 
    @media not all and (hover: none) {
@@ -51,7 +51,7 @@ export default {
 }
 
 @media (max-width: 458px) {
-   .record h2 {
+   .record h3 {
       font-size: 28px;
    }
 }
