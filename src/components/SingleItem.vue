@@ -2,7 +2,7 @@
    <div v-if="this.$store.state.singleItem !== null">
       <img
          width="1349"
-         height="665"
+         height="auto"
          v-if="this.$store.state.singleItem.webImage !== null"
          style="width: 100%"
          v-bind:src="this.$store.state.singleItem.webImage.url"
