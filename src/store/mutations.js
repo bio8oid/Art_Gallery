@@ -43,8 +43,8 @@ export default {
       state.error = err;
    },
 
-   SET_RANDOM(state, random) {
-      state.random = random;
+   SET_SITEMAP(state, siteMapData) {
+      state.siteMap = siteMapData;
    },
 
    SET_ROUTE_DATA(state, routeData) {

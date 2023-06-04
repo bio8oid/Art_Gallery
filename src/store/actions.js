@@ -1,4 +1,5 @@
 import axios from 'axios';
+import router from '@/router/routes';
 
 export default {
    changeStoreLanguage(context) {
@@ -15,7 +16,8 @@ export default {
 
    getRandom(context) {
       let random = Math.floor(Math.random() * (this.state.items.length - 1) + 1);
-      context.commit('SET_RANDOM', random);
+      context.dispatch('fetchContent', this.state.itemsId[random]);
+      window.scrollTo(0, 0);
    },
 
    handlePage(context, event) {
@@ -24,6 +26,27 @@ export default {
       const offset = (pageNumber - 1) * this.state.recordsPerPage;
       const paginatedItems = dataset.slice(offset).slice(0, this.state.recordsPerPage);
       context.commit('SET_PAGINATED_ITEMS', paginatedItems);
+   },
+
+   loadContent(context, routeData) {
+      context.dispatch('getRelatedItems');
+      context.dispatch('fetchContent', routeData);
+      window.scrollTo(0, 0);
+   },
+
+   generateSiteMap(context) {
+      // Remove "details" path from siteMap paths
+      const routes = router.options.routes;
+      const allRoutes = routes.filter(x => !/\bdetails\b/g.test(x.path) && x.path !== '*');
+
+      let currentRoute = '';
+      if (router.history !== undefined) {
+         currentRoute = router.history.current.path;
+      }
+
+      // Remove current path from site map
+      const filteredPaths = allRoutes.filter(x => x.path !== currentRoute);
+      context.commit('SET_SITEMAP', filteredPaths);
    },
 
    reset(context) {

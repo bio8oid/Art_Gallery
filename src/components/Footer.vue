@@ -1,7 +1,9 @@
 <template>
    <div class="footer">
       <div class="footer-site-map">
-         <router-link v-for="item in this.siteMap" :key="item.name" :to="item.path">{{ item.name }}</router-link>
+         <router-link v-for="item in this.$store.state.siteMap" :key="item.name" :to="item.path">{{
+            item.name
+         }}</router-link>
       </div>
       <a class="footer-thanks" v-bind:href="museumLink" target="_blank" rel="noopener">Thanks to Rijks Museum</a>
       <a class="footer-logo" v-bind:href="logoLink" target="_blank">bio8oid © {{ new Date().getFullYear() }}</a>
@@ -9,35 +11,28 @@
 </template>
 
 <script>
-import router from '@/router/routes';
+import { mapActions } from 'vuex';
 
 export default {
    name: 'Footer',
 
    data() {
       return {
-         siteMap: [],
          logoLink: 'https://github.com/bio8oid',
          museumLink: 'https://www.rijksmuseum.nl/en',
       };
    },
 
    watch: {
-      $route: 'getRoutesList',
+      $route: 'generateSiteMap',
    },
 
    methods: {
-      getRoutesList() {
-         // Filter all routes from details path
-         const allRoutes = router.options.routes.filter(x => !/\bdetails\b/g.test(x.path));
-         let currentRoute = this.$route.path;
-         // Removes current route from site map
-         const filteredPaths = allRoutes.filter(x => x.path !== currentRoute);
-         this.siteMap = filteredPaths;
-      },
+      ...mapActions(['generateSiteMap']),
    },
+
    created() {
-      this.getRoutesList();
+      this.generateSiteMap();
    },
 };
 </script>

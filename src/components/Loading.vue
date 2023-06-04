@@ -1,11 +1,11 @@
 <template>
-   <div v-if="$store.state.loading || $store.state.error" class="loading-container">
-      <h2 v-if="$store.state.error" class="loading">{{ $store.state.error }}</h2>
+   <div v-if="this.$store.state.loading || this.$store.state.error" class="loading-container">
+      <h2 v-if="this.$store.state.error" class="loading">{{ this.$store.state.error }}</h2>
       <h2 v-else class="loading">Loading ...</h2>
    </div>
 </template>
 
-<script lang="ts">
+<script>
 export default {
    name: 'loading',
 };

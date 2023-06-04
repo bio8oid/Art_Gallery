@@ -60,10 +60,6 @@ export default {
    width: 100%;
 }
 
-.home,
-.details {
-   min-height: 68vh;
-}
 .select-element {
    padding: 5px 15px;
    margin: 4% 0 2.5% 0;

@@ -16,6 +16,8 @@ import Records from '@/components/Records.vue';
 import { mapActions } from 'vuex';
 
 export default {
+   name: 'Details',
+
    components: {
       SingleItem,
       Records,
@@ -27,16 +29,13 @@ export default {
 
    methods: {
       updated() {
-         this.getRelatedItems();
-         this.fetchContent(this.$route.params.id);
-         window.scrollTo(0, 0);
+         this.loadContent(this.$router.app.$route.params.id);
       },
-
-      ...mapActions(['fetchContent', 'getRelatedItems']),
+      ...mapActions(['loadContent']),
    },
 
    created() {
-      this.updated();
+      this.loadContent(this.$router.app.$route.params.id);
    },
 };
 </script>

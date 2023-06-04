@@ -19,11 +19,8 @@ export default {
    methods: {
       getRandomHandle() {
          this.getRandom();
-         this.fetchContent(this.$store.state.itemsId[this.$store.state.random]);
-         window.scrollTo(0, 0);
       },
-
-      ...mapActions(['fetchContent', 'getRandom']),
+      ...mapActions(['getRandom']),
    },
 
    created() {

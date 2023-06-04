@@ -30,7 +30,7 @@ export default {
    background: #2c3e50;
    border: none;
    border-radius: 5px;
-   padding: 5px;
+   padding: 8px;
    margin: 0;
    color: #ffdc96;
    font-size: 16px;
