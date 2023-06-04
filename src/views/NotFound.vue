@@ -2,6 +2,12 @@
    <div class="not-found"></div>
 </template>
 
+<script>
+export default {
+   name: 'NotFound',
+};
+</script>
+
 <style lang="scss">
 .not-found {
    height: 100%;

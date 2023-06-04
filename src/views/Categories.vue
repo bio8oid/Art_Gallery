@@ -29,6 +29,8 @@ import Records from '@/components/Records.vue';
 import { mapActions } from 'vuex';
 
 export default {
+   name: 'Categories',
+
    data() {
       return {
          value: '',

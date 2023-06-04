@@ -73,7 +73,7 @@ export default {
    .footer-logo,
    .footer-thanks {
       text-decoration: none;
-      color: #2c3e50;
+      color: #6a8199;
    }
 }
 

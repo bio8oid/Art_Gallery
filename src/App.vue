@@ -13,10 +13,25 @@ import Navbar from '@/components/Navbar.vue';
 import Loading from '@/components/Loading.vue';
 
 export default {
+   name: 'App',
+
    components: {
       Footer,
       Navbar,
       Loading,
+   },
+
+   metaInfo: {
+      title: 'Art Gallery App',
+      titleTemplate: '%s | Art Gallery App',
+      htmlAttrs: {
+         lang: 'en-US',
+      },
+      meta: [
+         { charset: 'utf-8' },
+         { name: 'Art Gallery App', content: 'An example Art Gallery App with vue-meta.' },
+         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      ],
    },
 };
 </script>

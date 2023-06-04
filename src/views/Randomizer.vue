@@ -12,6 +12,8 @@ import SingleItem from '@/components/SingleItem.vue';
 import { mapActions } from 'vuex';
 
 export default {
+   name: 'Randomizer',
+
    components: {
       SingleItem,
    },

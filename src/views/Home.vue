@@ -1,6 +1,6 @@
 <template>
    <div class="home">
-      <img class="background" alt="Vue logo" src="../assets/background.jpg" />
+      <img class="background" width="1349" height="665" alt="Vue logo" src="../assets/background.jpg" />
       <label for="sort-by"></label>
       <select class="select-element" name="sort-by" id="sort-by" v-model="value" @change="sortItemsHandle(value)">
          <option value="" disabled>sort by</option>
@@ -26,6 +26,8 @@ import Records from '@/components/Records.vue';
 import { mapActions } from 'vuex';
 
 export default {
+   name: 'Home',
+
    data() {
       return {
          value: '',
