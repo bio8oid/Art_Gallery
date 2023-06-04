@@ -21,17 +21,17 @@ export default {
       Loading,
    },
 
-   metaInfo: {
-      title: 'Art Gallery App',
-      titleTemplate: '%s | Art Gallery App',
-      htmlAttrs: {
-         lang: 'en-US',
-      },
-      meta: [
-         { charset: 'utf-8' },
-         { name: 'Art Gallery App', content: 'An example Art Gallery App with vue-meta.' },
-         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      ],
+   metaInfo() {
+      return {
+         title: 'Art Gallery App',
+         meta: [
+            {
+               vmid: 'interesting things',
+               name: 'Art Gallery App',
+               content: 'some paintings and other shit',
+            },
+         ],
+      };
    },
 };
 </script>

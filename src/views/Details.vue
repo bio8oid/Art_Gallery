@@ -1,6 +1,6 @@
 <template>
    <div class="home details">
-      <div id="app">
+      <div>
          <div>
             <SingleItem />
             <h2 class="related-items-header">YOU MAY BE INTERESTED WITH</h2>
