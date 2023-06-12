@@ -8,8 +8,8 @@
                   <p>{{ item.title }}</p>
                </div>
                <img
-                  width="512"
-                  height="240"
+                  width="auto"
+                  height="100%"
                   class="record-image"
                   v-bind:src="item.webImage.url"
                   v-bind:alt="item.title"
